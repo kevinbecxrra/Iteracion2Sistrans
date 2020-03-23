@@ -123,6 +123,8 @@ public class PersistenciaParranderos
 	 */
 	private SQLVisitan sqlVisitan;
 	
+	private SQLReserva sqlReserva; 
+	
 	/* ****************************************************************
 	 * 			Métodos del MANEJADOR DE PERSISTENCIA
 	 *****************************************************************/
