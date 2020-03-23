@@ -147,6 +147,7 @@ public class PersistenciaParranderos
 		tablas.add ("GUSTAN");
 		tablas.add ("SIRVEN");
 		tablas.add ("VISITAN");
+		tablas.add("RESERVA");
 }
 
 	/**
@@ -293,6 +294,10 @@ public class PersistenciaParranderos
 	public String darTablaVisitan ()
 	{
 		return tablas.get (7);
+	}
+	
+	public String darTablaReserva() {
+		return tablas.get(8);
 	}
 	
 	/**
