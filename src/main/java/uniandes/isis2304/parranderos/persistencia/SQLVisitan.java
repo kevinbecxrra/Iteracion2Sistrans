@@ -23,7 +23,7 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import uniandes.isis2304.parranderos.negocio.Visitan;
+import uniandes.isis2304.alohandes.negocio.Visitan;
 
 /**
  * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto VISITAN de Parranderos
@@ -40,7 +40,7 @@ class SQLVisitan
 	 * Cadena que representa el tipo de consulta que se va a realizar en las sentencias de acceso a la base de datos
 	 * Se renombra acá para facilitar la escritura de las sentencias
 	 */
-	private final static String SQL = PersistenciaParranderos.SQL;
+	private final static String SQL = PersistenciaAlohandes.SQL;
 
 	/* ****************************************************************
 	 * 			Atributos
@@ -48,7 +48,7 @@ class SQLVisitan
 	/**
 	 * El manejador de persistencia general de la aplicación
 	 */
-	private PersistenciaParranderos pp;
+	private PersistenciaAlohandes pp;
 
 	/* ****************************************************************
 	 * 			Métodos
@@ -57,7 +57,7 @@ class SQLVisitan
 	 * Constructor
 	 * @param pp - El Manejador de persistencia de la aplicación
 	 */
-	public SQLVisitan (PersistenciaParranderos pp)
+	public SQLVisitan (PersistenciaAlohandes pp)
 	{
 		this.pp = pp;
 	}
