@@ -28,13 +28,13 @@ public class Reserva {
 	
 	private int personas; 
 	
-	private Date fecha_inicio; 
+	private String fecha_inicio; 
 	
-	private Date fecha_fin; 
+	private String fecha_fin; 
 	
-	private Date fecha_limite; 
+	private String fecha_limite; 
 	
-	private Date fecha_realizacion; 
+	private String fecha_realizacion; 
 	
 	private Tipo tipo;
 	
@@ -49,18 +49,18 @@ public class Reserva {
 		this.id = 0;
 		this.id_contrato = 0;
 		this.personas = 0;
-		this.fecha_inicio =new Date() ;
-		this.fecha_fin = new Date();
-		this.fecha_limite = new Date();
-		this.fecha_realizacion = new Date();
+		this.fecha_inicio ="";
+		this.fecha_fin = "";
+		this.fecha_limite = "";
+		this.fecha_realizacion = "";
 		this.tipo = null;
 		this.id_cliente = 0;
 
 	}
 
 
-	public Reserva(long id, long id_contrato, int personas, Date fehca_inicio, Date fecha_fin,
-			Date fecha_limite, Date fehca_realizacion, Tipo tipo, long id_cliente) {
+	public Reserva(long id, long id_contrato, int personas, String fehca_inicio, String fecha_fin,
+			String fecha_limite, String fehca_realizacion, Tipo tipo, long id_cliente) {
 		super();
 		this.id = id;
 		this.id_contrato = id_contrato;
@@ -94,16 +94,6 @@ public class Reserva {
 	}
 
 
-	public long getId_cliente() {
-		return id_cliente;
-	}
-
-
-	public void setId_cliente(long id_cliente) {
-		this.id_cliente = id_cliente;
-	}
-
-
 	public int getPersonas() {
 		return personas;
 	}
@@ -114,43 +104,43 @@ public class Reserva {
 	}
 
 
-	public Date getFecha_inicio() {
+	public String getFecha_inicio() {
 		return fecha_inicio;
 	}
 
 
-	public void setFecha_inicio(Date fehca_inicio) {
-		this.fecha_inicio = fehca_inicio;
+	public void setFecha_inicio(String fecha_inicio) {
+		this.fecha_inicio = fecha_inicio;
 	}
 
 
-	public Date getFecha_fin() {
+	public String getFecha_fin() {
 		return fecha_fin;
 	}
 
 
-	public void setFecha_fin(Date fecha_fin) {
+	public void setFecha_fin(String fecha_fin) {
 		this.fecha_fin = fecha_fin;
 	}
 
 
-	public Date getFecha_limite() {
+	public String getFecha_limite() {
 		return fecha_limite;
 	}
 
 
-	public void setFecha_limite(Date fecha_limite) {
+	public void setFecha_limite(String fecha_limite) {
 		this.fecha_limite = fecha_limite;
 	}
 
 
-	public Date getFecha_realizacion() {
+	public String getFecha_realizacion() {
 		return fecha_realizacion;
 	}
 
 
-	public void setFecha_realizacion(Date fehca_realizacion) {
-		this.fecha_realizacion = fehca_realizacion;
+	public void setFecha_realizacion(String fecha_realizacion) {
+		this.fecha_realizacion = fecha_realizacion;
 	}
 
 
@@ -161,14 +151,27 @@ public class Reserva {
 
 	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
-	} 
-	
+	}
+
+
+	public long getId_cliente() {
+		return id_cliente;
+	}
+
+
+	public void setId_cliente(long id_cliente) {
+		this.id_cliente = id_cliente;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Reserva [id=" + id + ", id_contrato=" + id_contrato + ", personas=" + personas + ", fecha_inicio="
 				+ fecha_inicio + ", fecha_fin=" + fecha_fin + ", fecha_limite=" + fecha_limite + ", fecha_realizacion="
 				+ fecha_realizacion + ", tipo=" + tipo + ", id_cliente=" + id_cliente + "]";
 	}
+
+
 
 	
 	

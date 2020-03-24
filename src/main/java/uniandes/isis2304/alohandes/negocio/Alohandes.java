@@ -779,7 +779,7 @@ public class Alohandes
 	 * @param gradoAlcohol - El grado de alcohol de la bebida (Mayor que 0)
 	 * @return El objeto Bebida adicionado. null si ocurre alguna Excepción
 	 */
-	public Reserva adicionarReserva (long id_contrato, int personas, Date fecha_inicio, Date fecha_fin, Date fecha_limite, Date fecha_realizacion, Tipo tipo, long id_cliente)
+	public Reserva adicionarReserva (long id_contrato, int personas, String fecha_inicio, String fecha_fin, String fecha_limite, String fecha_realizacion, Tipo tipo, long id_cliente)
 	{
 		log.info ("Adicionando reserva");
 		Reserva reserva = pp.adicionarReserva(id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);
@@ -800,6 +800,14 @@ public class Alohandes
         long resp = pp.eliminarReservaPorId (idReserva);
         log.info ("Eliminando bebida por id: " + resp + " tuplas eliminadas");
         return resp;
+	}
+	
+	public List<Reserva> darReserva()
+	{
+        log.info ("Consultando Reservas");
+        List<Reserva> reservas = pp.darReservas();	
+        log.info ("Consultando Bebidas: " + reservas.size() + " reservas existentes");
+        return reservas;
 	}
 
 	/* ****************************************************************

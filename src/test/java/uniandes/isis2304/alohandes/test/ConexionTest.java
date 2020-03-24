@@ -206,7 +206,7 @@ public class ConexionTest
 		}
 		finally
 		{
-			parranderos.limpiarParranderos ();
+			parranderos.limpiarAlohandes ();
     		parranderos.cerrarUnidadPersistencia ();    		
 		}
     }

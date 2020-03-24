@@ -54,7 +54,7 @@ public class SQLReserva {
 	 * @param gradoAlcohol - El grado de alcohol de la bebida (Mayor que 0)
 	 * @return EL número de tuplas insertadas
 	 */
-	public long adicionarReserva (PersistenceManager pm, long id, long id_contrato, int personas, Date fecha_inicio, Date fecha_fin, Date fecha_limite, Date fecha_realizacion, Tipo tipo, long id_cliente) 
+	public long adicionarReserva (PersistenceManager pm, long id, long id_contrato, int personas, String fecha_inicio, String fecha_fin, String fecha_limite, String fecha_realizacion, Tipo tipo, long id_cliente) 
 	{
         Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReserva() + "(id, id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         q.setParameters(id, id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);

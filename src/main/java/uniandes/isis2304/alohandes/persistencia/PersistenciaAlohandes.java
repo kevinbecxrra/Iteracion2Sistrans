@@ -517,7 +517,7 @@ public class PersistenciaAlohandes
 	
 	
 	
-	public Reserva adicionarReserva(long id_contrato, int personas, Date fecha_inicio, Date fecha_fin, Date fecha_limite, Date fecha_realizacion, Tipo tipo, long id_cliente) 
+	public Reserva adicionarReserva(long id_contrato, int personas, String fecha_inicio, String fecha_fin, String fecha_limite, String fecha_realizacion, Tipo tipo, long id_cliente) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
@@ -581,6 +581,15 @@ public class PersistenciaAlohandes
         }
 	}
 	
+	
+	/**
+	 * Método que consulta todas las tuplas en la tabla Bebida
+	 * @return La lista de objetos Bebida, construidos con base en las tuplas de la tabla BEBIDA
+	 */
+	public List<Reserva> darReservas ()
+	{
+		return sqlReserva.darReserva(pmf.getPersistenceManager());
+	}
 
 	/**
 	 * Método que elimina, de manera transaccional, una tupla en la tabla Bebida, dado el nombre de la bebida
