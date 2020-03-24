@@ -13,7 +13,7 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-package uniandes.isis2304.parranderos.persistencia;
+package uniandes.isis2304.alohandes.persistencia;
 
 import java.math.BigDecimal;
 import java.util.List;

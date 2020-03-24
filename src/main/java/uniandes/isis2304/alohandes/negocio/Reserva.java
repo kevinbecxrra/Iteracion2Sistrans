@@ -18,11 +18,13 @@ public class Reserva {
 	CLIENTE_ESPORADICO
 	}
 	
+	/* ****************************************************************
+	 * 			Atributos
+	 *****************************************************************/
+	
 	private long id; 
 	
 	private long id_contrato; 
-	
-	private long id_cliente; 
 	
 	private int personas; 
 	
@@ -35,34 +37,40 @@ public class Reserva {
 	private Date fecha_realizacion; 
 	
 	private Tipo tipo;
-
+	
+	private long id_cliente; 
+	
+	/* ****************************************************************
+	 * 			Métodos
+	 *****************************************************************/
 	
 	public Reserva() {
 		super();
 		this.id = 0;
 		this.id_contrato = 0;
-		this.id_cliente = 0;
 		this.personas = 0;
 		this.fecha_inicio =new Date() ;
 		this.fecha_fin = new Date();
 		this.fecha_limite = new Date();
 		this.fecha_realizacion = new Date();
 		this.tipo = null;
+		this.id_cliente = 0;
+
 	}
 
 
-	public Reserva(long id, long id_contrato, long id_cliente, int personas, Date fehca_inicio, Date fecha_fin,
-			Date fecha_limite, Date fehca_realizacion, Tipo tipo) {
+	public Reserva(long id, long id_contrato, int personas, Date fehca_inicio, Date fecha_fin,
+			Date fecha_limite, Date fehca_realizacion, Tipo tipo, long id_cliente) {
 		super();
 		this.id = id;
 		this.id_contrato = id_contrato;
-		this.id_cliente = id_cliente;
 		this.personas = personas;
 		this.fecha_inicio = fehca_inicio;
 		this.fecha_fin = fecha_fin;
 		this.fecha_limite = fecha_limite;
 		this.fecha_realizacion = fehca_realizacion;
 		this.tipo = tipo;
+		this.id_cliente = id_cliente;
 	}
 
 
@@ -155,8 +163,13 @@ public class Reserva {
 		this.tipo = tipo;
 	} 
 	
-	
-	
+	@Override
+	public String toString() {
+		return "Reserva [id=" + id + ", id_contrato=" + id_contrato + ", personas=" + personas + ", fecha_inicio="
+				+ fecha_inicio + ", fecha_fin=" + fecha_fin + ", fecha_limite=" + fecha_limite + ", fecha_realizacion="
+				+ fecha_realizacion + ", tipo=" + tipo + ", id_cliente=" + id_cliente + "]";
+	}
+
 	
 	
 }

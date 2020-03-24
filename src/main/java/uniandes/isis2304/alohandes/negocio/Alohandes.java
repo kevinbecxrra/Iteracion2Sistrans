@@ -4,32 +4,31 @@
  * Licenciado	bajo	el	esquema	Academic Free License versión 2.1
  * 		
  * Curso: isis2304 - Sistemas Transaccionales
- * Proyecto: Parranderos Uniandes
- * @version 1.0
- * @author Germán Bravo
- * Julio de 2018
- * 
- * Revisado por: Claudia Jiménez, Christian Ariza
+ * Proyecto: Alohandes
+ * @author Kevin Becerra - Christian Forigua
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
 package uniandes.isis2304.alohandes.negocio;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import com.google.gson.JsonObject;
-import uniandes.isis2304.parranderos.persistencia.PersistenciaAlohandes;
+
+import uniandes.isis2304.alohandes.negocio.Reserva.Tipo;
+import uniandes.isis2304.alohandes.persistencia.PersistenciaAlohandes;
 
 /**
  * Clase principal del negocio
  * Sarisface todos los requerimientos funcionales del negocio
  *
- * @author Germán Bravo
+ * @author Kevin Becerra - Christian Forigua
  */
-public class Parranderos 
+public class Alohandes 
 {
 	/* ****************************************************************
 	 * 			Constantes
@@ -37,7 +36,7 @@ public class Parranderos
 	/**
 	 * Logger para escribir la traza de la ejecución
 	 */
-	private static Logger log = Logger.getLogger(Parranderos.class.getName());
+	private static Logger log = Logger.getLogger(Alohandes.class.getName());
 	
 	/* ****************************************************************
 	 * 			Atributos
@@ -53,7 +52,7 @@ public class Parranderos
 	/**
 	 * El constructor por defecto
 	 */
-	public Parranderos ()
+	public Alohandes ()
 	{
 		pp = PersistenciaAlohandes.getInstance ();
 	}
@@ -62,7 +61,7 @@ public class Parranderos
 	 * El constructor qye recibe los nombres de las tablas en tableConfig
 	 * @param tableConfig - Objeto Json con los nombres de las tablas y de la unidad de persistencia
 	 */
-	public Parranderos (JsonObject tableConfig)
+	public Alohandes (JsonObject tableConfig)
 	{
 		pp = PersistenciaAlohandes.getInstance (tableConfig);
 	}
@@ -74,6 +73,8 @@ public class Parranderos
 	{
 		pp.cerrarUnidadPersistencia ();
 	}
+	
+	
 	
 	/* ****************************************************************
 	 * 			Métodos para manejar los TIPOS DE BEBIDA
@@ -121,7 +122,7 @@ public class Parranderos
 	}
 	
 	/**
-	 * Encuentra todos los tipos de bebida en Parranderos
+	 * Encuentra todos los tipos de bebida en Alohandes
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos TipoBebida con todos los tipos de bebida que conoce la aplicación, llenos con su información básica
 	 */
@@ -134,7 +135,7 @@ public class Parranderos
 	}
 
 	/**
-	 * Encuentra todos los tipos de bebida en Parranderos y los devuelve como una lista de VOTipoBebida
+	 * Encuentra todos los tipos de bebida en Alohandes y los devuelve como una lista de VOTipoBebida
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos VOTipoBebida con todos los tipos de bebida que conoce la aplicación, llenos con su información básica
 	 */
@@ -151,7 +152,7 @@ public class Parranderos
 	}
 
 	/**
-	 * Encuentra el tipos de bebida en Parranderos con el nombre solicitado
+	 * Encuentra el tipos de bebida en Alohandes con el nombre solicitado
 	 * Adiciona entradas al log de la aplicación
 	 * @param nombre - El nombre de la bebida
 	 * @return Un objeto TipoBebida con el tipos de bebida de ese nombre que conoce la aplicación, 
@@ -212,7 +213,7 @@ public class Parranderos
 	}
 	
 	/**
-	 * Encuentra todas las bebida en Parranderos
+	 * Encuentra todas las bebida en Alohandes
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos Bebida con todos las bebidas que conoce la aplicación, llenos con su información básica
 	 */
@@ -225,7 +226,7 @@ public class Parranderos
 	}
 
 	/**
-	 * Encuentra todos los tipos de bebida en Parranderos y los devuelve como una lista de VOTipoBebida
+	 * Encuentra todos los tipos de bebida en Alohandes y los devuelve como una lista de VOTipoBebida
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos VOBebida con todos las bebidas que conoce la aplicación, llenos con su información básica
 	 */
@@ -365,7 +366,7 @@ public class Parranderos
 	}
 
 	/**
-	 * Encuentra todos los bebedores en Parranderos
+	 * Encuentra todos los bebedores en Alohandes
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos Bebedor con todos las bebedores que conoce la aplicación, llenos con su información básica
 	 */
@@ -378,7 +379,7 @@ public class Parranderos
 	}
 	
 	/**
-	 * Encuentra todos los bebedores en Parranderos y los devuelve como VOBebedor
+	 * Encuentra todos los bebedores en Alohandes y los devuelve como VOBebedor
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos VOBebedor con todos las bebedores que conoce la aplicación, llenos con su información básica
 	 */
@@ -514,7 +515,7 @@ public class Parranderos
 	}
 	
 	/**
-	 * Encuentra todos los bares en Parranderos
+	 * Encuentra todos los bares en Alohandes
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos Bar con todos las bares que conoce la aplicación, llenos con su información básica
 	 */
@@ -527,7 +528,7 @@ public class Parranderos
 	}
 
 	/**
-	 * Encuentra todos los bares en Parranderos y los devuelce como VO
+	 * Encuentra todos los bares en Alohandes y los devuelce como VO
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos Bar con todos las bares que conoce la aplicación, llenos con su información básica
 	 */
@@ -606,7 +607,7 @@ public class Parranderos
 	}
 	
 	/**
-	 * Encuentra todos los gustan en Parranderos
+	 * Encuentra todos los gustan en Alohandes
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos Gustan con todos los GUSTAN que conoce la aplicación, llenos con su información básica
 	 */
@@ -619,7 +620,7 @@ public class Parranderos
 	}
 
 	/**
-	 * Encuentra todos los gustan en Parranderos y los devuelve como VO
+	 * Encuentra todos los gustan en Alohandes y los devuelve como VO
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos Gustan con todos los GUSTAN que conoce la aplicación, llenos con su información básica
 	 */
@@ -671,7 +672,7 @@ public class Parranderos
 	}
 	
 	/**
-	 * Encuentra todos los SIRVEN en Parranderos
+	 * Encuentra todos los SIRVEN en Alohandes
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos SIRVEN con todos los GUSTAN que conoce la aplicación, llenos con su información básica
 	 */
@@ -684,7 +685,7 @@ public class Parranderos
 	}
 
 	/**
-	 * Encuentra todos los sirven en Parranderos y los devuelve como VO
+	 * Encuentra todos los sirven en Alohandes y los devuelve como VO
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos SIRVEN con todos los SIRVEN que conoce la aplicación, llenos con su información básica
 	 */
@@ -737,7 +738,7 @@ public class Parranderos
 	}
 	
 	/**
-	 * Encuentra todos los VISITAN en Parranderos
+	 * Encuentra todos los VISITAN en Alohandes
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos VISITAN con todos los GUSTAN que conoce la aplicación, llenos con su información básica
 	 */
@@ -750,7 +751,7 @@ public class Parranderos
 	}
 
 	/**
-	 * Encuentra todos los visitan en Parranderos y los devuelve como VO
+	 * Encuentra todos los visitan en Alohandes y los devuelve como VO
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos Visitan con todos los Visitan que conoce la aplicación, llenos con su información básica
 	 */
@@ -765,21 +766,56 @@ public class Parranderos
 		log.info ("Generando los VO de Visitan: " + voGustan.size () + " Visitan existentes");
 		return voGustan;
 	}
+	
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar las RESERVAS
+	 *****************************************************************/
+	/**
+	 * Adiciona de manera persistente una reserva 
+	 * Adiciona entradas al log de la aplicación
+	 * @param nombre - El nombre la bebida
+	 * @param idTipoBebida - El identificador del tipo de bebida de la bebida - Debe existir un TIPOBEBIDA con este identificador
+	 * @param gradoAlcohol - El grado de alcohol de la bebida (Mayor que 0)
+	 * @return El objeto Bebida adicionado. null si ocurre alguna Excepción
+	 */
+	public Reserva adicionarReserva (long id_contrato, int personas, Date fecha_inicio, Date fecha_fin, Date fecha_limite, Date fecha_realizacion, Tipo tipo, long id_cliente)
+	{
+		log.info ("Adicionando reserva");
+		Reserva reserva = pp.adicionarReserva(id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);
+        log.info ("Adicionando bebida: " + reserva);
+        return reserva;
+	}
+	
+	
+	/**
+	 * Elimina una bebida por su identificador
+	 * Adiciona entradas al log de la aplicación
+	 * @param idBebida - El identificador de la bebida a eliminar
+	 * @return El número de tuplas eliminadas (1 o 0)
+	 */
+	public long eliminarReservaPorId (long idReserva)
+	{
+        log.info ("Eliminando bebida por id: " + idReserva);
+        long resp = pp.eliminarReservaPorId (idReserva);
+        log.info ("Eliminando bebida por id: " + resp + " tuplas eliminadas");
+        return resp;
+	}
 
 	/* ****************************************************************
 	 * 			Métodos para administración
 	 *****************************************************************/
 
 	/**
-	 * Elimina todas las tuplas de todas las tablas de la base de datos de Parranderos
+	 * Elimina todas las tuplas de todas las tablas de la base de datos de Alohandes
 	 * @return Un arreglo con 7 números que indican el número de tuplas borradas en las tablas GUSTAN, SIRVEN, VISITAN, BEBIDA,
 	 * TIPOBEBIDA, BEBEDOR y BAR, respectivamente
 	 */
-	public long [] limpiarParranderos ()
+	public long [] limpiarAlohandes ()
 	{
-        log.info ("Limpiando la BD de Parranderos");
-        long [] borrrados = pp.limpiarParranderos();	
-        log.info ("Limpiando la BD de Parranderos: Listo!");
+        log.info ("Limpiando la BD de Alohandes");
+        long [] borrrados = pp.limpiarAlohandes();	
+        log.info ("Limpiando la BD de Alohandes: Listo!");
         return borrrados;
 	}
 }

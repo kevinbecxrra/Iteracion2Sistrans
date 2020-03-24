@@ -4,20 +4,17 @@
  * Licenciado	bajo	el	esquema	Academic Free License versión 2.1
  * 		
  * Curso: isis2304 - Sistemas Transaccionales
- * Proyecto: Parranderos Uniandes
- * @version 1.0
- * @author Germán Bravo
- * Julio de 2018
- * 
- * Revisado por: Claudia Jiménez, Christian Ariza
+ * Proyecto: Alohandes Uniandes
+ * @author Kevin Becerra - Christian Forigua
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-package uniandes.isis2304.parranderos.persistencia;
+package uniandes.isis2304.alohandes.persistencia;
 
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,19 +33,21 @@ import uniandes.isis2304.alohandes.negocio.Bar;
 import uniandes.isis2304.alohandes.negocio.Bebedor;
 import uniandes.isis2304.alohandes.negocio.Bebida;
 import uniandes.isis2304.alohandes.negocio.Gustan;
+import uniandes.isis2304.alohandes.negocio.Reserva;
+import uniandes.isis2304.alohandes.negocio.Reserva.Tipo;
 import uniandes.isis2304.alohandes.negocio.Sirven;
 import uniandes.isis2304.alohandes.negocio.TipoBebida;
 import uniandes.isis2304.alohandes.negocio.Visitan;
 
 /**
- * Clase para el manejador de persistencia del proyecto Parranderos
+ * Clase para el manejador de persistencia del proyecto Alohandes
  * Traduce la información entre objetos Java y tuplas de la base de datos, en ambos sentidos
  * Sigue un patrón SINGLETON (Sólo puede haber UN objeto de esta clase) para comunicarse de manera correcta
  * con la base de datos
  * Se apoya en las clases SQLBar, SQLBebedor, SQLBebida, SQLGustan, SQLSirven, SQLTipoBebida y SQLVisitan, que son 
  * las que realizan el acceso a la base de datos
  * 
- * @author Germán Bravo
+ * @author Kevin Becerra - Christian Forigua
  */
 public class PersistenciaAlohandes 
 {
@@ -85,7 +84,7 @@ public class PersistenciaAlohandes
 	private List <String> tablas;
 	
 	/**
-	 * Atributo para el acceso a las sentencias SQL propias a PersistenciaParranderos
+	 * Atributo para el acceso a las sentencias SQL propias a PersistenciaAlohandes
 	 */
 	private SQLUtil sqlUtil;
 	
@@ -124,6 +123,9 @@ public class PersistenciaAlohandes
 	 */
 	private SQLVisitan sqlVisitan;
 	
+	/**
+	 * Atributo para el acceso a la tabla RESERVAN de la base de datos
+	 */
 	private SQLReserva sqlReserva; 
 	
 	/* ****************************************************************
@@ -135,12 +137,12 @@ public class PersistenciaAlohandes
 	 */
 	private PersistenciaAlohandes ()
 	{
-		pmf = JDOHelper.getPersistenceManagerFactory("Parranderos");		
+		pmf = JDOHelper.getPersistenceManagerFactory("Alohandes");		
 		crearClasesSQL ();
 		
 		// Define los nombres por defecto de las tablas de la base de datos
 		tablas = new LinkedList<String> ();
-		tablas.add ("Parranderos_sequence");
+		tablas.add ("alohandes_sequence");
 		tablas.add ("TIPOBEBIDA");
 		tablas.add ("BEBIDA");
 		tablas.add ("BAR");
@@ -166,7 +168,7 @@ public class PersistenciaAlohandes
 	}
 
 	/**
-	 * @return Retorna el único objeto PersistenciaParranderos existente - Patrón SINGLETON
+	 * @return Retorna el único objeto PersistenciaAlohandes existente - Patrón SINGLETON
 	 */
 	public static PersistenciaAlohandes getInstance ()
 	{
@@ -180,7 +182,7 @@ public class PersistenciaAlohandes
 	/**
 	 * Constructor que toma los nombres de las tablas de la base de datos del objeto tableConfig
 	 * @param tableConfig - El objeto JSON con los nombres de las tablas
-	 * @return Retorna el único objeto PersistenciaParranderos existente - Patrón SINGLETON
+	 * @return Retorna el único objeto PersistenciaAlohandes existente - Patrón SINGLETON
 	 */
 	public static PersistenciaAlohandes getInstance (JsonObject tableConfig)
 	{
@@ -231,18 +233,19 @@ public class PersistenciaAlohandes
 		sqlSirven = new SQLSirven (this);
 		sqlVisitan = new SQLVisitan(this);		
 		sqlUtil = new SQLUtil(this);
+		sqlReserva = new SQLReserva(this);
 	}
 
 	/**
-	 * @return La cadena de caracteres con el nombre del secuenciador de parranderos
+	 * @return La cadena de caracteres con el nombre del secuenciador de Alohandes
 	 */
-	public String darSeqParranderos ()
+	public String darSeqAlohandes ()
 	{
 		return tablas.get (0);
 	}
 
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de TipoBebida de parranderos
+	 * @return La cadena de caracteres con el nombre de la tabla de TipoBebida de Alohandes
 	 */
 	public String darTablaTipoBebida ()
 	{
@@ -250,7 +253,7 @@ public class PersistenciaAlohandes
 	}
 
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Bebida de parranderos
+	 * @return La cadena de caracteres con el nombre de la tabla de Bebida de Alohandes
 	 */
 	public String darTablaBebida ()
 	{
@@ -258,7 +261,7 @@ public class PersistenciaAlohandes
 	}
 
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Bar de parranderos
+	 * @return La cadena de caracteres con el nombre de la tabla de Bar de Alohandes
 	 */
 	public String darTablaBar ()
 	{
@@ -266,7 +269,7 @@ public class PersistenciaAlohandes
 	}
 
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Bebedor de parranderos
+	 * @return La cadena de caracteres con el nombre de la tabla de Bebedor de Alohandes
 	 */
 	public String darTablaBebedor ()
 	{
@@ -274,7 +277,7 @@ public class PersistenciaAlohandes
 	}
 
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Gustan de parranderos
+	 * @return La cadena de caracteres con el nombre de la tabla de Gustan de Alohandes
 	 */
 	public String darTablaGustan ()
 	{
@@ -282,7 +285,7 @@ public class PersistenciaAlohandes
 	}
 
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Sirven de parranderos
+	 * @return La cadena de caracteres con el nombre de la tabla de Sirven de Alohandes
 	 */
 	public String darTablaSirven ()
 	{
@@ -290,21 +293,24 @@ public class PersistenciaAlohandes
 	}
 
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
+	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de Alohandes
 	 */
 	public String darTablaVisitan ()
 	{
 		return tablas.get (7);
 	}
 	
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Reserva de Alohandes
+	 */
 	public String darTablaReserva() {
 		return tablas.get(8);
 	}
 	
 	/**
-	 * Transacción para el generador de secuencia de Parranderos
+	 * Transacción para el generador de secuencia de Alohandes
 	 * Adiciona entradas al log de la aplicación
-	 * @return El siguiente número del secuenciador de Parranderos
+	 * @return El siguiente número del secuenciador de Alohandes
 	 */
 	private long nextval ()
 	{
@@ -465,6 +471,7 @@ public class PersistenciaAlohandes
 		return sqlTipoBebida.darTipoBebidaPorId (pmf.getPersistenceManager(), idTipoBebida);
 	}
  
+	
 	/* ****************************************************************
 	 * 			Métodos para manejar las BEBIDAS
 	 *****************************************************************/
@@ -506,6 +513,74 @@ public class PersistenciaAlohandes
             pm.close();
         }
 	}
+	
+	
+	
+	
+	public Reserva adicionarReserva(long id_contrato, int personas, Date fecha_inicio, Date fecha_fin, Date fecha_limite, Date fecha_realizacion, Tipo tipo, long id_cliente) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();            
+            long idReserva = nextval ();
+            long tuplasInsertadas = sqlReserva.adicionarReserva(pm, idReserva,id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);
+            tx.commit();
+            
+            log.trace ("Inserción reserva: " + idReserva+ ": " + tuplasInsertadas + " tuplas insertadas");
+            return new Reserva (idReserva,id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla TipoBebida, dado el identificador del tipo de bebida
+	 * Adiciona entradas al log de la aplicación
+	 * @param idTipoBebida - El identificador del tipo de bebida
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarReservaPorId (long idReserva) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlTipoBebida.eliminarTipoBebidaPorId(pm, idReserva);
+            tx.commit();
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
 
 	/**
 	 * Método que elimina, de manera transaccional, una tupla en la tabla Bebida, dado el nombre de la bebida
@@ -595,7 +670,7 @@ public class PersistenciaAlohandes
 	}
  
 	/**
-	 * Método que elimina, de manera transaccional, las bebidas que no son referenciadas en la tabla SIRVEN de Parranderos
+	 * Método que elimina, de manera transaccional, las bebidas que no son referenciadas en la tabla SIRVEN de Alohandes
 	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
 	 */
 	public long eliminarBebidasNoServidas ()
@@ -1497,19 +1572,19 @@ public class PersistenciaAlohandes
 	}	
 
 	/**
-	 * Elimina todas las tuplas de todas las tablas de la base de datos de Parranderos
+	 * Elimina todas las tuplas de todas las tablas de la base de datos de Alohandes
 	 * Crea y ejecuta las sentencias SQL para cada tabla de la base de datos - EL ORDEN ES IMPORTANTE 
 	 * @return Un arreglo con 7 números que indican el número de tuplas borradas en las tablas GUSTAN, SIRVEN, VISITAN, BEBIDA,
 	 * TIPOBEBIDA, BEBEDOR y BAR, respectivamente
 	 */
-	public long [] limpiarParranderos ()
+	public long [] limpiarAlohandes ()
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
-            long [] resp = sqlUtil.limpiarParranderos (pm);
+            long [] resp = sqlUtil.limpiarAlohandes (pm);
             tx.commit ();
             log.info ("Borrada la base de datos");
             return resp;

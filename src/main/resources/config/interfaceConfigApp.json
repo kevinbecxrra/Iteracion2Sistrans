@@ -79,6 +79,19 @@
 					"event": "mostrarJavadoc"
 				}
 			]
+		},
+			{ "menuTitle": "Reserva",
+		  		"options":
+			[
+				{
+					"label": "Adicionar",
+					"event": "adicionarReserva"
+				},
+				{
+					"label": "Borrar por Id",
+					"event": "eliminarReservaPorId"
+				}
+			]
 		},		
 		{ "menuTitle": "Acerca de ...",
 		  "options":
