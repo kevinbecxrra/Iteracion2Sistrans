@@ -11,7 +11,7 @@ public class Reserva implements VOReserva {
 	 * Enumeracion que simboliza el tipo de alojamiento a elegir
 	 *
 	 */
-	public enum Tipo {
+	public enum  Tipo {
 		HOTEL,
 		HOSTAL,
 		VIVENDA_UNIVERSITARIA,

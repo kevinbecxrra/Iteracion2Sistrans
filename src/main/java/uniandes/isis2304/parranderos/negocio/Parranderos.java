@@ -140,17 +140,17 @@ public class Parranderos
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos VOTipoBebida con todos los tipos de bebida que conoce la aplicación, llenos con su información básica
 	 */
-	public List<VOTipoBebida> darVOTiposBebida ()
-	{
-		log.info ("Generando los VO de Tipos de bebida");        
-		List<VOTipoBebida> voTipos = new LinkedList<VOTipoBebida> ();
-		for (TipoBebida tb : pp.darTiposBebida ())
-		{
-			voTipos.add (tb);
-		}
-		log.info ("Generando los VO de Tipos de bebida: " + voTipos.size() + " existentes");
-		return voTipos;
-	}
+//	public List<VOTipoBebida> darVOTiposBebida ()
+//	{
+//		log.info ("Generando los VO de Tipos de bebida");        
+//		List<VOTipoBebida> voTipos = new LinkedList<VOTipoBebida> ();
+//		for (TipoBebida tb : pp.darTiposBebida ())
+//		{
+//			voTipos.add (tb);
+//		}
+//		log.info ("Generando los VO de Tipos de bebida: " + voTipos.size() + " existentes");
+//		return voTipos;
+//	}
 
 	/**
 	 * Encuentra el tipos de bebida en Parranderos con el nombre solicitado
@@ -177,13 +177,13 @@ public class Parranderos
 	 * @param gradoAlcohol - El grado de alcohol de la bebida (Mayor que 0)
 	 * @return El objeto Bebida adicionado. null si ocurre alguna Excepción
 	 */
-	public Bebida adicionarBebida (String nombre, long idTipoBebida, int gradoAlcohol)
-	{
-		log.info ("Adicionando bebida " + nombre);
-		Bebida bebida = pp.adicionarBebida (nombre, idTipoBebida, gradoAlcohol);
-		log.info ("Adicionando bebida: " + bebida);
-		return bebida;
-	}
+//	public Bebida adicionarBebida (String nombre, long idTipoBebida, int gradoAlcohol)
+//	{
+//		log.info ("Adicionando bebida " + nombre);
+//		Bebida bebida = pp.adicionarBebida (nombre, idTipoBebida, gradoAlcohol);
+//		log.info ("Adicionando bebida: " + bebida);
+//		return bebida;
+//	}
 
 	/**
 	 * Elimina una bebida por su nombre
@@ -191,13 +191,13 @@ public class Parranderos
 	 * @param nombre - El nombre de la bebida a eliminar
 	 * @return El número de tuplas eliminadas
 	 */
-	public long eliminarBebidaPorNombre (String nombre)
-	{
-		log.info ("Eliminando bebida por nombre: " + nombre);
-		long resp = pp.eliminarBebidaPorNombre (nombre);
-		log.info ("Eliminando bebida por nombre: " + resp + " tuplas eliminadas");
-		return resp;
-	}
+//	public long eliminarBebidaPorNombre (String nombre)
+//	{
+//		log.info ("Eliminando bebida por nombre: " + nombre);
+//		long resp = pp.eliminarBebidaPorNombre (nombre);
+//		log.info ("Eliminando bebida por nombre: " + resp + " tuplas eliminadas");
+//		return resp;
+//	}
 
 	/**
 	 * Elimina una bebida por su identificador
@@ -205,56 +205,56 @@ public class Parranderos
 	 * @param idBebida - El identificador de la bebida a eliminar
 	 * @return El número de tuplas eliminadas (1 o 0)
 	 */
-	public long eliminarBebidaPorId (long idBebida)
-	{
-		log.info ("Eliminando bebida por id: " + idBebida);
-		long resp = pp.eliminarBebidaPorId (idBebida);
-		log.info ("Eliminando bebida por id: " + resp + " tuplas eliminadas");
-		return resp;
-	}
+//	public long eliminarBebidaPorId (long idBebida)
+//	{
+//		log.info ("Eliminando bebida por id: " + idBebida);
+//		long resp = pp.eliminarBebidaPorId (idBebida);
+//		log.info ("Eliminando bebida por id: " + resp + " tuplas eliminadas");
+//		return resp;
+//	}
 
 	/**
 	 * Encuentra todas las bebida en Parranderos
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos Bebida con todos las bebidas que conoce la aplicación, llenos con su información básica
 	 */
-	public List<Bebida> darBebidas ()
-	{
-		log.info ("Consultando Bebidas");
-		List<Bebida> bebidas = pp.darBebidas ();	
-		log.info ("Consultando Bebidas: " + bebidas.size() + " bebidas existentes");
-		return bebidas;
-	}
+//	public List<Bebida> darBebidas ()
+//	{
+//		log.info ("Consultando Bebidas");
+//		List<Bebida> bebidas = pp.darBebidas ();	
+//		log.info ("Consultando Bebidas: " + bebidas.size() + " bebidas existentes");
+//		return bebidas;
+//	}
 
 	/**
 	 * Encuentra todos los tipos de bebida en Parranderos y los devuelve como una lista de VOTipoBebida
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos VOBebida con todos las bebidas que conoce la aplicación, llenos con su información básica
 	 */
-	public List<VOBebida> darVOBebidas ()
-	{
-		log.info ("Generando los VO de las bebidas");       
-		List<VOBebida> voBebidas = new LinkedList<VOBebida> ();
-		for (Bebida beb : pp.darBebidas ())
-		{
-			voBebidas.add (beb);
-		}
-		log.info ("Generando los VO de las bebidas: " + voBebidas.size() + " existentes");
-		return voBebidas;
-	}
+//	public List<VOBebida> darVOBebidas ()
+//	{
+//		log.info ("Generando los VO de las bebidas");       
+//		List<VOBebida> voBebidas = new LinkedList<VOBebida> ();
+//		for (Bebida beb : pp.darBebidas ())
+//		{
+//			voBebidas.add (beb);
+//		}
+//		log.info ("Generando los VO de las bebidas: " + voBebidas.size() + " existentes");
+//		return voBebidas;
+//	}
 
 	/**
 	 * Elimina las bebidas que no son servidas en ningún bar (No son referenciadas en ninguna tupla de SIRVEN)
 	 * Adiciona entradas al log de la aplicación
 	 * @return El número de bebidas eliminadas
 	 */
-	public long eliminarBebidasNoServidas ()
-	{
-		log.info ("Borrando bebidas no servidas");
-		long resp = pp.eliminarBebidasNoServidas ();
-		log.info ("Borrando bebidas no servidas: " + resp + " bebidas eliminadas");
-		return resp;
-	}
+//	public long eliminarBebidasNoServidas ()
+//	{
+//		log.info ("Borrando bebidas no servidas");
+//		long resp = pp.eliminarBebidasNoServidas ();
+//		log.info ("Borrando bebidas no servidas: " + resp + " bebidas eliminadas");
+//		return resp;
+//	}
 
 	/* ****************************************************************
 	 * 			Métodos para manejar los BEBEDORES
@@ -267,13 +267,13 @@ public class Parranderos
 	 * @param nombre - El nombre del bebedor a eliminar
 	 * @return El número de tuplas eliminadas
 	 */
-	public long eliminarBebedorPorNombre (String nombre)
-	{
-		log.info ("Eliminando bebedor por nombre: " + nombre);
-		long resp = pp.eliminarBebedorPorNombre (nombre);
-		log.info ("Eliminando bebedor por nombre: " + resp + " tuplas eliminadas");
-		return resp;
-	}
+//	public long eliminarBebedorPorNombre (String nombre)
+//	{
+//		log.info ("Eliminando bebedor por nombre: " + nombre);
+//		long resp = pp.eliminarBebedorPorNombre (nombre);
+//		log.info ("Eliminando bebedor por nombre: " + resp + " tuplas eliminadas");
+//		return resp;
+//	}
 
 	/**
 	 * Elimina un bebedor por su identificador
@@ -281,13 +281,13 @@ public class Parranderos
 	 * @param idBebedor - El identificador del bebedor a eliminar
 	 * @return El número de tuplas eliminadas
 	 */
-	public long eliminarBebedorPorId (long idBebedor)
-	{
-		log.info ("Eliminando bebedor por id: " + idBebedor);
-		long resp = pp.eliminarBebedorPorId (idBebedor);
-		log.info ("Eliminando bebedor por Id: " + resp + " tuplas eliminadas");
-		return resp;
-	}
+//	public long eliminarBebedorPorId (long idBebedor)
+//	{
+//		log.info ("Eliminando bebedor por id: " + idBebedor);
+//		long resp = pp.eliminarBebedorPorId (idBebedor);
+//		log.info ("Eliminando bebedor por Id: " + resp + " tuplas eliminadas");
+//		return resp;
+//	}
 
 
 	/**
@@ -295,27 +295,27 @@ public class Parranderos
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de parejas [Bebedor, numVisitas]
 	 */
-	public List<Object []> darBebedoresYNumVisitasRealizadas ()
-	{
-		log.info ("Listando Bebedores y cuántas visitas ha realizado");
-		List<Object []> tuplas = pp.darBebedoresYNumVisitasRealizadas ();
-		log.info ("Listando Bebedores y cuántas visitas ha realizado: Listo!");
-		return tuplas;
-	}
+//	public List<Object []> darBebedoresYNumVisitasRealizadas ()
+//	{
+//		log.info ("Listando Bebedores y cuántas visitas ha realizado");
+//		List<Object []> tuplas = pp.darBebedoresYNumVisitasRealizadas ();
+//		log.info ("Listando Bebedores y cuántas visitas ha realizado: Listo!");
+//		return tuplas;
+//	}
 
 	/**
 	 * Dado el nombre de una ciudad, encuentra el número de bebedores de esa ciudad que han realizado por lo menos una visita a un bar
 	 * Adiciona entradas al log de la aplicación
 	 * @param ciudad - La ciudad de interés
 	 * @return Un número que representa el número de bebedores de esa ciudad que hab realizado por lo menos una visita a un bar
-	 */
-	public long darCantidadBebedoresCiudadVisitanBares (String ciudad)
-	{
-		log.info ("Calculando cuántos Bebedores de una ciudad visitan bares");
-		long resp = pp.darCantidadBebedoresCiudadVisitanBares (ciudad);
-		log.info ("Calculando cuántos Bebedores de una ciudad visitan bares de " + ciudad +": " + resp);
-		return resp;
-	}
+//	 */
+//	public long darCantidadBebedoresCiudadVisitanBares (String ciudad)
+//	{
+//		log.info ("Calculando cuántos Bebedores de una ciudad visitan bares");
+//		long resp = pp.darCantidadBebedoresCiudadVisitanBares (ciudad);
+//		log.info ("Calculando cuántos Bebedores de una ciudad visitan bares de " + ciudad +": " + resp);
+//		return resp;
+//	}
 
 	/**
 	 * Cambia la ciudad de un bebedor dado su identificador
@@ -324,12 +324,12 @@ public class Parranderos
 	 * @param ciudad - La nueva ciudad del bebedor
 	 * @return El número de tuplas modificadas: 1 o 0. 0 significa que un bebedor con ese identificador no existe
 	 */
-	public long cambiarCiudadBebedor (long idBebedor, String ciudad)
-	{
-		log.info ("Cambiando ciudad de bebedor: " + idBebedor);
-		long cambios = pp.cambiarCiudadBebedor (idBebedor, ciudad);
-		return cambios;
-	}
+//	public long cambiarCiudadBebedor (long idBebedor, String ciudad)
+//	{
+//		log.info ("Cambiando ciudad de bebedor: " + idBebedor);
+//		long cambios = pp.cambiarCiudadBebedor (idBebedor, ciudad);
+//		return cambios;
+//	}
 
 	/**
 	 * Elimina un bebedor y las visitas a bares que haya realizado v1: 
@@ -338,13 +338,13 @@ public class Parranderos
 	 * @param idBebedor - El bebedor que se quiere eliminar
 	 * @return Una pareja de números [número de bebedores eliminados, número de visitas eliminadas]
 	 */
-	public long [] eliminarBebedorYVisitas_v1 (long idBebedor)
-	{
-		log.info ("Eliminando bebedor con sus visitas v1: " + idBebedor);
-		long [] resp = pp.eliminarBebedorYVisitas_v1 (idBebedor);
-		log.info ("Eliminando bebedor con sus visitas v1: " + resp [0] + " bebedor y " + resp [1] + " visitas");
-		return resp;
-	}
+//	public long [] eliminarBebedorYVisitas_v1 (long idBebedor)
+//	{
+//		log.info ("Eliminando bebedor con sus visitas v1: " + idBebedor);
+//		long [] resp = pp.eliminarBebedorYVisitas_v1 (idBebedor);
+//		log.info ("Eliminando bebedor con sus visitas v1: " + resp [0] + " bebedor y " + resp [1] + " visitas");
+//		return resp;
+//	}
 
 
 	/* ****************************************************************
@@ -359,13 +359,13 @@ public class Parranderos
 	 * @param horario - El horario en el que se sirve la bebida (DIURNO, NOCTURNO, TODOS)
 	 * @return Un objeto Sirven con los valores dados
 	 */
-	public Sirven adicionarSirven (long idBar, long idBebida, String horario)
-	{
-		log.info ("Adicionando sirven [" + idBar + ", " + idBebida + "]");
-		Sirven resp = pp.adicionarSirven (idBar, idBebida, horario);
-		log.info ("Adicionando sirven: " + resp + " tuplas insertadas");
-		return resp;
-	}
+//	public Sirven adicionarSirven (long idBar, long idBebida, String horario)
+//	{
+//		log.info ("Adicionando sirven [" + idBar + ", " + idBebida + "]");
+//		Sirven resp = pp.adicionarSirven (idBar, idBebida, horario);
+//		log.info ("Adicionando sirven: " + resp + " tuplas insertadas");
+//		return resp;
+//	}
 
 	/**
 	 * Elimina de manera persistente el hecho que una bebida es servida por un bar
@@ -374,43 +374,43 @@ public class Parranderos
 	 * @param idBebida - El identificador de la bebida
 	 * @return El número de tuplas eliminadas
 	 */
-	public long eliminarSirven (long idBar, long idBebida)
-	{
-		log.info ("Eliminando sirven");
-		long resp = pp.eliminarSirven (idBar, idBebida);
-		log.info ("Eliminando sirven: " + resp + "tuplas eliminadas");
-		return resp;
-	}
+//	public long eliminarSirven (long idBar, long idBebida)
+//	{
+//		log.info ("Eliminando sirven");
+//		long resp = pp.eliminarSirven (idBar, idBebida);
+//		log.info ("Eliminando sirven: " + resp + "tuplas eliminadas");
+//		return resp;
+//	}
 
 	/**
 	 * Encuentra todos los SIRVEN en Parranderos
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos SIRVEN con todos los GUSTAN que conoce la aplicación, llenos con su información básica
 	 */
-	public List<Sirven> darSirven ()
-	{
-		log.info ("Listando Sirven");
-		List<Sirven> sirven = pp.darSirven ();	
-		log.info ("Listando Sirven: " + sirven.size() + " sirven existentes");
-		return sirven;
-	}
+//	public List<Sirven> darSirven ()
+//	{
+//		log.info ("Listando Sirven");
+//		List<Sirven> sirven = pp.darSirven ();	
+//		log.info ("Listando Sirven: " + sirven.size() + " sirven existentes");
+//		return sirven;
+//	}
 
 	/**
 	 * Encuentra todos los sirven en Parranderos y los devuelve como VO
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos SIRVEN con todos los SIRVEN que conoce la aplicación, llenos con su información básica
 	 */
-	public List<VOSirven> darVOSirven ()
-	{
-		log.info ("Generando los VO de Sirven");
-		List<VOSirven> voGustan = new LinkedList<VOSirven> ();
-		for (VOSirven sirven: pp.darSirven ())
-		{
-			voGustan.add (sirven);
-		}
-		log.info ("Generando los VO de Sirven: " + voGustan.size () + " Sirven existentes");
-		return voGustan;
-	}
+//	public List<VOSirven> darVOSirven ()
+//	{
+//		log.info ("Generando los VO de Sirven");
+//		List<VOSirven> voGustan = new LinkedList<VOSirven> ();
+//		for (VOSirven sirven: pp.darSirven ())
+//		{
+//			voGustan.add (sirven);
+//		}
+//		log.info ("Generando los VO de Sirven: " + voGustan.size () + " Sirven existentes");
+//		return voGustan;
+//	}
 
 
 	/* ****************************************************************
@@ -441,9 +441,9 @@ public class Parranderos
 	 */
 	public long eliminarReservaPorId (long idReserva)
 	{
-		log.info ("Eliminando bebida por id: " + idReserva);
+		log.info ("Eliminando Reserva por id: " + idReserva);
 		long resp = pp.eliminarReservaPorId (idReserva);
-		log.info ("Eliminando reserva por id: " + resp + " tuplas eliminadas");
+		log.info ("Eliminando Reserva por id: " + resp + " tuplas eliminadas");
 		return resp;
 	}
 

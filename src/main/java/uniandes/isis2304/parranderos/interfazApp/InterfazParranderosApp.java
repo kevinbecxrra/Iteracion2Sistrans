@@ -50,7 +50,6 @@ import uniandes.isis2304.parranderos.negocio.Parranderos;
 import uniandes.isis2304.parranderos.negocio.Reserva;
 import uniandes.isis2304.parranderos.negocio.Reserva.Tipo;
 import uniandes.isis2304.parranderos.negocio.VOReserva;
-import uniandes.isis2304.parranderos.negocio.VOTipoBebida;
 
 /**
  * Clase principal de la interfaz
@@ -129,6 +128,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         }
         
         tableConfig = openConfig ("Tablas BD", CONFIG_TABLAS);
+        System.out.println(tableConfig);
         parranderos = new Parranderos (tableConfig);
         
     	String path = guiConfig.get("bannerPath").getAsString();
@@ -246,57 +246,57 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
      * Adiciona un tipo de bebida con la información dada por el usuario
      * Se crea una nueva tupla de tipoBebida en la base de datos, si un tipo de bebida con ese nombre no existía
      */
-    public void adicionarTipoBebida( )
-    {
-    	try 
-    	{
-    		String nombreTipo = JOptionPane.showInputDialog (this, "Nombre del tipo de bedida?", "Adicionar tipo de bebida", JOptionPane.QUESTION_MESSAGE);
-    		if (nombreTipo != null)
-    		{
-        		VOTipoBebida tb = parranderos.adicionarTipoBebida (nombreTipo);
-        		if (tb == null)
-        		{
-        			throw new Exception ("No se pudo crear un tipo de bebida con nombre: " + nombreTipo);
-        		}
-        		String resultado = "En adicionarTipoBebida\n\n";
-        		resultado += "Tipo de bebida adicionado exitosamente: " + tb;
-    			resultado += "\n Operación terminada";
-    			panelDatos.actualizarInterfaz(resultado);
-    		}
-    		else
-    		{
-    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
-    		}
-		} 
-    	catch (Exception e) 
-    	{
+//    public void adicionarTipoBebida( )
+//    {
+//    	try 
+//    	{
+//    		String nombreTipo = JOptionPane.showInputDialog (this, "Nombre del tipo de bedida?", "Adicionar tipo de bebida", JOptionPane.QUESTION_MESSAGE);
+//    		if (nombreTipo != null)
+//    		{
+//        		VOTipoBebida tb = parranderos.adicionarTipoBebida (nombreTipo);
+//        		if (tb == null)
+//        		{
+//        			throw new Exception ("No se pudo crear un tipo de bebida con nombre: " + nombreTipo);
+//        		}
+//        		String resultado = "En adicionarTipoBebida\n\n";
+//        		resultado += "Tipo de bebida adicionado exitosamente: " + tb;
+//    			resultado += "\n Operación terminada";
+//    			panelDatos.actualizarInterfaz(resultado);
+//    		}
+//    		else
+//    		{
+//    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+//    		}
+//		} 
+//    	catch (Exception e) 
+//    	{
 //			e.printStackTrace();
-			String resultado = generarMensajeError(e);
-			panelDatos.actualizarInterfaz(resultado);
-		}
-    }
+//			String resultado = generarMensajeError(e);
+//			panelDatos.actualizarInterfaz(resultado);
+//		}
+//    }
 
     /**
      * Consulta en la base de datos los tipos de bebida existentes y los muestra en el panel de datos de la aplicación
      */
-    public void listarTipoBebida( )
-    {
-    	try 
-    	{
-			List <VOTipoBebida> lista = parranderos.darVOTiposBebida();
-
-			String resultado = "En listarTipoBebida";
-			resultado +=  "\n" + listarTiposBebida (lista);
-			panelDatos.actualizarInterfaz(resultado);
-			resultado += "\n Operación terminada";
-		} 
-    	catch (Exception e) 
-    	{
+//    public void listarTipoBebida( )
+//    {
+//    	try 
+//    	{
+//			List <VOTipoBebida> lista = parranderos.darVOTiposBebida();
+//
+//			String resultado = "En listarTipoBebida";
+//			resultado +=  "\n" + listarTiposBebida (lista);
+//			panelDatos.actualizarInterfaz(resultado);
+//			resultado += "\n Operación terminada";
+//		} 
+//    	catch (Exception e) 
+//    	{
 //			e.printStackTrace();
-			String resultado = generarMensajeError(e);
-			panelDatos.actualizarInterfaz(resultado);
-		}
-    }
+//			String resultado = generarMensajeError(e);
+//			panelDatos.actualizarInterfaz(resultado);
+//		}
+//    }
 
     /**
      * Borra de la base de datos el tipo de bebida con el identificador dado po el usuario
@@ -333,38 +333,38 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     /**
      * Busca el tipo de bebida con el nombre indicado por el usuario y lo muestra en el panel de datos
      */
-    public void buscarTipoBebidaPorNombre( )
-    {
-    	try 
-    	{
-    		String nombreTb = JOptionPane.showInputDialog (this, "Nombre del tipo de bedida?", "Buscar tipo de bebida por nombre", JOptionPane.QUESTION_MESSAGE);
-    		if (nombreTb != null)
-    		{
-    			VOTipoBebida tipoBebida = parranderos.darTipoBebidaPorNombre (nombreTb);
-    			String resultado = "En buscar Tipo Bebida por nombre\n\n";
-    			if (tipoBebida != null)
-    			{
-        			resultado += "El tipo de bebida es: " + tipoBebida;
-    			}
-    			else
-    			{
-        			resultado += "Un tipo de bebida con nombre: " + nombreTb + " NO EXISTE\n";    				
-    			}
-    			resultado += "\n Operación terminada";
-    			panelDatos.actualizarInterfaz(resultado);
-    		}
-    		else
-    		{
-    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
-    		}
-		} 
-    	catch (Exception e) 
-    	{
+//    public void buscarTipoBebidaPorNombre( )
+//    {
+//    	try 
+//    	{
+//    		String nombreTb = JOptionPane.showInputDialog (this, "Nombre del tipo de bedida?", "Buscar tipo de bebida por nombre", JOptionPane.QUESTION_MESSAGE);
+//    		if (nombreTb != null)
+//    		{
+//    			VOTipoBebida tipoBebida = parranderos.darTipoBebidaPorNombre (nombreTb);
+//    			String resultado = "En buscar Tipo Bebida por nombre\n\n";
+//    			if (tipoBebida != null)
+//    			{
+//        			resultado += "El tipo de bebida es: " + tipoBebida;
+//    			}
+//    			else
+//    			{
+//        			resultado += "Un tipo de bebida con nombre: " + nombreTb + " NO EXISTE\n";    				
+//    			}
+//    			resultado += "\n Operación terminada";
+//    			panelDatos.actualizarInterfaz(resultado);
+//    		}
+//    		else
+//    		{
+//    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+//    		}
+//		} 
+//    	catch (Exception e) 
+//    	{
 //			e.printStackTrace();
-			String resultado = generarMensajeError(e);
-			panelDatos.actualizarInterfaz(resultado);
-		}
-    }
+//			String resultado = generarMensajeError(e);
+//			panelDatos.actualizarInterfaz(resultado);
+//		}
+//    }
 
 
 	/* ****************************************************************
@@ -531,16 +531,16 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
      * @param lista - La lista con los tipos de bebida
      * @return La cadena con una líea para cada tipo de bebida recibido
      */
-    private String listarTiposBebida(List<VOTipoBebida> lista) 
-    {
-    	String resp = "Los tipos de bebida existentes son:\n";
-    	int i = 1;
-        for (VOTipoBebida tb : lista)
-        {
-        	resp += i++ + ". " + tb.toString() + "\n";
-        }
-        return resp;
-	}
+//    private String listarTiposBebida(List<VOTipoBebida> lista) 
+//    {
+//    	String resp = "Los tipos de bebida existentes son:\n";
+//    	int i = 1;
+//        for (VOTipoBebida tb : lista)
+//        {
+//        	resp += i++ + ". " + tb.toString() + "\n";
+//        }
+//        return resp;
+//	}
 
     /**
      * Genera una cadena de caracteres con la descripción de la excepcion e, haciendo énfasis en las excepcionsde JDO
@@ -635,7 +635,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     
     
 	/* ****************************************************************
-	 * 			CRUD de TipoBebida
+	 * 			CRUD de RESERVA
 	 *****************************************************************/
     /**
      * Adiciona un tipo de bebida con la información dada por el usuario
@@ -645,13 +645,39 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     {
     	try 
     	{
-        		VOReserva tb = parranderos.adicionarReserva(1, 20, "23/12/2014 10:22:12 PM", "23/02/2015 10:22:12 PM", "23/01/2015 10:22:12 PM", "22/12/2014 10:22:12 PM", Tipo.HOTEL, 1);
+    		String contrato = JOptionPane.showInputDialog (this, "Identificador del contrato?", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
+    		String persona=JOptionPane.showInputDialog(this, "Identificador del contrato?", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
+    		String fecha_inicio= JOptionPane.showInputDialog(this, "Fecha de Inicio(dd/MM/YYYY hh:mm:ss PM/AM)", "Adicionar Reserva" ,JOptionPane.QUESTION_MESSAGE);
+    		String fecha_fin=JOptionPane.showInputDialog(this, "Fecha de Finalización(dd/MM/YYYY hh:mm:ss PM/AM)", "Adicionar Reserva" ,JOptionPane.QUESTION_MESSAGE);
+    		String tipostr=JOptionPane.showInputDialog(this,"Tipo de oferta", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
+    		Tipo tipo=null; 
+    		if(tipostr.equalsIgnoreCase("hotel")) {
+    			tipo=Tipo.HOTEL; 
+    		}
+    		else if (tipostr.equalsIgnoreCase("hostal")) {
+    			tipo=Tipo.HOSTAL;
+    		}
+    		else if (tipostr.equalsIgnoreCase("vivienda_universitaria")) {
+    			tipo=Tipo.VIVENDA_UNIVERSITARIA;
+    		}
+    		else if (tipostr.equalsIgnoreCase("vivienda_familiar")) {
+    			tipo=Tipo.VIVENDA_FAMILIAR;
+    		}
+    		else if (tipostr.equalsIgnoreCase("apartamento")) {
+    			tipo=Tipo.APARTAMENTO;
+    		}
+    		else if (tipostr.equalsIgnoreCase("cliente_esporádico")) {
+    			tipo=Tipo.CLIENTE_ESPORADICO;
+    		}
+    		String cliente=JOptionPane.showInputDialog(this,"ID cliente", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
+    		if(contrato!=null && fecha_inicio!=null&&fecha_fin!=null&&persona!=null&&tipo!=null && cliente!=null) {
+        		VOReserva tb = parranderos.adicionarReserva(Integer.parseInt(contrato), Integer.parseInt(persona),fecha_inicio, fecha_fin, "23/01/2015 10:22:12 PM", "22/12/2014 10:22:12 PM", tipo, Integer.parseInt(cliente));
         		if (tb == null)
         		{
-        			throw new Exception ("No se pudo crear un tipo de bebida con nombre: " + nombreTipo);
+        			throw new Exception ("No se pudo crear la Reserva: ");
         		}
-        		String resultado = "En adicionarTipoBebida\n\n";
-        		resultado += "Tipo de bebida adicionado exitosamente: " + tb;
+        		String resultado = "En adicionarReserva\n\n";
+        		resultado += "Reserva adicionada exitosamente: " + tb;
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
     		}
@@ -662,12 +688,72 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		} 
     	catch (Exception e) 
     	{
-//			e.printStackTrace();
+    		e.printStackTrace();
 			String resultado = generarMensajeError(e);
 			panelDatos.actualizarInterfaz(resultado);
 		}
     }
 
+    
+    public void eliminarReservaPorId( )
+    {
+    	try 
+    	{
+    		String id = JOptionPane.showInputDialog (this, "Id de la reserva", "Borrar reserva por Id", JOptionPane.QUESTION_MESSAGE);
+    		if (id != null)
+    		{
+    			long idRes = Long.valueOf (id);
+    			long tbEliminados = parranderos.eliminarReservaPorId(idRes);
+
+    			String resultado = "En eliminar TipoBebida\n\n";
+    			resultado += tbEliminados + " Tipos de bebida eliminados\n";
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+    		e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+    
+	/* ****************************************************************
+	 * 			CRUD de OFERTA
+	 *****************************************************************/
+    public void eliminarOfertaPorId( )
+    {
+    	try 
+    	{
+    		String id = JOptionPane.showInputDialog (this, "Id de la Oferta", "Borrar reserva por Id", JOptionPane.QUESTION_MESSAGE);
+    		if (id != null)
+    		{
+    			long idCont = Long.valueOf (id);
+    			long tbEliminados = parranderos.eliminarContratoPorId(idCont);
+
+    			String resultado = "En eliminar TipoBebida\n\n";
+    			resultado += tbEliminados + " Tipos de bebida eliminados\n";
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+    		e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+    
     
     
 	/* ****************************************************************
@@ -681,7 +767,6 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     {
         try
         {
-        	
             // Unifica la interfaz para Mac y para Windows.
             UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName( ) );
             InterfazParranderosApp interfaz = new InterfazParranderosApp( );

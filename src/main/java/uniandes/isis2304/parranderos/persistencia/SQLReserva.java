@@ -62,7 +62,7 @@ public class SQLReserva {
 	 */
 	public long adicionarReserva (PersistenceManager pm, long id, long id_contrato, int personas, String fecha_inicio, String fecha_fin, String fecha_limite, String fecha_realizacion, Tipo tipo, long id_cliente) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReserva() + "(id, id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReserva() + "(ID,ID_CONTRATO,PERSONAS,FECHA_INICIO,FECHA_FIN,FECHA_LIMITE,FECHA_REALIZACIOM,TIPO,ID_CLIENTE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         q.setParameters(id, id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);
         return (long) q.executeUnique();            
 	}
@@ -108,17 +108,6 @@ public class SQLReserva {
 		q.setResultClass(Reserva.class);
 		return (List<Reserva>) q.executeList();
 	}
-	
-	/**
-	 * Consulta las 20 ofertas más populares de la base de datos
-	 * @param pm - El manejador de la persistencia
-	 * @return 
-	 */
-	public long dar20Reservas (PersistenceManager pm)
-	{
-        Query q = pm.newQuery(SQL, "SELECT * FROM CONTRATO CTS JOIN (SELECT ID_CONTRATO, VECES FROM (SELECT ID_CONTRATO, COUNT(ID_CONTRATO) AS VECES FROM RESERVA GROUP BY ID_CONTRATO ORDER BY VECES DESC) WHERE ROWNUM<=20) POP ON CTS.ID=POP.ID_CONTRATO");
-        return (long) q.executeUnique();   
-    }
 	
 	
 }

@@ -5,24 +5,16 @@
 	"bannerPath": "./src/main/resources/config/logo.png",
 	"menuBar":
 	[
-		{ "menuTitle": "TipoBebida",
-		  "options":
+		{ "menuTitle": "Reserva",
+		  		"options":
 			[
 				{
 					"label": "Adicionar",
-					"event": "adicionarTipoBebida"
-				},
-				{
-					"label": "Listar",
-					"event": "listarTipoBebida"
+					"event": "adicionarReserva"
 				},
 				{
 					"label": "Borrar por Id",
-					"event": "eliminarTipoBebidaPorId"
-				},
-				{
-					"label": "Buscar por Nombre",
-					"event": "buscarTipoBebidaPorNombre"
+					"event": "eliminarReservaPorId"
 				}
 			]
 		},
@@ -77,19 +69,6 @@
 				{
 					"label": "Javadoc Parranderos",
 					"event": "mostrarJavadoc"
-				}
-			]
-		},
-			{ "menuTitle": "Reserva",
-		  		"options":
-			[
-				{
-					"label": "Adicionar",
-					"event": "adicionarReserva"
-				},
-				{
-					"label": "Borrar por Id",
-					"event": "eliminarReservaPorId"
 				}
 			]
 		},		

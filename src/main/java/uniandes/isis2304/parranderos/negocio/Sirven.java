@@ -25,7 +25,7 @@ package uniandes.isis2304.parranderos.negocio;
  * 
  * @author Germán Bravo
  */
-public class Sirven implements VOSirven
+public class Sirven
 {
 	/* ****************************************************************
 	 * 			Atributos

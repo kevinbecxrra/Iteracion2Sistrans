@@ -27,7 +27,7 @@ import java.sql.Timestamp;
  * 
  * @author Germán Bravo
  */
-public class Visitan implements VOVisitan
+public class Visitan
 {
 	/* ****************************************************************
 	 * 			Atributos

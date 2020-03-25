@@ -24,7 +24,7 @@ package uniandes.isis2304.parranderos.negocio;
  * 
  * @author Germán Bravo
  */
-public class Gustan implements VOGustan
+public class Gustan
 {
 	/* ****************************************************************
 	 * 			Atributos
