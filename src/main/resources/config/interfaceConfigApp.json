@@ -18,6 +18,15 @@
 				}
 			]
 		},
+		{ "menuTitle": "Oferta",
+		  		"options":
+			[
+				{
+					"label": "Borrar por Id",
+					"event": "eliminarOfertaPorId"
+				}
+			]
+		},
 		{ "menuTitle": "Mantenimiento",
 		  "options":
 			[
