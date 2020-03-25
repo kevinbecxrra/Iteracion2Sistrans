@@ -1,48 +1,79 @@
-package uniandes.isis2304.alohandes.negocio;
+package uniandes.isis2304.parranderos.negocio;
 
-import uniandes.isis2304.alohandes.negocio.Reserva.Tipo;
+import uniandes.isis2304.parranderos.negocio.Reserva.Tipo;
 
+/**
+ * Interfaz para los métodos get de RESERVA.
+ * Sirve para proteger la información del negocio de posibles manipulaciones desde la interfaz 
+ * 
+ */
 public interface VOReserva {
+
+
+	/* ****************************************************************
+	 * 			Métodos
+	 *****************************************************************/
+	
 	/**
-	 * @return El id del tipo de bebida
+	 * @return  El id de la reserva
+	 */
+	public long getId();
+	
+	/**
+	 * @return El id del Contrato de la reserva
 	 */
 	public long getId_contrato();
 
-	public long getId() ;
-	
-	public int getPersonas() ;
-	
-	public String getFecha_inicio() ;
-	
-	public String getFecha_fin();
-	
-	public String getFecha_limite();
-	
-	public String getFecha_realizacion() ;
-	
-	public Tipo getTipo();
+
 	/**
-	 * @return El nombre del tipo de bebida
+	 * 
+	 * @return Cantidad de personas que ocupan la reserva
 	 */
-	
+	public int getPersonas() ;
+
+	/**
+	 * 
+	 * @return Fecha de inicio de la reserva
+	 */
+	public String getFecha_inicio() ;
+
+	/**
+	 * 
+	 * @return Fecha de fin de la reserva
+	 */
+	public String getFecha_fin();
+
+	/**
+	 * 
+	 * @return Fecha límite para entregarla con descuento
+	 */
+	public String getFecha_limite();
+
+	/**
+	 * 
+	 * @return Fecha de realizacion de la reserva
+	 */
+	public String getFecha_realizacion() ;
+
+	/**
+	 * 
+	 * @return Tipo de alojamiento para la reserva actual
+	 */
+	public Tipo getTipo();
+
+	/**
+	 * @return El id del cliente
+	 */
 	public long getId_cliente();
-	
-	
-
-
 
 
 	/**
-	 * @return Una cadena de caracteres con la información del tipo de bebida
+	 * @return Una cadena de caracteres con la información de la reserva
 	 */
 	@Override
 	public String toString(); 
 
-	/**
-	 * Define la igualdad dos Tipos de bebida
-	 * @param tb - El tipo de bebida a comparar
-	 * @return true si tienen el mismo identificador y el mismo nombre
-	 */
+
 	@Override
 	public boolean equals (Object tb); 
 }

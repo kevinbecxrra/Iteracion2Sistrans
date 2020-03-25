@@ -4,3 +4,75 @@
 17:49:19,884 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
 17:49:19,884 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
 17:49:19,896 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+18:25:13,459 (main) INFO  [uniandes.isis2304.parranderos.test.TipoBebidaTest] - Probando las operaciones CRD sobre Reserva
+18:25:13,499 (main) INFO  [uniandes.isis2304.parranderos.test.TipoBebidaTest] - Se encontró un archivo de configuración de tablas válido
+18:25:17,263 (main) INFO  [uniandes.isis2304.parranderos.test.TipoBebidaTest] - Prueba de CRD de Reserva incompleta. No se pudo conectar a la base de datos !!. La excepción generada es: javax.jdo.JDOFatalUserException
+18:25:17,263 (main) INFO  [uniandes.isis2304.parranderos.test.TipoBebidaTest] - La causa es: javax.jdo.JDOFatalDataStoreException: ORA-01017: invalid username/password; logon denied
+
+NestedThrowables:
+java.sql.SQLException: ORA-01017: invalid username/password; logon denied
+
+18:25:38,067 (main) INFO  [uniandes.isis2304.parranderos.test.TipoBebidaTest] - Probando las operaciones CRD sobre Reserva
+18:25:38,103 (main) INFO  [uniandes.isis2304.parranderos.test.TipoBebidaTest] - Se encontró un archivo de configuración de tablas válido
+18:25:40,491 (main) INFO  [uniandes.isis2304.parranderos.test.TipoBebidaTest] - Prueba de CRD de Reserva incompleta. No se pudo conectar a la base de datos !!. La excepción generada es: javax.jdo.JDOFatalUserException
+18:25:40,491 (main) INFO  [uniandes.isis2304.parranderos.test.TipoBebidaTest] - La causa es: javax.jdo.JDOFatalDataStoreException: ORA-01017: invalid username/password; logon denied
+
+NestedThrowables:
+java.sql.SQLException: ORA-01017: invalid username/password; logon denied
+
+18:25:45,011 (main) INFO  [uniandes.isis2304.parranderos.test.TipoBebidaTest] - Probando las operaciones CRD sobre Reserva
+18:25:45,047 (main) INFO  [uniandes.isis2304.parranderos.test.TipoBebidaTest] - Se encontró un archivo de configuración de tablas válido
+18:25:47,025 (main) INFO  [uniandes.isis2304.parranderos.test.TipoBebidaTest] - Prueba de CRD de Reserva incompleta. No se pudo conectar a la base de datos !!. La excepción generada es: javax.jdo.JDOFatalUserException
+18:25:47,026 (main) INFO  [uniandes.isis2304.parranderos.test.TipoBebidaTest] - La causa es: javax.jdo.JDOFatalDataStoreException: ORA-01017: invalid username/password; logon denied
+
+NestedThrowables:
+java.sql.SQLException: ORA-01017: invalid username/password; logon denied
+
+18:29:04,068 (main) INFO  [uniandes.isis2304.parranderos.test.ConexionTest] - Probando el acceso a la base de datos con datos de usuario correctos, pero sin crear el esquema
+18:29:04,110 (main) INFO  [uniandes.isis2304.parranderos.test.ConexionTest] - Se encontró un archivo de configuración de tablas válido
+18:29:08,096 (main) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando Tipos de bebida
+18:29:08,506 (main) INFO  [uniandes.isis2304.parranderos.test.ConexionTest] - Prueba de tabla inexistente correcta. La excepción generada es: javax.jdo.JDODataStoreException
+18:29:08,506 (main) INFO  [uniandes.isis2304.parranderos.test.ConexionTest] - La causa es: java.sql.SQLSyntaxErrorException: ORA-00942: la tabla o vista no existe
+
+18:29:08,506 (main) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Limpiando la BD de Parranderos
+18:29:09,815 (main) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : Error con la ejecucion de Query de SQL "DELETE FROM B_CONTRATO_CLIENTE_ESPORADICO".
+ORA-00942: la tabla o vista no existe
+
+18:29:10,291 (main) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Limpiando la BD de Parranderos: Listo!
+18:29:11,874 (main) INFO  [uniandes.isis2304.parranderos.test.ConexionTest] - Probando el acceso a la base de datos con una base de datos que no existe
+18:29:11,876 (main) INFO  [uniandes.isis2304.parranderos.test.ConexionTest] - Se encontró un archivo de configuración de tablas válido
+18:29:12,277 (main) INFO  [uniandes.isis2304.parranderos.test.ConexionTest] - Prueba realizada exitosamente. La excepción generada es: javax.jdo.JDOFatalUserException
+18:29:12,277 (main) INFO  [uniandes.isis2304.parranderos.test.ConexionTest] - La causa es: javax.jdo.JDOFatalDataStoreException: Listener refused the connection with the following error:
+ORA-12505, TNS:listener does not currently know of SID given in connect descriptor
+ 
+NestedThrowables:
+java.sql.SQLException: Listener refused the connection with the following error:
+ORA-12505, TNS:listener does not currently know of SID given in connect descriptor
+ 
+18:29:12,278 (main) INFO  [uniandes.isis2304.parranderos.test.ConexionTest] - Probando el acceso a la base de datos con datos de usuario incorrectos
+18:29:12,278 (main) INFO  [uniandes.isis2304.parranderos.test.ConexionTest] - Se encontró un archivo de configuración de tablas válido
+18:29:16,532 (main) INFO  [uniandes.isis2304.parranderos.test.ConexionTest] - Prueba realizada exitosamente. La excepción generada es: javax.jdo.JDOFatalUserException
+18:29:16,532 (main) INFO  [uniandes.isis2304.parranderos.test.ConexionTest] - La causa es: javax.jdo.JDOFatalDataStoreException: ORA-01017: invalid username/password; logon denied
+
+NestedThrowables:
+java.sql.SQLException: ORA-01017: invalid username/password; logon denied
+
+18:29:16,533 (main) INFO  [uniandes.isis2304.parranderos.test.ConexionTest] - Probando el acceso a la base de datos con datos válidos (BD, credenciales, esquema
+18:29:16,534 (main) INFO  [uniandes.isis2304.parranderos.test.ConexionTest] - Se encontró un archivo de configuración de tablas válido
+18:29:17,366 (main) INFO  [uniandes.isis2304.parranderos.test.ConexionTest] - Conexión realizada correstamente
+18:29:17,366 (main) INFO  [uniandes.isis2304.parranderos.test.ConexionTest] - Cerrando la conexión
+18:29:17,404 (main) INFO  [uniandes.isis2304.parranderos.test.ConexionTest] - Conexión cerrada
+18:29:25,007 (main) INFO  [uniandes.isis2304.parranderos.test.TipoBebidaTest] - Probando las operaciones CRD sobre Reserva
+18:29:25,048 (main) INFO  [uniandes.isis2304.parranderos.test.TipoBebidaTest] - Se encontró un archivo de configuración de tablas válido
+18:29:27,094 (main) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Reserva
+18:29:27,270 (main) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Reserva 0 existentes
+18:29:27,270 (main) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva
+18:29:27,931 (main) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : Error con la ejecucion de Query de SQL "INSERT INTO RESERVA(id, id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente) values (?, ?, ?, ?, ?, ?, ?, ?, ?)".
+Tipo de columna no válido
+18:29:28,000 (main) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando bebida: null
+18:29:28,000 (main) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Reserva
+18:29:28,115 (main) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Reserva 0 existentes
+18:50:16,026 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+18:50:16,027 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+18:50:16,061 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+18:50:40,662 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Tipos de bebida

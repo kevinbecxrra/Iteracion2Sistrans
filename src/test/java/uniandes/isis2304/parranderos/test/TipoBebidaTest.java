@@ -13,7 +13,7 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
-package uniandes.isis2304.alohandes.test;
+package uniandes.isis2304.parranderos.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -33,17 +33,17 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
-import uniandes.isis2304.alohandes.negocio.Alohandes;
-import uniandes.isis2304.alohandes.negocio.Reserva;
-import uniandes.isis2304.alohandes.negocio.Reserva.Tipo;
-import uniandes.isis2304.alohandes.negocio.VOReserva;
+import uniandes.isis2304.parranderos.negocio.Parranderos;
+import uniandes.isis2304.parranderos.negocio.Reserva;
+import uniandes.isis2304.parranderos.negocio.Reserva.Tipo;
+import uniandes.isis2304.parranderos.negocio.VOReserva;
 
 /**
  * Clase con los métdos de prueba de funcionalidad sobre Reserva
  * @author Germán Bravo
  *
  */
-public class ReservaTest
+public class TipoBebidaTest
 {
 	/* ****************************************************************
 	 * 			Constantes
@@ -51,7 +51,7 @@ public class ReservaTest
 	/**
 	 * Logger para escribir la traza de la ejecución
 	 */
-	private static Logger log = Logger.getLogger(ReservaTest.class.getName());
+	private static Logger log = Logger.getLogger(TipoBebidaTest.class.getName());
 	
 	/**
 	 * Ruta al archivo de configuración de los nombres de tablas de la base de datos: La unidad de persistencia existe y el esquema de la BD también
@@ -69,7 +69,7 @@ public class ReservaTest
 	/**
 	 * La clase que se quiere probar
 	 */
-    private Alohandes alohandes;
+    private Parranderos parranderos;
     
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
 
@@ -89,7 +89,7 @@ public class ReservaTest
 		try
 		{
 			log.info ("Probando las operaciones CRD sobre Reserva");
-			alohandes = new Alohandes (openConfig (CONFIG_TABLAS_A));
+			parranderos = new Parranderos (openConfig (CONFIG_TABLAS_A));
 		}
 		catch (Exception e)
 		{
@@ -107,7 +107,7 @@ public class ReservaTest
     	try
 		{
 			// Lectura de los tipos de bebida con la tabla vacía
-			List <VOReserva> lista = alohandes.darVOReserva();
+			List <VOReserva> lista = parranderos.darVOReserva();
 			assertEquals ("No debe haber tipos de bebida creados!!", 0, lista.size ());
 
 			// Lectura de los tipos de bebida con un tipo de bebida adicionado
@@ -116,8 +116,8 @@ public class ReservaTest
 			int personas = 20;
 			Tipo tipo = Tipo.HOTEL;
 			String fecha_inicio= "23/12/2014 10:22:12 PM";
-			VOReserva Reserva1 = alohandes.adicionarReserva(idContrato, personas, fecha_inicio, fecha_inicio, fecha_inicio, fecha_inicio, tipo, idCliente);
-			lista = alohandes.darVOReserva();
+			VOReserva Reserva1 = parranderos.adicionarReserva(idContrato, personas, fecha_inicio, fecha_inicio, fecha_inicio, fecha_inicio, tipo, idCliente);
+			lista = parranderos.darVOReserva();
 			assertEquals ("Debe haber un tipo de bebida creado !!", 1, lista.size ());
 			assertEquals ("El objeto creado y el traido de la BD deben ser iguales !!", Reserva1, lista.get (0));
 			}catch (Exception e) {
@@ -127,24 +127,24 @@ public class ReservaTest
 
 //			// Lectura de los tipos de bebida con dos tipos de bebida adicionados
 //			String nombreReserva2 = "Cerveza";
-//			VOReserva Reserva2 = alohandes.adicionarReserva (nombreReserva2);
-//			lista = alohandes.darVOTiposBebida();
+//			VOReserva Reserva2 = parranderos.adicionarReserva (nombreReserva2);
+//			lista = parranderos.darVOTiposBebida();
 //			assertEquals ("Debe haber dos tipos de bebida creados !!", 2, lista.size ());
 //			assertTrue ("El primer tipo de bebida adicionado debe estar en la tabla", Reserva1.equals (lista.get (0)) || Reserva1.equals (lista.get (1)));
 //			assertTrue ("El segundo tipo de bebida adicionado debe estar en la tabla", Reserva2.equals (lista.get (0)) || Reserva2.equals (lista.get (1)));
 //
 //			// Prueba de eliminación de un tipo de bebida, dado su identificador
-//			long tbEliminados = alohandes.eliminarReservaPorId (Reserva1.getId ());
+//			long tbEliminados = parranderos.eliminarReservaPorId (Reserva1.getId ());
 //			assertEquals ("Debe haberse eliminado un tipo de bebida !!", 1, tbEliminados);
-//			lista = alohandes.darVOTiposBebida();
+//			lista = parranderos.darVOTiposBebida();
 //			assertEquals ("Debe haber un solo tipo de bebida !!", 1, lista.size ());
 //			assertFalse ("El primer tipo de bebida adicionado NO debe estar en la tabla", Reserva1.equals (lista.get (0)));
 //			assertTrue ("El segundo tipo de bebida adicionado debe estar en la tabla", Reserva2.equals (lista.get (0)));
 //			
 //			// Prueba de eliminación de un tipo de bebida, dado su identificador
-//			tbEliminados = alohandes.eliminarReservaPorNombre (nombreReserva2);
+//			tbEliminados = parranderos.eliminarReservaPorNombre (nombreReserva2);
 //			assertEquals ("Debe haberse eliminado un tipo de bebida !!", 1, tbEliminados);
-//			lista = alohandes.darVOTiposBebida();
+//			lista = parranderos.darVOTiposBebida();
 //			assertEquals ("La tabla debió quedar vacía !!", 0, lista.size ());
 //		}
 //		catch (Exception e)
@@ -158,8 +158,8 @@ public class ReservaTest
 //		}
 //		finally
 //		{
-//			alohandes.limpiarAlohandes ();
-//    		alohandes.cerrarUnidadPersistencia ();    		
+//			parranderos.limpiarparranderos ();
+//    		parranderos.cerrarUnidadPersistencia ();    		
 //		}
 //	}
 //
@@ -173,7 +173,7 @@ public class ReservaTest
 //		try
 //		{
 //			log.info ("Probando la restricción de UNICIDAD del nombre del tipo de bebida");
-//			alohandes = new Alohandes (openConfig (CONFIG_TABLAS_A));
+//			parranderos = new parranderos (openConfig (CONFIG_TABLAS_A));
 //		}
 //		catch (Exception e)
 //		{
@@ -191,16 +191,16 @@ public class ReservaTest
 //		try
 //		{
 //			// Lectura de los tipos de bebida con la tabla vacía
-//			List <VOReserva> lista = alohandes.darVOTiposBebida();
+//			List <VOReserva> lista = parranderos.darVOTiposBebida();
 //			assertEquals ("No debe haber tipos de bebida creados!!", 0, lista.size ());
 //
 //			// Lectura de los tipos de bebida con un tipo de bebida adicionado
 //			String nombreReserva1 = "Vino tinto";
-//			VOReserva Reserva1 = alohandes.adicionarReserva (nombreReserva1);
-//			lista = alohandes.darVOTiposBebida();
+//			VOReserva Reserva1 = parranderos.adicionarReserva (nombreReserva1);
+//			lista = parranderos.darVOTiposBebida();
 //			assertEquals ("Debe haber un tipo de bebida creado !!", 1, lista.size ());
 //
-//			VOReserva Reserva2 = alohandes.adicionarReserva (nombreReserva1);
+//			VOReserva Reserva2 = parranderos.adicionarReserva (nombreReserva1);
 //			assertNull ("No puede adicionar dos tipos de bebida con el mismo nombre !!", Reserva2);
 //		}
 //		catch (Exception e)
@@ -214,8 +214,8 @@ public class ReservaTest
 //		}    				
 //		finally
 //		{
-//			alohandes.limpiarAlohandes();
-//    		alohandes.cerrarUnidadPersistencia ();    		
+//			parranderos.limpiarparranderos();
+//    		parranderos.cerrarUnidadPersistencia ();    		
 //		}
 //	}
 

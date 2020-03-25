@@ -47,6 +47,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.parranderos.negocio.Parranderos;
+import uniandes.isis2304.parranderos.negocio.Reserva;
+import uniandes.isis2304.parranderos.negocio.Reserva.Tipo;
+import uniandes.isis2304.parranderos.negocio.VOReserva;
 import uniandes.isis2304.parranderos.negocio.VOTipoBebida;
 
 /**
@@ -629,6 +632,43 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			e.printStackTrace();
 		} 
 	}
+    
+    
+	/* ****************************************************************
+	 * 			CRUD de TipoBebida
+	 *****************************************************************/
+    /**
+     * Adiciona un tipo de bebida con la información dada por el usuario
+     * Se crea una nueva tupla de tipoBebida en la base de datos, si un tipo de bebida con ese nombre no existía
+     */
+    public void adicionarReserva( )
+    {
+    	try 
+    	{
+        		VOReserva tb = parranderos.adicionarReserva(1, 20, "23/12/2014 10:22:12 PM", "23/02/2015 10:22:12 PM", "23/01/2015 10:22:12 PM", "22/12/2014 10:22:12 PM", Tipo.HOTEL, 1);
+        		if (tb == null)
+        		{
+        			throw new Exception ("No se pudo crear un tipo de bebida con nombre: " + nombreTipo);
+        		}
+        		String resultado = "En adicionarTipoBebida\n\n";
+        		resultado += "Tipo de bebida adicionado exitosamente: " + tb;
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+
+    
     
 	/* ****************************************************************
 	 * 			Programa principal

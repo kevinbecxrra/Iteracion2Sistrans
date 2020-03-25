@@ -1,16 +1,17 @@
-package uniandes.isis2304.alohandes.persistencia;
+package uniandes.isis2304.parranderos.persistencia;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import uniandes.isis2304.alohandes.negocio.Reserva;
-import uniandes.isis2304.alohandes.negocio.Reserva.Tipo;
+import uniandes.isis2304.parranderos.negocio.Reserva;
+import uniandes.isis2304.parranderos.negocio.Reserva.Tipo;
+
+
 
 /**
- * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto RESERVA de Alohandes
+ * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto RESERVA de Parranderos
  * Nótese que es una clase que es sólo conocida en el paquete de persistencia
  * 
  * @author Kevin Becerra - Christian Forigua
@@ -24,7 +25,7 @@ public class SQLReserva {
 	 * Cadena que representa el tipo de consulta que se va a realizar en las sentencias de acceso a la base de datos
 	 * Se renombra acá para facilitar la escritura de las sentencias
 	 */
-	private final static String SQL = PersistenciaAlohandes.SQL;
+	private final static String SQL = PersistenciaParranderos.SQL;
 	
 	/* ****************************************************************
 	 * 			Atributos
@@ -32,7 +33,7 @@ public class SQLReserva {
 	/**
 	 * El manejador de persistencia general de la aplicación
 	 */
-	private PersistenciaAlohandes pp;
+	private PersistenciaParranderos pp;
 
 	/* ****************************************************************
 	 * 			Métodos
@@ -41,17 +42,22 @@ public class SQLReserva {
 	 * Constructor
 	 * @param pp - El Manejador de persistencia de la aplicación
 	 */
-	public SQLReserva(PersistenciaAlohandes pp) {
+	public SQLReserva(PersistenciaParranderos pp) {
 		this.pp = pp;
 	}
 	
 	/**
-	 * Crea y ejecuta la sentencia SQL para adicionar una BEBIDA a la base de datos de Parranderos
+	 * Crea y ejecuta la sentencia SQL para adicionar una RESERVA a la base de datos de Alohandes
 	 * @param pm - El manejador de persistencia
-	 * @param idBebida - El identificador de la bebida
-	 * @param nombre - El nombre de la bebida
-	 * @param idTipoBebida - El identificador del tipo de bebida de la bebida
-	 * @param gradoAlcohol - El grado de alcohol de la bebida (Mayor que 0)
+	 * @param id - Id de la reserva
+	 * @param id_contrato - Id del contrato
+	 * @param personas - Cantidad de persona para la reserva
+	 * @param fecha_inicio - Fecha de inicio de la reserva
+	 * @param fecha_fin - Fecha de fin de la reserva
+	 * @param fecha_limite - Fecha de limite para entregar con descuento
+	 * @param fecha_realizacion - Fecha de realizacion de la reserva
+	 * @param tipo -  Tipo de alojamiento a reservar
+	 * @param id_cliente -  Id de cliente 
 	 * @return EL número de tuplas insertadas
 	 */
 	public long adicionarReserva (PersistenceManager pm, long id, long id_contrato, int personas, String fecha_inicio, String fecha_fin, String fecha_limite, String fecha_realizacion, Tipo tipo, long id_cliente) 
@@ -62,7 +68,7 @@ public class SQLReserva {
 	}
 	
 	/**
-	 * Crea y ejecuta la sentencia SQL para eliminar RESERVAS de la base de datos de Alohandes, por su identificador
+	 * Crea y ejecuta la sentencia SQL para eliminar RESERVAS de la base de datos de Parranderos, por su identificador
 	 * @param pm - El manejador de persistencia
 	 * @param idBebida - El identificador de la reserva
 	 * @return EL número de tuplas eliminadas
@@ -75,7 +81,7 @@ public class SQLReserva {
 	}
 	
 	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de UN TIPO DE BEBIDA de la 
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de UNA RESERVA de la 
 	 * base de datos de Alohandes, por su identificador
 	 * @param pm - El manejador de persistencia
 	 * @param idReserva - El identificador de la reserva
@@ -103,11 +109,15 @@ public class SQLReserva {
 		return (List<Reserva>) q.executeList();
 	}
 	
-	
+	/**
+	 * Consulta las 20 ofertas más populares de la base de datos
+	 * @param pm - El manejador de la persistencia
+	 * @return 
+	 */
 	public long dar20Reservas (PersistenceManager pm)
 	{
-        Query q = pm.newQuery(SQL, "SELECT CONTRATO_ID FROM ( SELECT CONTRATO_ID,COUNT(CONTRATO_ID) AS VECES FROM" + pp.darTablaReserva () + "GROUP_BY CONTRATO_ID ORDER BY VECES DESC ) WHERE ROWNUM<=20");
-        return (long) q.executeUnique();            
+        Query q = pm.newQuery(SQL, "SELECT * FROM CONTRATO CTS JOIN (SELECT ID_CONTRATO, VECES FROM (SELECT ID_CONTRATO, COUNT(ID_CONTRATO) AS VECES FROM RESERVA GROUP BY ID_CONTRATO ORDER BY VECES DESC) WHERE ROWNUM<=20) POP ON CTS.ID=POP.ID_CONTRATO");
+        return (long) q.executeUnique();   
     }
 	
 	

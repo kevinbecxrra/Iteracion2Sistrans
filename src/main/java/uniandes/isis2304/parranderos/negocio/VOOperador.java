@@ -16,12 +16,11 @@
 package uniandes.isis2304.parranderos.negocio;
 
 /**
- * Interfaz para los métodos get de GUSTAN.
+ * Interfaz para los métodos get de Operador
  * Sirve para proteger la información del negocio de posibles manipulaciones desde la interfaz 
  * 
- * @author Germán Bravo
  */
-public interface VOGustan 
+public interface VOOperador
 {
 	/* ****************************************************************
 	 * 			Métodos
@@ -29,12 +28,12 @@ public interface VOGustan
 	/**
 	 * @return El idBebedor
 	 */
-	public long getIdBebedor();
+	public long getId();
 
 	/**
 	 * @return El idBebida
 	 */
-	public long getIdBebida();
+	public String getNombre();
 	
 	/** 
 	 * @return Una cadena con la información básica
@@ -42,4 +41,6 @@ public interface VOGustan
 	@Override
 	public String toString();
 	
+	@Override
+	public boolean equals (Object tb); 
 }
