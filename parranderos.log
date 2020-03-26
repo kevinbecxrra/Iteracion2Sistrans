@@ -76,6 +76,7 @@ Tipo de columna no válido
 18:50:16,027 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
 18:50:16,061 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
 18:50:40,662 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Tipos de bebida
+<<<<<<< Updated upstream
 12:40:11,909 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
 12:40:11,910 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
 12:40:11,938 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
@@ -389,3 +390,11 @@ ORA-02290: restricción de control (ISIS2304C032010.CK_TIPORESERVA) violada
 21:33:44,567 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
 21:35:55,993 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva
 21:35:57,246 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando bebida: Reserva [id=118, id_contrato=3, personas=4, fecha_inicio=10/04/2020 11:45:12, fecha_fin=10/06/2020 11:45:37, fecha_limite=28/03/2020 09:35:38, fecha_realizacion=25/03/2020 09:35:38, tipo=HOTEL, id_cliente=4]
+=======
+13:22:58,631 (main) INFO  [uniandes.isis2304.parranderos.test.TipoBebidaTest] - Probando las operaciones CRD sobre Reserva
+13:22:58,682 (main) INFO  [uniandes.isis2304.parranderos.test.TipoBebidaTest] - Se encontró un archivo de configuración de tablas válido
+13:23:10,843 (main) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Reserva
+13:23:57,064 (main) INFO  [uniandes.isis2304.parranderos.test.TipoBebidaTest] - Probando las operaciones CRD sobre Reserva
+13:23:57,139 (main) INFO  [uniandes.isis2304.parranderos.test.TipoBebidaTest] - Se encontró un archivo de configuración de tablas válido
+13:24:17,579 (main) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Reserva
+>>>>>>> Stashed changes

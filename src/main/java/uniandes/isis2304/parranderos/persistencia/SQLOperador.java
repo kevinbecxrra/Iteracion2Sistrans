@@ -94,7 +94,7 @@ public class SQLOperador{
 	 * @param pm - El manejador de persistencia
 	 * @return Una lista de objetos Operador
 	 */
-	public List<Operador> darOperador (PersistenceManager pm)
+	public List<Operador> darOperadores (PersistenceManager pm)
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaOperador());
 		q.setResultClass(Operador.class);
