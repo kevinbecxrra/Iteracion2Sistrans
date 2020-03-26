@@ -26,6 +26,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.jdo.JDODataStoreException;
@@ -48,7 +53,6 @@ import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.parranderos.negocio.Parranderos;
 import uniandes.isis2304.parranderos.negocio.Reserva;
-import uniandes.isis2304.parranderos.negocio.Reserva.Tipo;
 import uniandes.isis2304.parranderos.negocio.VOReserva;
 
 /**
@@ -646,32 +650,41 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     	try 
     	{
     		String contrato = JOptionPane.showInputDialog (this, "Identificador del contrato?", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
-    		String persona=JOptionPane.showInputDialog(this, "Identificador del contrato?", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
+    		String persona=JOptionPane.showInputDialog(this, "Número de personas", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
     		String fecha_inicio= JOptionPane.showInputDialog(this, "Fecha de Inicio(dd/MM/YYYY hh:mm:ss PM/AM)", "Adicionar Reserva" ,JOptionPane.QUESTION_MESSAGE);
     		String fecha_fin=JOptionPane.showInputDialog(this, "Fecha de Finalización(dd/MM/YYYY hh:mm:ss PM/AM)", "Adicionar Reserva" ,JOptionPane.QUESTION_MESSAGE);
+    		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss");  
+    		LocalDateTime actual = LocalDateTime.now();
+    		String fecha_realizacion=dtf.format(actual);
+    		String fecha_limite=fecha_realizacion; 
+    		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+    		Calendar c=Calendar.getInstance(); 
+    		c.setTime(sdf.parse(fecha_limite));
+    		c.add(Calendar.DATE,3);
+    		fecha_limite=sdf.format(c.getTime());
     		String tipostr=JOptionPane.showInputDialog(this,"Tipo de oferta", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
-    		Tipo tipo=null; 
+    		String tipo=null;
     		if(tipostr.equalsIgnoreCase("hotel")) {
-    			tipo=Tipo.HOTEL; 
+    			tipo="HOTEL"; 
     		}
     		else if (tipostr.equalsIgnoreCase("hostal")) {
-    			tipo=Tipo.HOSTAL;
+    			tipo="HOSTAL";
     		}
     		else if (tipostr.equalsIgnoreCase("vivienda_universitaria")) {
-    			tipo=Tipo.VIVENDA_UNIVERSITARIA;
+    			tipo="VIVIENDA_UNIVERSITARIA";
     		}
     		else if (tipostr.equalsIgnoreCase("vivienda_familiar")) {
-    			tipo=Tipo.VIVENDA_FAMILIAR;
+    			tipo="VIVIENDA_FAMILIAR";
     		}
     		else if (tipostr.equalsIgnoreCase("apartamento")) {
-    			tipo=Tipo.APARTAMENTO;
+    			tipo="APARTAMENTO";
     		}
     		else if (tipostr.equalsIgnoreCase("cliente_esporádico")) {
-    			tipo=Tipo.CLIENTE_ESPORADICO;
+    			tipo="CLIENTE_ESPORADICO";
     		}
     		String cliente=JOptionPane.showInputDialog(this,"ID cliente", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
     		if(contrato!=null && fecha_inicio!=null&&fecha_fin!=null&&persona!=null&&tipo!=null && cliente!=null) {
-        		VOReserva tb = parranderos.adicionarReserva(Integer.parseInt(contrato), Integer.parseInt(persona),fecha_inicio, fecha_fin, "23/01/2015 10:22:12 PM", "22/12/2014 10:22:12 PM", tipo, Integer.parseInt(cliente));
+        		VOReserva tb = parranderos.adicionarReserva(Integer.parseInt(contrato), Integer.parseInt(persona),fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, Integer.parseInt(cliente));
         		if (tb == null)
         		{
         			throw new Exception ("No se pudo crear la Reserva: ");
@@ -705,8 +718,8 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     			long idRes = Long.valueOf (id);
     			long tbEliminados = parranderos.eliminarReservaPorId(idRes);
 
-    			String resultado = "En eliminar TipoBebida\n\n";
-    			resultado += tbEliminados + " Tipos de bebida eliminados\n";
+    			String resultado = "En eliminar Reserva por ID\n\n";
+    			resultado += tbEliminados + " Reserva Eliminada \n";
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
     		}

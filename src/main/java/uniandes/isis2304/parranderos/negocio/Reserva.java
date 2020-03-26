@@ -11,14 +11,6 @@ public class Reserva implements VOReserva {
 	 * Enumeracion que simboliza el tipo de alojamiento a elegir
 	 *
 	 */
-	public enum  Tipo {
-		HOTEL,
-		HOSTAL,
-		VIVENDA_UNIVERSITARIA,
-		APARTAMENTO,
-		VIVENDA_FAMILIAR,
-		CLIENTE_ESPORADICO
-	}
 
 	/* ****************************************************************
 	 * 			Atributos
@@ -62,7 +54,7 @@ public class Reserva implements VOReserva {
 	/**
 	 * Tipo de alojamiento a elegir
 	 */
-	private Tipo tipo;
+	private String tipo;
 
 	/**
 	 * Id del cliente
@@ -103,7 +95,7 @@ public class Reserva implements VOReserva {
 	 * @param id_cliente - El id del cliente
 	 */
 	public Reserva(long id, long id_contrato, int personas, String fehca_inicio, String fecha_fin,
-			String fecha_limite, String fecha_realizacion, Tipo tipo, long id_cliente) {
+			String fecha_limite, String fecha_realizacion, String tipo, long id_cliente) {
 		super();
 		this.id = id;
 		this.id_contrato = id_contrato;
@@ -229,7 +221,7 @@ public class Reserva implements VOReserva {
 	 * 
 	 * @return Tipo de alojamiento para la reserva actual
 	 */
-	public Tipo getTipo() {
+	public String getTipo() {
 		return tipo;
 	}
 
@@ -237,7 +229,7 @@ public class Reserva implements VOReserva {
 	 * 
 	 * @return Tipo de alojamiento para la reserva actual
 	 */
-	public void setTipo(Tipo tipo) {
+	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 

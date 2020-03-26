@@ -1,6 +1,5 @@
 package uniandes.isis2304.parranderos.negocio;
 
-import uniandes.isis2304.parranderos.negocio.Reserva.Tipo;
 
 /**
  * Interfaz para los métodos get de RESERVA.
@@ -59,7 +58,7 @@ public interface VOReserva {
 	 * 
 	 * @return Tipo de alojamiento para la reserva actual
 	 */
-	public Tipo getTipo();
+	public String getTipo();
 
 	/**
 	 * @return El id del cliente

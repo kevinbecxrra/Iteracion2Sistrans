@@ -22,7 +22,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import com.google.gson.JsonObject;
 
-import uniandes.isis2304.parranderos.negocio.Reserva.Tipo;
 import uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos;
 
 /**
@@ -424,7 +423,7 @@ public class Parranderos
 	 * @param gradoAlcohol - El grado de alcohol de la bebida (Mayor que 0)
 	 * @return El objeto Bebida adicionado. null si ocurre alguna Excepción
 	 */
-	public Reserva adicionarReserva (long id_contrato, int personas, String fecha_inicio, String fecha_fin, String fecha_limite, String fecha_realizacion, Tipo tipo, long id_cliente)
+	public Reserva adicionarReserva (long id_contrato, int personas, String fecha_inicio, String fecha_fin, String fecha_limite, String fecha_realizacion, String tipo, long id_cliente)
 	{
 		log.info ("Adicionando reserva");
 		Reserva reserva = pp.adicionarReserva(id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);

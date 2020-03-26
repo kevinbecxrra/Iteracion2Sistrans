@@ -35,7 +35,6 @@ import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.parranderos.negocio.Parranderos;
 import uniandes.isis2304.parranderos.negocio.Reserva;
-import uniandes.isis2304.parranderos.negocio.Reserva.Tipo;
 import uniandes.isis2304.parranderos.negocio.VOReserva;
 
 /**
@@ -114,7 +113,7 @@ public class TipoBebidaTest
 			int idCliente = 1;
 			int idContrato = 1;
 			int personas = 20;
-			Tipo tipo = Tipo.HOTEL;
+			String tipo = "HOTEL";
 			String fecha_inicio= "23/12/2014 10:22:12 PM";
 			VOReserva Reserva1 = parranderos.adicionarReserva(idContrato, personas, fecha_inicio, fecha_inicio, fecha_inicio, fecha_inicio, tipo, idCliente);
 			lista = parranderos.darVOReserva();

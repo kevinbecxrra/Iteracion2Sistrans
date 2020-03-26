@@ -34,7 +34,6 @@ import com.google.gson.JsonObject;
 import uniandes.isis2304.parranderos.negocio.Contrato;
 import uniandes.isis2304.parranderos.negocio.Operador;
 import uniandes.isis2304.parranderos.negocio.Reserva;
-import uniandes.isis2304.parranderos.negocio.Reserva.Tipo;
 import uniandes.isis2304.parranderos.negocio.Sirven;
 import uniandes.isis2304.parranderos.negocio.TipoBebida;
 
@@ -1034,7 +1033,7 @@ public class PersistenciaParranderos
 	 * 			Métodos para manejar la relación RESERVA
 	 *****************************************************************/
 	
-	public Reserva adicionarReserva(long id_contrato, int personas, String fecha_inicio, String fecha_fin, String fecha_limite, String fecha_realizacion, Tipo tipo, long id_cliente) 
+	public Reserva adicionarReserva(long id_contrato, int personas, String fecha_inicio, String fecha_fin, String fecha_limite, String fecha_realizacion, String tipo, long id_cliente) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
@@ -1078,7 +1077,7 @@ public class PersistenciaParranderos
         try
         {
             tx.begin();
-            long resp = sqlContrato.eliminarContratoPorId(pm, idReserva);
+            long resp = sqlReserva.eliminarReservaPorId(pm, idReserva);
             tx.commit();
             return resp;
         }
