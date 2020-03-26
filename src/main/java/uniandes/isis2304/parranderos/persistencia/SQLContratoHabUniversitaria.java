@@ -5,16 +5,17 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import uniandes.isis2304.parranderos.negocio.Reserva;
+import uniandes.isis2304.parranderos.negocio.ContratoHabUniversitaria;
+import uniandes.isis2304.parranderos.negocio.ContratoHabUniversitaria;
 
 /**
- * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto CONTRATO_HabUniversitaria de Alohandes
+ * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto CONTRATOHABUNIVERSITARIA de Alohandes
  * Nótese que es una clase que es sólo conocida en el paquete de persistencia
  * 
  * @author Kevin Becerra - Christian Forigua
  */
 public class SQLContratoHabUniversitaria {
-	
+
 	/* ****************************************************************
 	 * 			Constantes
 	 *****************************************************************/
@@ -23,7 +24,7 @@ public class SQLContratoHabUniversitaria {
 	 * Se renombra acá para facilitar la escritura de las sentencias
 	 */
 	private final static String SQL = PersistenciaParranderos.SQL;
-	
+
 	/* ****************************************************************
 	 * 			Atributos
 	 *****************************************************************/
@@ -42,54 +43,67 @@ public class SQLContratoHabUniversitaria {
 	public SQLContratoHabUniversitaria(PersistenciaParranderos pp) {
 		this.pp = pp;
 	}
-	
+
 	/**
-	 * Crea y ejecuta la sentencia SQL para adicionar una RESERVA a la base de datos de Alohandes
+	 * Crea y ejecuta la sentencia SQL para adicionar un ContratoHabUniversitaria a la base de datos de Alohandes
 	 * @param pm - El manejador de persistencia
-	 * @param id - Id de la reserva
 	 * @param id_contrato - Id del contrato
-	 * @param personas - Cantidad de persona para la reserva
-	 * @param fecha_inicio - Fecha de inicio de la reserva
-	 * @param fecha_fin - Fecha de fin de la reserva
-	 * @param fecha_limite - Fecha de limite para entregar con descuento
-	 * @param fecha_realizacion - Fecha de realizacion de la reserva
-	 * @param tipo -  Tipo de alojamiento a reservar
-	 * @param id_cliente -  Id de cliente 
+	 * @param id_vivienda - Id de la vivienda
+	 * @param individual - Si es individual o no la hab
+	 * @param ubicacion - Numero de la hab
+	 * @param gimnasio - Tiene gimnsaio o no
+	 * @param restaurante - Tiene restaurante o no
+	 * @param sala_esparcimiento - Tiene sala de esparcimiento o no
+	 * @param sala_estudio - Tiene salas de estudio o no
 	 * @return EL número de tuplas insertadas
 	 */
-	public long adicionarContratoHabUniversitaria(PersistenceManager pm, long id, long id_contrato, int personas, String fecha_inicio, String fecha_fin, String fecha_limite, String fecha_realizacion, String tipo, long id_cliente) 
+	public long adicionarContratoHabUniversitaria(PersistenceManager pm, long id_contrato, long id_vivienda, String individual, int ubicacion, String gimnasio, String restaurante, String sala_esparcimiento, String sala_estudio) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReserva() + "(ID,ID_CONTRATO,PERSONAS,FECHA_INICIO,FECHA_FIN,FECHA_LIMITE,FECHA_REALIZACIOM,TIPO,ID_CLIENTE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        q.setParameters(id, id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);
-        return (long) q.executeUnique();            
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaContratoHabUniversitaria() + "(ID_CONTRATO,ID_VIVIENDA,UBIACCION,GIMNSAIO,RESTAURANTE,SALA_ESPARCIMIENTO,SALA_ESTUDIO) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+		q.setParameters(id_contrato, id_vivienda, individual, ubicacion, gimnasio, restaurante, sala_esparcimiento, sala_estudio);
+		return (long) q.executeUnique();            
 	}
-	
+
 	/**
-	 * Crea y ejecuta la sentencia SQL para eliminar RESERVAS de la base de datos de Parranderos, por su identificador
+	 * Crea y ejecuta la sentencia SQL para eliminar un ContratoHabUniversitaria de la base de datos de Alohandes, por su identificador
 	 * @param pm - El manejador de persistencia
-	 * @param idBebida - El identificador de la reserva
+	 * @param idContratoHabUniversitaria - El identificador del ContratoHabUniversitaria
 	 * @return EL número de tuplas eliminadas
 	 */
-	public long eliminarContratoHabUniversitariaPorId (PersistenceManager pm, long idReserva)
+	public long eliminarContratoHabUniversitariaPorId (PersistenceManager pm, long idContratoHabUniversitaria)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaReserva () + " WHERE id = ?");
-        q.setParameters(idReserva);
-        return (long) q.executeUnique();            
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaContratoHabUniversitaria () + " WHERE id = ?");
+		q.setParameters(idContratoHabUniversitaria);
+		return (long) q.executeUnique();            
 	}
-	
+
 	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de UNA RESERVA de la 
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de UN ContratoHabUniversitaria de la 
 	 * base de datos de Alohandes, por su identificador
 	 * @param pm - El manejador de persistencia
-	 * @param idReserva - El identificador de la reserva
-	 * @return El objeto RESERVA que tiene el identificador dado
+	 * @param idContratoHabUniversitaria - El identificador de la ContratoHabUniversitaria
+	 * @return El objeto ContratoHabUniversitaria que tiene el identificador dado
 	 */
-	public Reserva darContratoHabUniversitariaPorId (PersistenceManager pm, long idReserva) 
+	public ContratoHabUniversitaria darContratoHabUniversitariaPorId (PersistenceManager pm, long idContratoHabUniversitaria) 
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaReserva () + " WHERE id = ?");
-		q.setResultClass(Reserva.class);
-		q.setParameters(idReserva);
-		return (Reserva) q.executeUnique();
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaContratoHabUniversitaria () + " WHERE id = ?");
+		q.setResultClass(ContratoHabUniversitaria.class);
+		q.setParameters(idContratoHabUniversitaria);
+		return (ContratoHabUniversitaria) q.executeUnique();
 	}
-	
+
+
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS ContratosHabUniversitariaes de la 
+	 * base de datos de Alohandes
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista de objetos ContratoHabUniversitaria
+	 */
+	public List<ContratoHabUniversitaria> darContratosHabUniversitaria (PersistenceManager pm)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaContratoHabUniversitaria());
+		q.setResultClass(ContratoHabUniversitaria.class);
+		return (List<ContratoHabUniversitaria>) q.executeList();
+	}
+
 }

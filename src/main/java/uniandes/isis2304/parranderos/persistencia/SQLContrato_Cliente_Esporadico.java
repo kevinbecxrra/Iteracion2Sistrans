@@ -5,7 +5,7 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import uniandes.isis2304.parranderos.negocio.Operador;
+import uniandes.isis2304.parranderos.negocio.Contrato_Cliente_Esporadico;
 import uniandes.isis2304.parranderos.negocio.Reserva;
 
 /**
@@ -47,21 +47,21 @@ public class SQLContrato_Cliente_Esporadico {
 	/**
 	 * Crea y ejecuta la sentencia SQL para adicionar una RESERVA a la base de datos de Alohandes
 	 * @param pm - El manejador de persistencia
-	 * @param id - Id de la reserva
-	 * @param id_contrato - Id del contrato
-	 * @param personas - Cantidad de persona para la reserva
-	 * @param fecha_inicio - Fecha de inicio de la reserva
-	 * @param fecha_fin - Fecha de fin de la reserva
-	 * @param fecha_limite - Fecha de limite para entregar con descuento
-	 * @param fecha_realizacion - Fecha de realizacion de la reserva
+	 * @param id_apartamento - Id de la reserva
+	 * @param id_apartamento - Id del contrato
+	 * @param id_vivienda - Cantidad de persona para la reserva
+	 * @param cantidad_noches - Fecha de inicio de la reserva
+	 * @param costo_base - Fecha de fin de la reserva
+	 * @param costo_seguro - Fecha de limite para entregar con descuento
+	 * @param num_habitaciones - Fecha de realizacion de la reserva
 	 * @param tipo -  Tipo de alojamiento a reservar
-	 * @param id_cliente -  Id de cliente 
+	 * @param ubicacion -  Id de cliente 
 	 * @return EL número de tuplas insertadas
 	 */
-	public long adicionarContrato_Cliente_Esporadico(PersistenceManager pm, long id, long id_contrato, int personas, String fecha_inicio, String fecha_fin, String fecha_limite, String fecha_realizacion, String tipo, long id_cliente) 
+	public long adicionarContrato_Cliente_Esporadico(PersistenceManager pm, long id_contrato, long id_apartamento, long id_vivienda, int cantidad_noches, int costo_base, int costo_seguro, int num_habitaciones, String ubicacion) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReserva() + "(ID,ID_CONTRATO,PERSONAS,FECHA_INICIO,FECHA_FIN,FECHA_LIMITE,FECHA_REALIZACIOM,TIPO,ID_CLIENTE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        q.setParameters(id, id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaContrato_Cliente_Esporadico() + "(ID_CONTRATO,ID_APARTAMENTO,ID_VIVIENDA,CANTIDAD_NOCHES,COSTO_BASE,COSTO_SEGURO,NUM_HABITACIONES,UBICACION) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        q.setParameters(id_contrato, id_apartamento, id_vivienda, cantidad_noches, costo_base, costo_seguro, num_habitaciones, ubicacion);
         return (long) q.executeUnique();            
 	}
 	
@@ -71,10 +71,10 @@ public class SQLContrato_Cliente_Esporadico {
 	 * @param idBebida - El identificador de la reserva
 	 * @return EL número de tuplas eliminadas
 	 */
-	public long eliminarContrato_Cliente_EsporadicoPorId (PersistenceManager pm, long idReserva)
+	public long eliminarContrato_Cliente_EsporadicoPorId (PersistenceManager pm, long idContratoClienteEsporadico)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaReserva () + " WHERE id = ?");
-        q.setParameters(idReserva);
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaContrato_Cliente_Esporadico() + " WHERE id = ?");
+        q.setParameters(idContratoClienteEsporadico);
         return (long) q.executeUnique();            
 	}
 	
@@ -82,28 +82,28 @@ public class SQLContrato_Cliente_Esporadico {
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de UNA RESERVA de la 
 	 * base de datos de Alohandes, por su identificador
 	 * @param pm - El manejador de persistencia
-	 * @param idReserva - El identificador de la reserva
+	 * @param idContratoClienteEsporadico - El identificador de la reserva
 	 * @return El objeto RESERVA que tiene el identificador dado
 	 */
-	public Reserva darContrato_Cliente_EsporadicoPorId (PersistenceManager pm, long idReserva) 
+	public Contrato_Cliente_Esporadico darContrato_Cliente_EsporadicoPorId (PersistenceManager pm, long idContratoClienteEsporadico) 
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaReserva () + " WHERE id = ?");
-		q.setResultClass(Reserva.class);
-		q.setParameters(idReserva);
-		return (Reserva) q.executeUnique();
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaContrato_Cliente_Esporadico() + " WHERE id = ?");
+		q.setResultClass(Contrato_Cliente_Esporadico.class);
+		q.setParameters(idContratoClienteEsporadico);
+		return (Contrato_Cliente_Esporadico) q.executeUnique();
 	}
 	
 	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS Operadores de la 
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS Contrato_Cliente_Esporadicoes de la 
 	 * base de datos de Alohandes
 	 * @param pm - El manejador de persistencia
-	 * @return Una lista de objetos Operador
+	 * @return Una lista de objetos Contrato_Cliente_Esporadico
 	 */
-	public List<Operador> darOperador (PersistenceManager pm)
+	public List<Contrato_Cliente_Esporadico> darContratosClienteEsporadico (PersistenceManager pm)
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaOperador());
-		q.setResultClass(Operador.class);
-		return (List<Operador>) q.executeList();
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaContrato_Cliente_Esporadico());
+		q.setResultClass(Contrato_Cliente_Esporadico.class);
+		return (List<Contrato_Cliente_Esporadico>) q.executeList();
 	}
 	
 	

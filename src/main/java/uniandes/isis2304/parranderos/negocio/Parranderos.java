@@ -311,13 +311,13 @@ public class Parranderos
 	 */
 	public long eliminarContrato_Cliente_EsporadicoPorId (long idContratoClienteEsporadico)
 	{
-		log.info ("Eliminando Contrato_Cliente_Esporadico por id: " + idContrato_Cliente_Esporadico);
+		log.info ("Eliminando Contrato_Cliente_Esporadico por id: " + idContratoClienteEsporadico);
 		long resp = pp.eliminarContratoClienteEsporadicoPorId (idContratoClienteEsporadico);
 		log.info ("Eliminando Contrato_Cliente_Esporadico por id: " + resp + " tuplas eliminadas");
 		return resp;
 	}
 
-	public List<Contrato_Cliente_Esporadico> darContratosHabUniversitaria()
+	public List<Contrato_Cliente_Esporadico> darContratosClienteEsporadico()
 	{
 		log.info ("Consultando Contrato_Cliente_Esporadico");
 		List<Contrato_Cliente_Esporadico> contratosClienteEsporadico = pp.darContratosClienteEsporadico();	
@@ -552,16 +552,16 @@ public class Parranderos
 	 * 			Métodos para administración
 	 *****************************************************************/
 
-	/**
-	 * Elimina todas las tuplas de todas las tablas de la base de datos de Parranderos
-	 * @return Un arreglo con 7 números que indican el número de tuplas borradas en las tablas GUSTAN, SIRVEN, VISITAN, BEBIDA,
-	 * TIPOBEBIDA, BEBEDOR y BAR, respectivamente
-	 */
-	public long [] limpiarParranderos ()
-	{
-		log.info ("Limpiando la BD de Parranderos");
-		long [] borrrados = pp.limpiarParranderos();	
-		log.info ("Limpiando la BD de Parranderos: Listo!");
-		return borrrados;
-	}
+//	/**
+//	 * Elimina todas las tuplas de todas las tablas de la base de datos de Parranderos
+//	 * @return Un arreglo con 7 números que indican el número de tuplas borradas en las tablas GUSTAN, SIRVEN, VISITAN, BEBIDA,
+//	 * TIPOBEBIDA, BEBEDOR y BAR, respectivamente
+//	 */
+//	public long [] limpiarParranderos ()
+//	{
+//		log.info ("Limpiando la BD de Parranderos");
+//		long [] borrrados = pp.limpiarParranderos();	
+//		log.info ("Limpiando la BD de Parranderos: Listo!");
+//		return borrrados;
+//	}
 }

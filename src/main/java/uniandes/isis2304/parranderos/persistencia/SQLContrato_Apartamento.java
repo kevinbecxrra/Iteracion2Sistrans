@@ -15,7 +15,7 @@ import uniandes.isis2304.parranderos.negocio.Contrato_Apartamento;
  * @author Kevin Becerra - Christian Forigua
  */
 public class SQLContrato_Apartamento {
-	
+
 	/* ****************************************************************
 	 * 			Constantes
 	 *****************************************************************/
@@ -24,7 +24,7 @@ public class SQLContrato_Apartamento {
 	 * Se renombra acá para facilitar la escritura de las sentencias
 	 */
 	private final static String SQL = PersistenciaParranderos.SQL;
-	
+
 	/* ****************************************************************
 	 * 			Atributos
 	 *****************************************************************/
@@ -43,7 +43,7 @@ public class SQLContrato_Apartamento {
 	public SQLContrato_Apartamento(PersistenciaParranderos pp) {
 		this.pp = pp;
 	}
-	
+
 	/**
 	 * Crea y ejecuta la sentencia SQL para adicionar una RESERVA a la base de datos de Alohandes
 	 * @param pm - El manejador de persistencia
@@ -58,13 +58,13 @@ public class SQLContrato_Apartamento {
 	 * @param id_cliente -  Id de cliente 
 	 * @return EL número de tuplas insertadas
 	 */
-	public long adicionarContratoApartamento(PersistenceManager pm, long id, long id_contrato, int personas, String fecha_inicio, String fecha_fin, String fecha_limite, String fecha_realizacion, String tipo, long id_cliente) 
+	public long adicionarContratoApartamento(PersistenceManager pm, long id_contrato, long id_apartamento, int meses_contratados) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReserva() + "(ID,ID_CONTRATO,PERSONAS,FECHA_INICIO,FECHA_FIN,FECHA_LIMITE,FECHA_REALIZACIOM,TIPO,ID_CLIENTE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        q.setParameters(id, id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);
-        return (long) q.executeUnique();            
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaContrato_Apartamento() + "(ID_CONTRATO,ID_APARTAMENTO,MESES_CONTRATADOS) VALUES (?, ?, ?)");
+		q.setParameters(id_contrato, id_apartamento, meses_contratados);
+		return (long) q.executeUnique();             
 	}
-	
+
 	/**
 	 * Crea y ejecuta la sentencia SQL para eliminar RESERVAS de la base de datos de Parranderos, por su identificador
 	 * @param pm - El manejador de persistencia
@@ -73,11 +73,11 @@ public class SQLContrato_Apartamento {
 	 */
 	public long eliminarContratoApartamentoPorId (PersistenceManager pm, long idReserva)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaContrato_Apartamento() + " WHERE id = ?");
-        q.setParameters(idReserva);
-        return (long) q.executeUnique();            
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaContrato_Apartamento() + " WHERE id = ?");
+		q.setParameters(idReserva);
+		return (long) q.executeUnique();            
 	}
-	
+
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de UNA RESERVA de la 
 	 * base de datos de Alohandes, por su identificador
@@ -92,9 +92,9 @@ public class SQLContrato_Apartamento {
 		q.setParameters(idReserva);
 		return (Contrato_Apartamento) q.executeUnique();
 	}
-	
+
 	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS Contrato_Apartamentoes de la 
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS Contratos_Apartamentoes de la 
 	 * base de datos de Alohandes
 	 * @param pm - El manejador de persistencia
 	 * @return Una lista de objetos Contrato_Apartamento
@@ -105,6 +105,6 @@ public class SQLContrato_Apartamento {
 		q.setResultClass(Contrato_Apartamento.class);
 		return (List<Contrato_Apartamento>) q.executeList();
 	}
-	
-	
+
+
 }

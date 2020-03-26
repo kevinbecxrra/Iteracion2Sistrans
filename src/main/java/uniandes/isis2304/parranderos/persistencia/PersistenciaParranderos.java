@@ -30,6 +30,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import uniandes.isis2304.parranderos.negocio.Contrato;
+import uniandes.isis2304.parranderos.negocio.ContratoHabUniversitaria;
 import uniandes.isis2304.parranderos.negocio.Operador;
 import uniandes.isis2304.parranderos.negocio.Reserva;
 
@@ -586,6 +587,85 @@ public class PersistenciaParranderos
 
 
 
+	/* ****************************************************************
+	 * 			Métodos para manejar la relación CONTRATOHABUNIVERSITARIA
+	 *****************************************************************/
+
+	public ContratoHabUniversitaria adicionarContratoHabUniversitaria(String nombre) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();            
+			long idContratoHabUniversitaria = nextval ();
+			long tuplasInsertadas = sqlContratoHabUniversitaria.adicionarContratoHabUniversitaria(pm, idContratoHabUniversitaria, nombre);
+			tx.commit();
+
+			log.trace ("Inserción contrato: " + idContratoHabUniversitaria+ ": " + tuplasInsertadas + " tuplas insertadas");
+			return new ContratoHabUniversitaria (idContratoHabUniversitaria, nombre);
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla TipoBebida, dado el identificador del tipo de bebida
+	 * Adiciona entradas al log de la aplicación
+	 * @param idTipoBebida - El identificador del tipo de bebida
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarContratoHabUniversitariaPorId (long idContratoHabUniversitaria) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			long resp = sqlContratoHabUniversitaria.eliminarContratoHabUniversitariaPorId(pm, idContratoHabUniversitaria);
+			tx.commit();
+			return resp;
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla Bebida
+	 * @return La lista de objetos Bebida, construidos con base en las tuplas de la tabla BEBIDA
+	 */
+	public List<ContratoHabUniversitaria> darContratoHabUniversitariaes ()
+	{
+		return sqlContratoHabUniversitaria.darContratosHabUniversitaria(pmf.getPersistenceManager());
+	}
+
+	
 //
 //	/**
 //	 * Elimina todas las tuplas de todas las tablas de la base de datos de Parranderos

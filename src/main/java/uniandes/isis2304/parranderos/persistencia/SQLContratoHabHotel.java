@@ -5,10 +5,10 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import uniandes.isis2304.parranderos.negocio.Reserva;
+import uniandes.isis2304.parranderos.negocio.ContratoHabHotel;
 
 /**
- * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto CONTRATO_HabHotel de Alohandes
+ * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto CONTRATOHABHOTEL de Alohandes
  * Nótese que es una clase que es sólo conocida en el paquete de persistencia
  * 
  * @author Kevin Becerra - Christian Forigua
@@ -44,52 +44,66 @@ public class SQLContratoHabHotel {
 	}
 	
 	/**
-	 * Crea y ejecuta la sentencia SQL para adicionar una RESERVA a la base de datos de Alohandes
+	 * Crea y ejecuta la sentencia SQL para adicionar una ContratoHabHotel a la base de datos de Alohandes
 	 * @param pm - El manejador de persistencia
-	 * @param id - Id de la reserva
+	 * @param id - Id de la ContratoHabHotel
 	 * @param id_contrato - Id del contrato
-	 * @param personas - Cantidad de persona para la reserva
-	 * @param fecha_inicio - Fecha de inicio de la reserva
-	 * @param fecha_fin - Fecha de fin de la reserva
+	 * @param personas - Cantidad de persona para la ContratoHabHotel
+	 * @param fecha_inicio - Fecha de inicio de la ContratoHabHotel
+	 * @param fecha_fin - Fecha de fin de la ContratoHabHotel
 	 * @param fecha_limite - Fecha de limite para entregar con descuento
-	 * @param fecha_realizacion - Fecha de realizacion de la reserva
-	 * @param tipo -  Tipo de alojamiento a reservar
+	 * @param fecha_realizacion - Fecha de realizacion de la ContratoHabHotel
+	 * @param tipo -  Tipo de alojamiento a ContratoHabHotelr
 	 * @param id_cliente -  Id de cliente 
 	 * @return EL número de tuplas insertadas
 	 */
-	public long adicionarContratoHabHotel(PersistenceManager pm, long id, long id_contrato, int personas, String fecha_inicio, String fecha_fin, String fecha_limite, String fecha_realizacion, String tipo, long id_cliente) 
+	public long adicionarContratoHabHotel(PersistenceManager pm, long id_contrato, long id_hotel, int categoria, int tamanio, String tipo_habitacion, int ubicacion) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReserva() + "(ID,ID_CONTRATO,PERSONAS,FECHA_INICIO,FECHA_FIN,FECHA_LIMITE,FECHA_REALIZACIOM,TIPO,ID_CLIENTE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        q.setParameters(id, id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaContratoHabHotel() + "(ID_CONTRATO,ID_HOTEL,CATEGORIA, TAMANIO, TIPO_HABITACION, UBICACION) VALUES (?, ?, ?, ?, ?)");
+        q.setParameters(id_contrato, id_hotel, categoria, tamanio, tipo_habitacion, ubicacion);
         return (long) q.executeUnique();            
 	}
 	
 	/**
-	 * Crea y ejecuta la sentencia SQL para eliminar RESERVAS de la base de datos de Parranderos, por su identificador
+	 * Crea y ejecuta la sentencia SQL para eliminar un ContratoHabHotel de la base de datos de Parranderos, por su identificador
 	 * @param pm - El manejador de persistencia
-	 * @param idBebida - El identificador de la reserva
+	 * @param idBebida - El identificador del ContratoHabHotel
 	 * @return EL número de tuplas eliminadas
 	 */
-	public long eliminarContratoHabHotelPorId (PersistenceManager pm, long idReserva)
+	public long eliminarContratoHabHotelPorId (PersistenceManager pm, long idContratoHabHotel)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaReserva () + " WHERE id = ?");
-        q.setParameters(idReserva);
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaContratoHabHotel () + " WHERE id = ?");
+        q.setParameters(idContratoHabHotel);
         return (long) q.executeUnique();            
 	}
 	
 	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de UNA RESERVA de la 
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de UNA ContratoHabHotel de la 
 	 * base de datos de Alohandes, por su identificador
 	 * @param pm - El manejador de persistencia
-	 * @param idReserva - El identificador de la reserva
-	 * @return El objeto RESERVA que tiene el identificador dado
+	 * @param idContratoHabHotel - El identificador del ContratoHabHotel
+	 * @return El objeto ContratoHabHotel que tiene el identificador dado
 	 */
-	public Reserva darContratoHabHotelPorId (PersistenceManager pm, long idReserva) 
+	public ContratoHabHotel darContratoHabHotelPorId (PersistenceManager pm, long idContratoHabHotel) 
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaReserva () + " WHERE id = ?");
-		q.setResultClass(Reserva.class);
-		q.setParameters(idReserva);
-		return (Reserva) q.executeUnique();
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaContratoHabHotel () + " WHERE id = ?");
+		q.setResultClass(ContratoHabHotel.class);
+		q.setParameters(idContratoHabHotel);
+		return (ContratoHabHotel) q.executeUnique();
+	}
+	
+	
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS ContratosHabHotel de la 
+	 * base de datos de Alohandes
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista de objetos ContratoHabHotel
+	 */
+	public List<ContratoHabHotel> darContratosHabHotel (PersistenceManager pm)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaContratoHabHotel());
+		q.setResultClass(ContratoHabHotel.class);
+		return (List<ContratoHabHotel>) q.executeList();
 	}
 	
 }

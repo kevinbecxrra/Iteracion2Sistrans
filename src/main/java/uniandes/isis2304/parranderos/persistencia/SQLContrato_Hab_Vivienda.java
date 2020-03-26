@@ -5,8 +5,7 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import uniandes.isis2304.parranderos.negocio.Operador;
-import uniandes.isis2304.parranderos.negocio.Reserva;
+import uniandes.isis2304.parranderos.negocio.Contrato_Hab_Vivienda;
 
 /**
  * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto CONTRATO_Hab_Vivienda de Alohandes
@@ -58,10 +57,10 @@ public class SQLContrato_Hab_Vivienda {
 	 * @param id_cliente -  Id de cliente 
 	 * @return EL número de tuplas insertadas
 	 */
-	public long adicionarContratoHab_Vivienda(PersistenceManager pm, long id, long id_contrato, int personas, String fecha_inicio, String fecha_fin, String fecha_limite, String fecha_realizacion, String tipo, long id_cliente) 
+	public long adicionarContratoHab_Vivienda(PersistenceManager pm, long id_contrato, long id_vivienda, int meses_contratados) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReserva() + "(ID,ID_CONTRATO,PERSONAS,FECHA_INICIO,FECHA_FIN,FECHA_LIMITE,FECHA_REALIZACIOM,TIPO,ID_CLIENTE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        q.setParameters(id, id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaContrato_Hab_Vivienda() + "(ID_CONTRATO,ID_VIVIENDA,MESES_CONTRATADOS) VALUES (?, ?, ?)");
+        q.setParameters(id_contrato, id_vivienda, meses_contratados);
         return (long) q.executeUnique();            
 	}
 	
@@ -71,10 +70,10 @@ public class SQLContrato_Hab_Vivienda {
 	 * @param idBebida - El identificador de la reserva
 	 * @return EL número de tuplas eliminadas
 	 */
-	public long eliminarContratoHab_ViviendaPorId (PersistenceManager pm, long idReserva)
+	public long eliminarContratoHab_ViviendaPorId (PersistenceManager pm, long idContratoHabVivienda)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaReserva () + " WHERE id = ?");
-        q.setParameters(idReserva);
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaContrato_Hab_Vivienda() + " WHERE id = ?");
+        q.setParameters(idContratoHabVivienda);
         return (long) q.executeUnique();            
 	}
 	
@@ -85,25 +84,25 @@ public class SQLContrato_Hab_Vivienda {
 	 * @param idReserva - El identificador de la reserva
 	 * @return El objeto RESERVA que tiene el identificador dado
 	 */
-	public Reserva darContratoHab_ViviendaPorId (PersistenceManager pm, long idReserva) 
+	public Contrato_Hab_Vivienda darContratoHabViviendaPorId (PersistenceManager pm, long idContratoHabVivienda) 
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaReserva () + " WHERE id = ?");
-		q.setResultClass(Reserva.class);
-		q.setParameters(idReserva);
-		return (Reserva) q.executeUnique();
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaContrato_Hab_Vivienda() + " WHERE id = ?");
+		q.setResultClass(Contrato_Hab_Vivienda.class);
+		q.setParameters(idContratoHabVivienda);
+		return (Contrato_Hab_Vivienda) q.executeUnique();
 	}
 	
 	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS Operadores de la 
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS Contratos_Hab_Viviendaes de la 
 	 * base de datos de Alohandes
 	 * @param pm - El manejador de persistencia
-	 * @return Una lista de objetos Operador
+	 * @return Una lista de objetos Contrato_Hab_Vivienda
 	 */
-	public List<Operador> darOperador (PersistenceManager pm)
+	public List<Contrato_Hab_Vivienda> darContratosHabVivienda (PersistenceManager pm)
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaOperador());
-		q.setResultClass(Operador.class);
-		return (List<Operador>) q.executeList();
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaContrato_Hab_Vivienda());
+		q.setResultClass(Contrato_Hab_Vivienda.class);
+		return (List<Contrato_Hab_Vivienda>) q.executeList();
 	}
 	
 	
