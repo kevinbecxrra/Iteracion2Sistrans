@@ -1061,7 +1061,7 @@ public class PersistenciaParranderos
 	 * Método que consulta todas las tuplas en la tabla Bebida
 	 * @return La lista de objetos Bebida, construidos con base en las tuplas de la tabla BEBIDA
 	 */
-	public List<ContratoHabUniversitaria> darContratosHabUniversitaria()
+	public List<ContratoHabUniversitaria> darContratosHabUniversitaria() 
 	{
 		return sqlContratoHabUniversitaria.darContratosHabUniversitaria(pmf.getPersistenceManager());
 	}
