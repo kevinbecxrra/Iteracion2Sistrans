@@ -1,11 +1,14 @@
 package uniandes.isis2304.parranderos.persistencia;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.parranderos.negocio.Contrato;
+import uniandes.isis2304.parranderos.negocio.Reserva;
 
 
 
@@ -67,10 +70,24 @@ public class SQLContrato{
 	 * @param idBebida - El identificador de la Contrato
 	 * @return EL número de tuplas eliminadas
 	 */
-	public long eliminarContratoPorId (PersistenceManager pm, long idContrato)
+	public long eliminarContratoPorId (PersistenceManager pm, long idContrato) throws Exception
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaContrato () + " WHERE id = ?");
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss");  
+		LocalDateTime actual = LocalDateTime.now();
+		String fecha_actual=dtf.format(actual);
+        Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaReserva()+ " WHERE ID_CONTRATO =? AND "
+        																		+ "TO_DATE(FECHA_FIN,'DD/MM/YYYY HH24;MI:SS')<TO_DATE("+fecha_actual+",'DD/MM/YYYY HH24;MI:SS')");                                             
+        q.setResultClass(Reserva.class);
         q.setParameters(idContrato);
+        List<Reserva> reservas=q.executeList();
+        
+        if(reservas.size()>0) {
+        	throw new Exception("La oferta que quiere retirar tiene reservas vigente");
+        }
+        else {
+        	
+        }
+        
         return (long) q.executeUnique();            
 	}
 	
