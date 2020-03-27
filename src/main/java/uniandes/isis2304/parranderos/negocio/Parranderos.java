@@ -156,7 +156,7 @@ public class Parranderos
 	public long eliminarContratoPorId (long idContrato)
 	{
 		log.info ("Eliminando bebida por id: " + idContrato);
-		long resp = pp.eliminarReservaPorId (idContrato);
+		long resp = pp.eliminarContratoPorId(idContrato);
 		log.info ("Eliminando contrato por id: " + resp + " tuplas eliminadas");
 		return resp;
 	}

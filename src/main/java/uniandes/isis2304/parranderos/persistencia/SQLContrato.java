@@ -8,6 +8,11 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.parranderos.negocio.Contrato;
+import uniandes.isis2304.parranderos.negocio.ContratoHabHostal;
+import uniandes.isis2304.parranderos.negocio.ContratoHabHotel;
+import uniandes.isis2304.parranderos.negocio.Contrato_Apartamento;
+import uniandes.isis2304.parranderos.negocio.Contrato_Cliente_Esporadico;
+import uniandes.isis2304.parranderos.negocio.Contrato_Hab_Vivienda;
 import uniandes.isis2304.parranderos.negocio.Reserva;
 
 
@@ -85,10 +90,65 @@ public class SQLContrato{
         	throw new Exception("La oferta que quiere retirar tiene reservas vigente");
         }
         else {
+        	Query qApt=pm.newQuery(SQL, "SELECT * FROM "+ pp.darTablaContrato_Apartamento()+" WHERE ID_CONTRATO=?");
+        	qApt.setResultClass(Contrato_Apartamento.class);
+        	qApt.setParameters(idContrato);
+        	List<Contrato_Apartamento> ctApt=qApt.executeList(); 
+        	if (ctApt.size()>0) {
+        		qApt=pm.newQuery(SQL, "DELETE FROM " +pp.darTablaContrato_Apartamento()+ " WHERE ID_CONTRATO=?");
+        		qApt.setParameters(idContrato);
+        		qApt.executeUnique();
+        	}else {
+        		Query qEsp=pm.newQuery(SQL, "SELECT * FROM " +pp.darTablaContrato_Cliente_Esporadico()+ " WHERE ID_CONTRATO=?");
+        		qEsp.setResultClass(Contrato_Cliente_Esporadico.class);
+        		qEsp.setParameters(idContrato);
+        		List<Contrato_Cliente_Esporadico> ctEsp=qEsp.executeList();
+        		if(ctEsp.size()>0) {
+        			qEsp=pm.newQuery(SQL, "DELETE FROM " + pp.darTablaContrato_Cliente_Esporadico()+" WHERE ID_CONTRATO=?"); 
+        			qEsp.setParameters(idContrato); 
+        			qEsp.executeUnique();
+        		}else {
+        			Query qVi=pm.newQuery(SQL, "SELECT * FROM "+pp.darTablaContrato_Hab_Vivienda()+" WHERE ID_CONTRATO=?");
+        			qVi.setResultClass(Contrato_Hab_Vivienda.class);
+        			qVi.setParameters(idContrato); 
+        			List<Contrato_Hab_Vivienda> ctVi=qVi.executeList(); 
+        			if (ctVi.size()>0) {
+        				qVi=pm.newQuery(SQL, "DELETE FROM "+pp.darTablaContrato_Hab_Vivienda()+ " WHERE ID_CONTRATO=?"); 
+        				qVi.setParameters(idContrato); 
+        				qVi.executeUnique(); 
+        			}else {
+        				Query qHostal=pm.newQuery(SQL, "SELECT * FROM " +pp.darTablaContratoHabHostal()+" WHERE ID_CONTRATO=?");
+        				qHostal.setResultClass(ContratoHabHostal.class);
+        				qHostal.setParameters(idContrato); 
+        				List<ContratoHabHostal> ctHostal=qHostal.executeList(); 
+        				if (ctHostal.size()>0) {
+        					qHostal=pm.newQuery(SQL,"DELETE FROM "+pp.darTablaContratoHabHostal()+ " WHERE ID_CONTRATO=?"); 
+        					qHostal.setParameters(idContrato); 
+        					qHostal.executeUnique(); 
+        				}else {
+        					Query qHotel=pm.newQuery(SQL, "SELECT * FROM "+pp.darTablaContratoHabHotel()+" WHERE ID_CONTRATO=?");
+        					qHotel.setResultClass(ContratoHabHotel.class);
+        					qHotel.setParameters(idContrato); 
+        					List<ContratoHabHotel> ctHotel=qHotel.executeList();
+        					if (ctHotel.size()>0) {
+        						qHotel=pm.newQuery(SQL, "DELETE FROM "+pp.darTablaContratoHabHotel()+ " WHERE ID_CONTRATO=?");
+        						qHotel.setParameters(idContrato); 
+        						qHotel.executeUnique(); 
+        					}else {
+        						Query qU=pm.newQuery(SQL, "DELETE FROM " +pp.darTablaContratoHabUniversitaria()+" WHERE ID_CONTRATO=?"); 
+        						qU.setParameters(idContrato); 
+        						qU.executeUnique(); 
+        					}
+        				}
+        			}
+        				
+        		}
+        	}
         	
-        }
-        
-        return (long) q.executeUnique();            
+        	Query qCt=pm.newQuery(SQL, "DELETE FROM" +pp.darTablaContrato()+ "WHERE ID=?");
+        	qCt.setParameters(idContrato); 
+        	return (long) qCt.executeUnique();
+        }       
 	}
 	
 	/**
