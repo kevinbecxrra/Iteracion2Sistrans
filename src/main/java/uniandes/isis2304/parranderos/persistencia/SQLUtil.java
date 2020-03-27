@@ -103,5 +103,4 @@ class SQLUtil
         return new long[] {contratosEliminados, contratosAptoEliminados, contratosEspEliminados, contratosVivEliminadas,
         		contratosHabHostalEliminados, contratosHabHotelEliminados, contratosHabUnivEliminados, operadoresEliminados, reservasEliminados};
 	}
-
 }
