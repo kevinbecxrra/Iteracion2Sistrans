@@ -749,8 +749,8 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     			long idCont = Long.valueOf (id);
     			long tbEliminados = parranderos.eliminarContratoPorId(idCont);
 
-    			String resultado = "En eliminar TipoBebida\n\n";
-    			resultado += tbEliminados + " Tipos de bebida eliminados\n";
+    			String resultado = "En eliminar Oferta por Id\n\n";
+    			resultado += tbEliminados + " Oferta eliminada\n";
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
     		}
