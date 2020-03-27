@@ -302,41 +302,41 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 //		}
 //    }
 
-    /**
-     * Borra de la base de datos el tipo de bebida con el identificador dado po el usuario
-     * Cuando dicho tipo de bebida no existe, se indica que se borraron 0 registros de la base de datos
-     */
-    public void eliminarTipoBebidaPorId( )
-    {
-    	try 
-    	{
-    		String idTipoStr = JOptionPane.showInputDialog (this, "Id del tipo de bedida?", "Borrar tipo de bebida por Id", JOptionPane.QUESTION_MESSAGE);
-    		if (idTipoStr != null)
-    		{
-    			long idTipo = Long.valueOf (idTipoStr);
-    			long tbEliminados = parranderos.eliminarTipoBebidaPorId (idTipo);
-
-    			String resultado = "En eliminar TipoBebida\n\n";
-    			resultado += tbEliminados + " Tipos de bebida eliminados\n";
-    			resultado += "\n Operación terminada";
-    			panelDatos.actualizarInterfaz(resultado);
-    		}
-    		else
-    		{
-    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
-    		}
-		} 
-    	catch (Exception e) 
-    	{
-//			e.printStackTrace();
-			String resultado = generarMensajeError(e);
-			panelDatos.actualizarInterfaz(resultado);
-		}
-    }
-
-    /**
-     * Busca el tipo de bebida con el nombre indicado por el usuario y lo muestra en el panel de datos
-     */
+//    /**
+//     * Borra de la base de datos el tipo de bebida con el identificador dado po el usuario
+//     * Cuando dicho tipo de bebida no existe, se indica que se borraron 0 registros de la base de datos
+//     */
+//    public void eliminarTipoBebidaPorId( )
+//    {
+//    	try 
+//    	{
+//    		String idTipoStr = JOptionPane.showInputDialog (this, "Id del tipo de bedida?", "Borrar tipo de bebida por Id", JOptionPane.QUESTION_MESSAGE);
+//    		if (idTipoStr != null)
+//    		{
+//    			long idTipo = Long.valueOf (idTipoStr);
+//    			long tbEliminados = parranderos.eliminarTipoBebidaPorId (idTipo);
+//
+//    			String resultado = "En eliminar TipoBebida\n\n";
+//    			resultado += tbEliminados + " Tipos de bebida eliminados\n";
+//    			resultado += "\n Operación terminada";
+//    			panelDatos.actualizarInterfaz(resultado);
+//    		}
+//    		else
+//    		{
+//    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+//    		}
+//		} 
+//    	catch (Exception e) 
+//    	{
+////			e.printStackTrace();
+//			String resultado = generarMensajeError(e);
+//			panelDatos.actualizarInterfaz(resultado);
+//		}
+//    }
+//
+//    /**
+//     * Busca el tipo de bebida con el nombre indicado por el usuario y lo muestra en el panel de datos
+//     */
 //    public void buscarTipoBebidaPorNombre( )
 //    {
 //    	try 

@@ -113,7 +113,7 @@ public class SQLContrato{
 	 * @param pm - El manejador de persistencia
 	 * @return Una lista de objetos Contrato
 	 */
-	public List<Contrato> darContrato (PersistenceManager pm)
+	public List<Contrato> darContratos (PersistenceManager pm)
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaContrato ());
 		q.setResultClass(Contrato.class);
