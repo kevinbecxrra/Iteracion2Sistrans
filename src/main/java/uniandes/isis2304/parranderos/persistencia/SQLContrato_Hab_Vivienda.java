@@ -57,7 +57,7 @@ public class SQLContrato_Hab_Vivienda {
 	 * @param id_cliente -  Id de cliente 
 	 * @return EL número de tuplas insertadas
 	 */
-	public long adicionarContratoHab_Vivienda(PersistenceManager pm, long id_contrato, long id_vivienda, int meses_contratados) 
+	public long adicionarContratoHabVivienda(PersistenceManager pm, long id_contrato, long id_vivienda, int meses_contratados) 
 	{
         Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaContrato_Hab_Vivienda() + "(ID_CONTRATO,ID_VIVIENDA,MESES_CONTRATADOS) VALUES (?, ?, ?)");
         q.setParameters(id_contrato, id_vivienda, meses_contratados);
@@ -70,7 +70,7 @@ public class SQLContrato_Hab_Vivienda {
 	 * @param idBebida - El identificador de la reserva
 	 * @return EL número de tuplas eliminadas
 	 */
-	public long eliminarContratoHab_ViviendaPorId (PersistenceManager pm, long idContratoHabVivienda)
+	public long eliminarContratoHabViviendaPorId (PersistenceManager pm, long idContratoHabVivienda)
 	{
         Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaContrato_Hab_Vivienda() + " WHERE id = ?");
         q.setParameters(idContratoHabVivienda);

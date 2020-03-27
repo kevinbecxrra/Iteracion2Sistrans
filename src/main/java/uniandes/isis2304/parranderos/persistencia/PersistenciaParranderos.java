@@ -30,7 +30,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import uniandes.isis2304.parranderos.negocio.Contrato;
+import uniandes.isis2304.parranderos.negocio.ContratoHabHostal;
+import uniandes.isis2304.parranderos.negocio.ContratoHabHotel;
 import uniandes.isis2304.parranderos.negocio.ContratoHabUniversitaria;
+import uniandes.isis2304.parranderos.negocio.Contrato_Apartamento;
+import uniandes.isis2304.parranderos.negocio.Contrato_Cliente_Esporadico;
+import uniandes.isis2304.parranderos.negocio.Contrato_Hab_Vivienda;
 import uniandes.isis2304.parranderos.negocio.Operador;
 import uniandes.isis2304.parranderos.negocio.Reserva;
 
@@ -86,32 +91,32 @@ public class PersistenciaParranderos
 	 * Atributo para el acceso a la tabla CONTRATO de la base de datos
 	 */
 	private SQLContrato sqlContrato;
-	
+
 	/**
 	 * Atributo para el acceso a la tabla CONTRATO_APARTAMENTO de la base de datos
 	 */
 	private SQLContrato_Apartamento sqlContratoApartamento;
-	
+
 	/**
 	 * Atributo para el acceso a la tabla CONTRATO_CLIENTE_ESPORADICO de la base de datos
 	 */
 	private SQLContrato_Cliente_Esporadico sqlContratoClienteEsporadico;
-	
+
 	/**
 	 * Atributo para el acceso a la tabla CONTRATO_HAB_VIVIENDA de la base de datos
 	 */
 	private SQLContrato_Hab_Vivienda sqlContratoHabVivienda;
-	
+
 	/**
 	 * Atributo para el acceso a la tabla CONTRATOHABHOSTAL de la base de datos
 	 */
 	private SQLContratoHabHostal sqlContratoHabHostal;
-	
+
 	/**
 	 * Atributo para el acceso a la tabla CONTRATOHABHOTEL de la base de datos
 	 */
 	private SQLContratoHabHotel sqlContratoHabHotel;
-	
+
 	/**
 	 * Atributo para el acceso a la tabla CONTRATOHABUNIVERSITARIA de la base de datos
 	 */
@@ -121,7 +126,7 @@ public class PersistenciaParranderos
 	 * Atributo para el acceso a la tabla OPERADOR de la base de datos
 	 */
 	private SQLOperador sqlOperador;
-	
+
 	/**
 	 * Atributo para el acceso a la tabla RESERVAN de la base de datos
 	 */
@@ -584,14 +589,410 @@ public class PersistenciaParranderos
 	{
 		return sqlOperador.darOperadores(pmf.getPersistenceManager());
 	}
+	
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar la relación CONTRATO_APARTAMENTO
+	 *****************************************************************/
 
+	public Contrato_Apartamento adicionarContratoApartamento(long id_vivienda, int meses_contratados) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();            
+			long idContrato_Apartamento = nextval ();
+			long tuplasInsertadas = sqlContratoApartamento.adicionarContratoApartamento(pm, idContrato_Apartamento, id_vivienda, meses_contratados);
+			tx.commit();
+
+			log.trace ("Inserción contrato: " + idContrato_Apartamento+ ": " + tuplasInsertadas + " tuplas insertadas");
+			return new Contrato_Apartamento(idContrato_Apartamento, id_vivienda, meses_contratados);
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla TipoBebida, dado el identificador del tipo de bebida
+	 * Adiciona entradas al log de la aplicación
+	 * @param idTipoBebida - El identificador del tipo de bebida
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarContratoApartamentoPorId (long idContrato_Apartamento) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			long resp = sqlContratoApartamento.eliminarContratoApartamentoPorId(pm, idContrato_Apartamento);
+			tx.commit();
+			return resp;
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla Bebida
+	 * @return La lista de objetos Bebida, construidos con base en las tuplas de la tabla BEBIDA
+	 */
+	public List<Contrato_Apartamento> darContratosApartamento()
+	{
+		return sqlContratoApartamento.darContratosApartamento(pmf.getPersistenceManager());
+	}
+
+	/* *************************************************************************
+	 * 			Métodos para manejar la relación CONTRATO_CLIENTE_ESPORADICO
+	 ***************************************************************************/
+
+	public Contrato_Cliente_Esporadico adicionarContratoClienteEsporadico(long id_apartamento, long id_vivienda, int cantidad_noches,
+			int costo_base, int costo_seguro, int num_habitaciones, String ubicacion) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();            
+			long idContrato_Cliente_Esporadico = nextval ();
+			long tuplasInsertadas = sqlContratoClienteEsporadico.adicionarContrato_Cliente_Esporadico(pm, idContrato_Cliente_Esporadico, id_apartamento, id_vivienda, cantidad_noches, costo_base, costo_seguro, num_habitaciones, ubicacion);
+			tx.commit();
+
+			log.trace ("Inserción contrato: " + idContrato_Cliente_Esporadico+ ": " + tuplasInsertadas + " tuplas insertadas");
+			return new Contrato_Cliente_Esporadico(idContrato_Cliente_Esporadico, id_apartamento, id_vivienda, cantidad_noches, costo_base, costo_seguro, num_habitaciones, ubicacion);
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla TipoBebida, dado el identificador del tipo de bebida
+	 * Adiciona entradas al log de la aplicación
+	 * @param idTipoBebida - El identificador del tipo de bebida
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarContratoClienteEsporadicoPorId (long idContrato_Cliente_Esporadico) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			long resp = sqlContratoClienteEsporadico.eliminarContrato_Cliente_EsporadicoPorId(pm, idContrato_Cliente_Esporadico);
+			tx.commit();
+			return resp;
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla Bebida
+	 * @return La lista de objetos Bebida, construidos con base en las tuplas de la tabla BEBIDA
+	 */
+	public List<Contrato_Cliente_Esporadico> darContratosClienteEsporadico()
+	{
+		return sqlContratoClienteEsporadico.darContratosClienteEsporadico(pmf.getPersistenceManager());
+	}
+
+	/* ****************************************************************
+	 * 			Métodos para manejar la relación CONTRATO_HAB_VIVIENDA
+	 *****************************************************************/
+
+	public Contrato_Hab_Vivienda adicionarContratoHabVivienda(long id_vivienda, int meses_contratados) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();            
+			long idContrato_Hab_Vivienda = nextval ();
+			long tuplasInsertadas = sqlContratoHabVivienda.adicionarContratoHabVivienda(pm, idContrato_Hab_Vivienda, id_vivienda, meses_contratados);
+			tx.commit();
+
+			log.trace ("Inserción contrato: " + idContrato_Hab_Vivienda+ ": " + tuplasInsertadas + " tuplas insertadas");
+			return new Contrato_Hab_Vivienda(idContrato_Hab_Vivienda, id_vivienda, meses_contratados);
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla TipoBebida, dado el identificador del tipo de bebida
+	 * Adiciona entradas al log de la aplicación
+	 * @param idTipoBebida - El identificador del tipo de bebida
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarContratoHabViviendaPorId (long idContrato_Hab_Vivienda) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			long resp = sqlContratoHabVivienda.eliminarContratoHabViviendaPorId(pm, idContrato_Hab_Vivienda);
+			tx.commit();
+			return resp;
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla Bebida
+	 * @return La lista de objetos Bebida, construidos con base en las tuplas de la tabla BEBIDA
+	 */
+	public List<Contrato_Hab_Vivienda> darContratosHabVivienda()
+	{
+		return sqlContratoHabVivienda.darContratosHabVivienda(pmf.getPersistenceManager());
+	}
+
+
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar la relación CONTRATOHABHOSTAL
+	 *****************************************************************/
+
+	public ContratoHabHostal adicionarContratoHabHostal(long id_hostal) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();            
+			long idContratoHabHostal = nextval ();
+			long tuplasInsertadas = sqlContratoHabHostal.adicionarContratoHabHostal(pm, idContratoHabHostal, id_hostal);
+			tx.commit();
+
+			log.trace ("Inserción contrato: " + idContratoHabHostal+ ": " + tuplasInsertadas + " tuplas insertadas");
+			return new ContratoHabHostal(idContratoHabHostal, id_hostal);
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla TipoBebida, dado el identificador del tipo de bebida
+	 * Adiciona entradas al log de la aplicación
+	 * @param idTipoBebida - El identificador del tipo de bebida
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarContratoHabHostalPorId (long idContratoHabHostal) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			long resp = sqlContratoHabHostal.eliminarContratoHabHostalPorId(pm, idContratoHabHostal);
+			tx.commit();
+			return resp;
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla Bebida
+	 * @return La lista de objetos Bebida, construidos con base en las tuplas de la tabla BEBIDA
+	 */
+	public List<ContratoHabHostal> darContratosHabHostal()
+	{
+		return sqlContratoHabHostal.darContratosHabHostal(pmf.getPersistenceManager());
+	}
+
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar la relación CONTRATOHABHOTEL
+	 *****************************************************************/
+
+	public ContratoHabHotel adicionarContratoHabHotel(long id_hotel, int categoria, int tamanio, String tipo_habitacion,
+			int ubicacion) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();            
+			long idContratoHabHotel = nextval ();
+			long tuplasInsertadas = sqlContratoHabHotel.adicionarContratoHabHotel(pm, idContratoHabHotel, id_hotel, categoria, tamanio, tipo_habitacion, ubicacion);
+			tx.commit();
+
+			log.trace ("Inserción contrato: " + idContratoHabHotel+ ": " + tuplasInsertadas + " tuplas insertadas");
+			return new ContratoHabHotel(idContratoHabHotel, id_hotel, categoria, tamanio, tipo_habitacion, ubicacion);
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla TipoBebida, dado el identificador del tipo de bebida
+	 * Adiciona entradas al log de la aplicación
+	 * @param idTipoBebida - El identificador del tipo de bebida
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarContratoHabHotelPorId (long idContratoHabHotel) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			long resp = sqlContratoHabHotel.eliminarContratoHabHotelPorId(pm, idContratoHabHotel);
+			tx.commit();
+			return resp;
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
+	/**
+	 * Método que consulta todas las tuplas en la tabla Bebida
+	 * @return La lista de objetos Bebida, construidos con base en las tuplas de la tabla BEBIDA
+	 */
+	public List<ContratoHabHotel> darContratosHabHotel()
+	{
+		return sqlContratoHabHotel.darContratosHabHotel(pmf.getPersistenceManager());
+	}
 
 
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación CONTRATOHABUNIVERSITARIA
 	 *****************************************************************/
 
-	public ContratoHabUniversitaria adicionarContratoHabUniversitaria(String nombre) 
+	public ContratoHabUniversitaria adicionarContratoHabUniversitaria(long id_vivienda, int meses_contratados, String individual,
+			int ubicacion, String gimnasio, String restaurante, String sala_esparcimiento, String sala_estudio) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx=pm.currentTransaction();
@@ -599,11 +1000,11 @@ public class PersistenciaParranderos
 		{
 			tx.begin();            
 			long idContratoHabUniversitaria = nextval ();
-			long tuplasInsertadas = sqlContratoHabUniversitaria.adicionarContratoHabUniversitaria(pm, idContratoHabUniversitaria, nombre);
+			long tuplasInsertadas = sqlContratoHabUniversitaria.adicionarContratoHabUniversitaria(pm, idContratoHabUniversitaria, id_vivienda, individual, ubicacion, gimnasio, restaurante, sala_esparcimiento, sala_estudio);
 			tx.commit();
 
 			log.trace ("Inserción contrato: " + idContratoHabUniversitaria+ ": " + tuplasInsertadas + " tuplas insertadas");
-			return new ContratoHabUniversitaria (idContratoHabUniversitaria, nombre);
+			return new ContratoHabUniversitaria(idContratoHabUniversitaria, id_vivienda, meses_contratados, individual, ubicacion, gimnasio, restaurante, sala_esparcimiento, sala_estudio);
 		}
 		catch (Exception e)
 		{
@@ -660,47 +1061,47 @@ public class PersistenciaParranderos
 	 * Método que consulta todas las tuplas en la tabla Bebida
 	 * @return La lista de objetos Bebida, construidos con base en las tuplas de la tabla BEBIDA
 	 */
-	public List<ContratoHabUniversitaria> darContratoHabUniversitariaes ()
+	public List<ContratoHabUniversitaria> darContratosHabUniversitaria()
 	{
 		return sqlContratoHabUniversitaria.darContratosHabUniversitaria(pmf.getPersistenceManager());
 	}
 
-	
-//
-//	/**
-//	 * Elimina todas las tuplas de todas las tablas de la base de datos de Parranderos
-//	 * Crea y ejecuta las sentencias SQL para cada tabla de la base de datos - EL ORDEN ES IMPORTANTE 
-//	 * @return Un arreglo con 7 números que indican el número de tuplas borradas en las tablas GUSTAN, SIRVEN, VISITAN, BEBIDA,
-//	 * TIPOBEBIDA, BEBEDOR y BAR, respectivamente
-//	 */
-//	//public long [] limpiarParranderos ()
-//	{
-//		PersistenceManager pm = pmf.getPersistenceManager();
-//		Transaction tx=pm.currentTransaction();
-//		try
-//		{
-//			tx.begin();
-//		//	long [] resp = sqlUtil.limpiarParranderos (pm);
-//			tx.commit ();
-//			log.info ("Borrada la base de datos");
-//			//return resp;
-//		}
-//		catch (Exception e)
-//		{
-//			//        	e.printStackTrace();
-//			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
-//			return new long[] {-1, -1, -1, -1, -1, -1, -1};
-//		}
-//		finally
-//		{
-//			if (tx.isActive())
-//			{
-//				tx.rollback();
-//			}
-//			pm.close();
-//		}
-//
-//	}
+
+
+	/**
+	 * Elimina todas las tuplas de todas las tablas de la base de datos de Parranderos
+	 * Crea y ejecuta las sentencias SQL para cada tabla de la base de datos - EL ORDEN ES IMPORTANTE 
+	 * @return Un arreglo con 7 números que indican el número de tuplas borradas en las tablas GUSTAN, SIRVEN, VISITAN, BEBIDA,
+	 * TIPOBEBIDA, BEBEDOR y BAR, respectivamente
+	 */
+	public long [] limpiarParranderos ()
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			long [] resp = sqlUtil.limpiarParranderos (pm);
+			tx.commit ();
+			log.info ("Borrada la base de datos");
+			return resp;
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return new long[] {-1, -1, -1, -1, -1, -1, -1};
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+
+	}
 
 
 

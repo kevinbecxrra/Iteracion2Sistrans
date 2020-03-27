@@ -69,27 +69,39 @@ class SQLUtil
         return resp;
 	}
 
-//	/**
-//	 * Crea y ejecuta las sentencias SQL para cada tabla de la base de datos - EL ORDEN ES IMPORTANTE 
-//	 * @param pm - El manejador de persistencia
-//	 * @return Un arreglo con 7 números que indican el número de tuplas borradas en las tablas GUSTAN, SIRVEN, VISITAN, BEBIDA,
-//	 * TIPOBEBIDA, BEBEDOR y BAR, respectivamente
-//	 */
-//	public long [] limpiarParranderos (PersistenceManager pm)
-//	{
-//        Query qGustan = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaGustan ());          
-//        Query qSirven = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaSirven ());
-//        Query qVisitan = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaVisitan ());
-//        Query qTipoBebida = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaTipoBebida ());
-//        Query qBebedor = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBebedor ());
-//
-//        long gustanEliminados = (long) qGustan.executeUnique ();
-//        long sirvenEliminados = (long) qSirven.executeUnique ();
-//        long visitanEliminadas = (long) qVisitan.executeUnique ();
-//        long tiposBebidaEliminados = (long) qTipoBebida.executeUnique ();
-//        long bebedoresEliminados = (long) qBebedor.executeUnique ();
-//        return new long[] {gustanEliminados, sirvenEliminados, visitanEliminadas,
-//        		tiposBebidaEliminados, bebedoresEliminados};
-//	}
+	/**
+	 * Crea y ejecuta las sentencias SQL para cada tabla de la base de datos - EL ORDEN ES IMPORTANTE 
+	 * @param pm - El manejador de persistencia
+	 * @return Un arreglo con 7 números que indican el número de tuplas borradas en las tablas GUSTAN, SIRVEN, VISITAN, BEBIDA,
+	 * TIPOBEBIDA, BEBEDOR y BAR, respectivamente
+	 */
+	public long [] limpiarParranderos (PersistenceManager pm)
+	{
+        Query qContrato = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaContrato());          
+        Query qContratoApto = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaContrato_Apartamento());          
+        Query qContratoEsp = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaContrato_Cliente_Esporadico());
+        Query qContratoViv = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaContrato_Hab_Vivienda());
+        Query qContratoHabHostal = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaContratoHabHostal());
+        Query qContratoHabHotel = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaContratoHabHotel());
+        Query qContratoHabUniv = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaContratoHabUniversitaria());
+        Query qOperador = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaOperador());
+        Query qReserva = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaReserva());
+
+
+
+        long contratosEliminados = (long) qContrato.executeUnique ();
+        long contratosAptoEliminados = (long) qContratoApto.executeUnique ();
+        long contratosEspEliminados = (long) qContratoEsp.executeUnique ();
+        long contratosVivEliminadas = (long) qContratoViv.executeUnique ();
+        long contratosHabHostalEliminados = (long) qContratoHabHostal.executeUnique ();
+        long contratosHabHotelEliminados = (long) qContratoHabHotel.executeUnique ();
+        long contratosHabUnivEliminados = (long) qContratoHabUniv.executeUnique ();
+        long operadoresEliminados = (long) qOperador.executeUnique ();
+        long reservasEliminados = (long) qReserva.executeUnique ();
+
+
+        return new long[] {contratosEliminados, contratosAptoEliminados, contratosEspEliminados, contratosVivEliminadas,
+        		contratosHabHostalEliminados, contratosHabHotelEliminados, contratosHabUnivEliminados, operadoresEliminados, reservasEliminados};
+	}
 
 }

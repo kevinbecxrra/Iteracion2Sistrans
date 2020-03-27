@@ -242,10 +242,10 @@ public class Parranderos
 	 * Adiciona entradas al log de la aplicación
 	 * @return El objeto Bebida adicionado. null si ocurre alguna Excepción
 	 */
-	public Contrato_Apartamento adicionarContratoApartamento (String nombre)
+	public Contrato_Apartamento adicionarContratoApartamento (long id_apartamento, int meses_contratados)
 	{
 		log.info ("Adicionando Contrato_Apartamento");
-		Contrato_Apartamento contratoApartamento = pp.adicionarContratoApartamento(nombre);
+		Contrato_Apartamento contratoApartamento = pp.adicionarContratoApartamento(id_apartamento, meses_contratados);
 		log.info ("Adicionando Contrato_Apartamento: " + contratoApartamento);
 		return contratoApartamento;
 	}
@@ -294,10 +294,11 @@ public class Parranderos
 	 * Adiciona entradas al log de la aplicación
 	 * @return El objeto Bebida adicionado. null si ocurre alguna Excepción
 	 */
-	public Contrato_Cliente_Esporadico adicionarContratoClienteEsporadico (String nombre)
+	public Contrato_Cliente_Esporadico adicionarContratoClienteEsporadico (long id_apartamento, long id_vivienda, int cantidad_noches,
+			int costo_base, int costo_seguro, int num_habitaciones, String ubicacion)
 	{
 		log.info ("Adicionando Contrato_Cliente_Esporadico");
-		Contrato_Cliente_Esporadico contratoClienteEsporadico = pp.adicionarContratoClienteEsporadico(nombre);
+		Contrato_Cliente_Esporadico contratoClienteEsporadico = pp.adicionarContratoClienteEsporadico(id_apartamento, id_vivienda, cantidad_noches, costo_base, costo_seguro, num_habitaciones, ubicacion);
 		log.info ("Adicionando Contrato_Cliente_Esporadico: " + contratoClienteEsporadico);
 		return contratoClienteEsporadico;
 	}
@@ -309,7 +310,7 @@ public class Parranderos
 	 * @param idBebida - El identificador de la bebida a eliminar
 	 * @return El número de tuplas eliminadas (1 o 0)
 	 */
-	public long eliminarContrato_Cliente_EsporadicoPorId (long idContratoClienteEsporadico)
+	public long eliminarContratoClienteEsporadicoPorId (long idContratoClienteEsporadico)
 	{
 		log.info ("Eliminando Contrato_Cliente_Esporadico por id: " + idContratoClienteEsporadico);
 		long resp = pp.eliminarContratoClienteEsporadicoPorId (idContratoClienteEsporadico);
@@ -347,10 +348,10 @@ public class Parranderos
 	 * Adiciona entradas al log de la aplicación
 	 * @return El objeto Bebida adicionado. null si ocurre alguna Excepción
 	 */
-	public Contrato_Hab_Vivienda adicionarContratoHabVivienda (String nombre)
+	public Contrato_Hab_Vivienda adicionarContratoHabVivienda (long id_vivienda, int meses_contratados)
 	{
 		log.info ("Adicionando Contrato_Hab_Vivienda");
-		Contrato_Hab_Vivienda contratoHabVivienda = pp.adicionarContratoHabVivienda(nombre);
+		Contrato_Hab_Vivienda contratoHabVivienda = pp.adicionarContratoHabVivienda(id_vivienda, meses_contratados);
 		log.info ("Adicionando Contrato_Hab_Vivienda: " + contratoHabVivienda);
 		return contratoHabVivienda;
 	}
@@ -399,10 +400,10 @@ public class Parranderos
 	 * Adiciona entradas al log de la aplicación
 	 * @return El objeto Bebida adicionado. null si ocurre alguna Excepción
 	 */
-	public ContratoHabHostal adicionarContratoHabHostal (String nombre)
+	public ContratoHabHostal adicionarContratoHabHostal (long id_hostal)
 	{
 		log.info ("Adicionando ContratoHabHostal");
-		ContratoHabHostal contratoHabHostal = pp.adicionarContratoHabHostal(nombre);
+		ContratoHabHostal contratoHabHostal = pp.adicionarContratoHabHostal(id_hostal);
 		log.info ("Adicionando ContratoHabHostal: " + contratoHabHostal);
 		return contratoHabHostal;
 	}
@@ -451,10 +452,11 @@ public class Parranderos
 	 * Adiciona entradas al log de la aplicación
 	 * @return El objeto Bebida adicionado. null si ocurre alguna Excepción
 	 */
-	public ContratoHabHotel adicionarContratoHabHotel (String nombre)
+	public ContratoHabHotel adicionarContratoHabHotel (long id_hotel, int categoria, int tamanio, String tipo_habitacion,
+			int ubicacion)
 	{
 		log.info ("Adicionando ContratoHabHotel");
-		ContratoHabHotel contratoHabHotel = pp.adicionarContratoHabHotel(nombre);
+		ContratoHabHotel contratoHabHotel = pp.adicionarContratoHabHotel(id_hotel, categoria, tamanio, tipo_habitacion, ubicacion);
 		log.info ("Adicionando ContratoHabHotel: " + contratoHabHotel);
 		return contratoHabHotel;
 	}
@@ -469,7 +471,7 @@ public class Parranderos
 	public long eliminarContratoHabHotelPorId (long idContratoHabHotel)
 	{
 		log.info ("Eliminando contratoHabHotel por id: " + idContratoHabHotel);
-		long resp = pp.eliminarContratoHabHotelPorId (idContratoHabH);
+		long resp = pp.eliminarContratoHabHotelPorId (idContratoHabHotel);
 		log.info ("Eliminando ContratoHabHotel por id: " + resp + " tuplas eliminadas");
 		return resp;
 	}
@@ -503,10 +505,11 @@ public class Parranderos
 	 * Adiciona entradas al log de la aplicación
 	 * @return El objeto Bebida adicionado. null si ocurre alguna Excepción
 	 */
-	public ContratoHabUniversitaria adicionarContratoHabUniversitaria (String nombre)
+	public ContratoHabUniversitaria adicionarContratoHabUniversitaria (long id_vivienda, int meses_contratados, String individual,
+			int ubicacion, String gimnasio, String restaurante, String sala_esparcimiento, String sala_estudio)
 	{
 		log.info ("Adicionando ContratoHabUniversitaria");
-		ContratoHabUniversitaria contratoHabUniversitaria = pp.adicionarContratoHabUniversitaria(nombre);
+		ContratoHabUniversitaria contratoHabUniversitaria = pp.adicionarContratoHabUniversitaria(id_vivienda, meses_contratados, individual, ubicacion, gimnasio, restaurante, sala_esparcimiento, sala_estudio);
 		log.info ("Adicionando ContratoHabUniversitaria: " + contratoHabUniversitaria);
 		return contratoHabUniversitaria;
 	}
@@ -552,16 +555,16 @@ public class Parranderos
 	 * 			Métodos para administración
 	 *****************************************************************/
 
-//	/**
-//	 * Elimina todas las tuplas de todas las tablas de la base de datos de Parranderos
-//	 * @return Un arreglo con 7 números que indican el número de tuplas borradas en las tablas GUSTAN, SIRVEN, VISITAN, BEBIDA,
-//	 * TIPOBEBIDA, BEBEDOR y BAR, respectivamente
-//	 */
-//	public long [] limpiarParranderos ()
-//	{
-//		log.info ("Limpiando la BD de Parranderos");
-//		long [] borrrados = pp.limpiarParranderos();	
-//		log.info ("Limpiando la BD de Parranderos: Listo!");
-//		return borrrados;
-//	}
+	/**
+	 * Elimina todas las tuplas de todas las tablas de la base de datos de Parranderos
+	 * @return Un arreglo con 7 números que indican el número de tuplas borradas en las tablas GUSTAN, SIRVEN, VISITAN, BEBIDA,
+	 * TIPOBEBIDA, BEBEDOR y BAR, respectivamente
+	 */
+	public long [] limpiarParranderos ()
+	{
+		log.info ("Limpiando la BD de Parranderos");
+		long [] borrrados = pp.limpiarParranderos();	
+		log.info ("Limpiando la BD de Parranderos: Listo!");
+		return borrrados;
+	}
 }
