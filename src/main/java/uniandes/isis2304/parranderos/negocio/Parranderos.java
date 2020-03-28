@@ -148,7 +148,7 @@ public class Parranderos
 
 
 	/**
-	 * Elimina una bebida por su identificador
+	 * Elimina un contrato por su identificador
 	 * Adiciona entradas al log de la aplicación
 	 * @param idBebida - El identificador de la bebida a eliminar
 	 * @return El número de tuplas eliminadas (1 o 0)
@@ -412,7 +412,7 @@ public class Parranderos
 	/**
 	 * Elimina un ContratoHabHostal por su identificador
 	 * Adiciona entradas al log de la aplicación
-	 * @param idBebida - El identificador de la bebida a eliminar
+	 * @param idContratoHabHostal- El identificador del contrato a eliminar
 	 * @return El número de tuplas eliminadas (1 o 0)
 	 */
 	public long eliminarContratoHabHostalPorId (long idContratoHabHostal)

@@ -7,10 +7,6 @@ package uniandes.isis2304.parranderos.negocio;
  */
 public class Reserva implements VOReserva {
 
-	/**
-	 * Enumeracion que simboliza el tipo de alojamiento a elegir
-	 *
-	 */
 
 	/* ****************************************************************
 	 * 			Atributos

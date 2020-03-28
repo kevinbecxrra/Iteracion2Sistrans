@@ -7,10 +7,8 @@ import javax.jdo.Query;
 
 import uniandes.isis2304.parranderos.negocio.Operador;
 
-
-
 /**
- * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto Operador de Alohandes
+ * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto OPERADOR de Alohandes
  * Nótese que es una clase que es sólo conocida en el paquete de persistencia
  * 
  * @author Kevin Becerra - Christian Forigua

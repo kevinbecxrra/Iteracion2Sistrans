@@ -6,10 +6,9 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.parranderos.negocio.ContratoHabHostal;
-import uniandes.isis2304.parranderos.negocio.ContratoHabHostal;
 
 /**
- * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto CONTRATO_HabHostal de Alohandes
+ * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto CONTRATOHABHOSTAL de Alohandes
  * Nótese que es una clase que es sólo conocida en el paquete de persistencia
  * 
  * @author Kevin Becerra - Christian Forigua

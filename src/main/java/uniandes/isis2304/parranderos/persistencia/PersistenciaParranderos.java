@@ -4,12 +4,8 @@
  * Licenciado	bajo	el	esquema	Academic Free License versión 2.1
  * 		
  * Curso: isis2304 - Sistemas Transaccionales
- * Proyecto: Parranderos Uniandes
- * @version 1.0
- * @author Germán Bravo
- * Julio de 2018
+ * Proyecto: Alohandes
  * 
- * Revisado por: Claudia Jiménez, Christian Ariza
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
@@ -29,6 +25,7 @@ import org.apache.log4j.Logger;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
 import uniandes.isis2304.parranderos.negocio.Contrato;
 import uniandes.isis2304.parranderos.negocio.ContratoHabHostal;
 import uniandes.isis2304.parranderos.negocio.ContratoHabHotel;
@@ -44,7 +41,8 @@ import uniandes.isis2304.parranderos.negocio.Reserva;
  * Traduce la información entre objetos Java y tuplas de la base de datos, en ambos sentidos
  * Sigue un patrón SINGLETON (Sólo puede haber UN objeto de esta clase) para comunicarse de manera correcta
  * con la base de datos
- * Se apoya en las clases SQLBar, SQLBebedor, SQLBebida, SQLGustan, SQLSirven, SQLTipoBebida y SQLVisitan, que son 
+ * Se apoya en las clases SQLContrato_Apartamento, SQLContrato_Cliente_Esporadico, SQLContrato_Hab_Vivienda, 
+ * SQLContrato, SQLContratoHabHostal, SQLContratoHabHotel, SQLContratoHabUniversitaria, SQLOperador y SQLReserva que son 
  * las que realizan el acceso a la base de datos
  * 
  */
@@ -78,12 +76,13 @@ public class PersistenciaParranderos
 
 	/**
 	 * Arreglo de cadenas con los nombres de las tablas de la base de datos, en su orden:
-	 * Secuenciador, tipoBebida, bebida, bar, bebedor, gustan, sirven y visitan
+	 * Secuenciador, Contrato_Apartamento, Contrato_Cliente_Esporadico, Contrato_Hab_Vivienda, 
+	 * Contrato, ContratoHabHostal, ContratoHabHotel, ContratoHabUniversitaria, Operador y Reserva
 	 */
 	private List <String> tablas;
 
 	/**
-	 * Atributo para el acceso a las sentencias SQL propias a PersistenciaParranderos
+	 * Atributo para el acceso a las sentencias SQL propias a PersistenciaAlohandes
 	 */
 	private SQLUtil sqlUtil;
 
@@ -176,7 +175,7 @@ public class PersistenciaParranderos
 	}
 
 	/**
-	 * @return Retorna el único objeto PersistenciaParranderos existente - Patrón SINGLETON
+	 * @return Retorna el único objeto PersistenciaAlohandes existente - Patrón SINGLETON
 	 */
 	public static PersistenciaParranderos getInstance ()
 	{
@@ -359,6 +358,19 @@ public class PersistenciaParranderos
 	 * 			Métodos para manejar la relación RESERVA
 	 *****************************************************************/
 
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla TipoBebida
+	 * Adiciona entradas al log de la aplicación
+	 * @param id_contrato - El id del contrato
+	 * @param personas - numero de personas a ingresar
+	 * @param fecha_inicio - fecha de inicio de la reserva
+	 * @param fecha_fin - fecha de fin de la reserva
+	 * @param fecha_limite - fecha limite a entregar el alojamiento con descuento
+	 * @param fecha_realizacion -  fecha de realizacion de la reserva
+	 * @param tipo - tipo de alojamiento 
+	 * @param id_cliente - El id del cliente
+	 * @return El objeto Reserva adicionado. null si ocurre alguna Excepción	
+	 */
 	public Reserva adicionarReserva(long id_contrato, int personas, String fecha_inicio, String fecha_fin, String fecha_limite, String fecha_realizacion, String tipo, long id_cliente) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -391,9 +403,9 @@ public class PersistenciaParranderos
 
 
 	/**
-	 * Método que elimina, de manera transaccional, una tupla en la tabla TipoBebida, dado el identificador del tipo de bebida
+	 * Método que elimina, de manera transaccional, una tupla en la tabla RESERVA, dado el identificador de la reserva
 	 * Adiciona entradas al log de la aplicación
-	 * @param idTipoBebida - El identificador del tipo de bebida
+	 * @param idReserva - El identificador de la reserva
 	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
 	 */
 	public long eliminarReservaPorId (long idReserva) 
@@ -425,8 +437,8 @@ public class PersistenciaParranderos
 
 
 	/**
-	 * Método que consulta todas las tuplas en la tabla Bebida
-	 * @return La lista de objetos Bebida, construidos con base en las tuplas de la tabla BEBIDA
+	 * Método que consulta todas las tuplas en la tabla RESERVA
+	 * @return La lista de objetos Reserva, construidos con base en las tuplas de la tabla RESERVA
 	 */
 	public List<Reserva> darReservas()
 	{
@@ -438,6 +450,14 @@ public class PersistenciaParranderos
 	 * 			Métodos para manejar la relación CONTRATO
 	 *****************************************************************/
 
+	/**
+
+	 * Método que inserta, de manera transaccional, una tupla en la tabla CONTRATO
+	 * Adiciona entradas al log de la aplicación
+	 * @param capacidad - capacidad de la oferta de alojamiento
+	 * @param costo - costo del contrato
+	 * @return El objeto Contrato adicionado. null si ocurre alguna Excepción	
+	 */
 	public Contrato adicionarContrato(int capacidad, int costo) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -470,9 +490,9 @@ public class PersistenciaParranderos
 
 
 	/**
-	 * Método que elimina, de manera transaccional, una tupla en la tabla TipoBebida, dado el identificador del tipo de bebida
+	 * Método que elimina, de manera transaccional, una tupla en la tabla CONTRATO, dado el identificador del contrato
 	 * Adiciona entradas al log de la aplicación
-	 * @param idTipoBebida - El identificador del tipo de bebida
+	 * @param idContrato - El identificador del contrato
 	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
 	 */
 	public long eliminarContratoPorId (long idContrato) 
@@ -504,8 +524,8 @@ public class PersistenciaParranderos
 
 
 	/**
-	 * Método que consulta todas las tuplas en la tabla Bebida
-	 * @return La lista de objetos Bebida, construidos con base en las tuplas de la tabla BEBIDA
+	 * Método que consulta todas las tuplas en la tabla CONTRATO
+	 * @return La lista de objetos Contrato, construidos con base en las tuplas de la tabla CONTRATO
 	 */
 	public List<Contrato> darContratos ()
 	{
@@ -516,6 +536,12 @@ public class PersistenciaParranderos
 	 * 			Métodos para manejar la relación OPERADOR
 	 *****************************************************************/
 
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla OPERADOR
+	 * Adiciona entradas al log de la aplicación
+	 * @param nombre - nombre del operador
+	 * @return El objeto Operador adicionado. null si ocurre alguna Excepción	
+	 */
 	public Operador adicionarOperador(String nombre) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -548,9 +574,9 @@ public class PersistenciaParranderos
 
 
 	/**
-	 * Método que elimina, de manera transaccional, una tupla en la tabla TipoBebida, dado el identificador del tipo de bebida
+	 * Método que elimina, de manera transaccional, una tupla en la tabla OPERADOR, dado el identificador del operador
 	 * Adiciona entradas al log de la aplicación
-	 * @param idTipoBebida - El identificador del tipo de bebida
+	 * @param idOperador- El identificador del operador
 	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
 	 */
 	public long eliminarOperadorPorId (long idOperador) 
@@ -582,20 +608,27 @@ public class PersistenciaParranderos
 
 
 	/**
-	 * Método que consulta todas las tuplas en la tabla Bebida
-	 * @return La lista de objetos Bebida, construidos con base en las tuplas de la tabla BEBIDA
+	 * Método que consulta todas las tuplas en la tabla OPERADOR
+	 * @return La lista de objetos Operador, construidos con base en las tuplas de la tabla OPERADOR
 	 */
 	public List<Operador> darOperadores ()
 	{
 		return sqlOperador.darOperadores(pmf.getPersistenceManager());
 	}
-	
-	
+
+
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación CONTRATO_APARTAMENTO
 	 *****************************************************************/
 
-	public Contrato_Apartamento adicionarContratoApartamento(long id_vivienda, int meses_contratados) 
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla CONTRATO_APARTAMENTO
+	 * Adiciona entradas al log de la aplicación
+	 * @param id_apartamento - El id del apartamento
+	 * @param meses_contratados - meses contratados al apartamento
+	 * @return El objeto Contrato_Apartamento adicionado. null si ocurre alguna Excepción	
+	 */
+	public Contrato_Apartamento adicionarContratoApartamento(long id_apartamento, int meses_contratados) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx=pm.currentTransaction();
@@ -603,11 +636,11 @@ public class PersistenciaParranderos
 		{
 			tx.begin();            
 			long idContrato_Apartamento = nextval ();
-			long tuplasInsertadas = sqlContratoApartamento.adicionarContratoApartamento(pm, idContrato_Apartamento, id_vivienda, meses_contratados);
+			long tuplasInsertadas = sqlContratoApartamento.adicionarContratoApartamento(pm, idContrato_Apartamento, id_apartamento, meses_contratados);
 			tx.commit();
 
 			log.trace ("Inserción contrato: " + idContrato_Apartamento+ ": " + tuplasInsertadas + " tuplas insertadas");
-			return new Contrato_Apartamento(idContrato_Apartamento, id_vivienda, meses_contratados);
+			return new Contrato_Apartamento(idContrato_Apartamento, id_apartamento, meses_contratados);
 		}
 		catch (Exception e)
 		{
@@ -627,9 +660,9 @@ public class PersistenciaParranderos
 
 
 	/**
-	 * Método que elimina, de manera transaccional, una tupla en la tabla TipoBebida, dado el identificador del tipo de bebida
+	 * Método que elimina, de manera transaccional, una tupla en la tabla CONTRATO_APARTAMENTO, dado el identificador del tipo de bebida
 	 * Adiciona entradas al log de la aplicación
-	 * @param idTipoBebida - El identificador del tipo de bebida
+	 * @param idContrato_Apartamento - El identificador del contrato del apartamento
 	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
 	 */
 	public long eliminarContratoApartamentoPorId (long idContrato_Apartamento) 
@@ -661,8 +694,8 @@ public class PersistenciaParranderos
 
 
 	/**
-	 * Método que consulta todas las tuplas en la tabla Bebida
-	 * @return La lista de objetos Bebida, construidos con base en las tuplas de la tabla BEBIDA
+	 * Método que consulta todas las tuplas en la tabla CONTRATO_APARTAMENTO
+	 * @return La lista de objetos Contrato_Apartamento, construidos con base en las tuplas de la tabla CONTRATO_APARTAMENTO
 	 */
 	public List<Contrato_Apartamento> darContratosApartamento()
 	{
@@ -673,6 +706,18 @@ public class PersistenciaParranderos
 	 * 			Métodos para manejar la relación CONTRATO_CLIENTE_ESPORADICO
 	 ***************************************************************************/
 
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla CONTRATO_CLIENTE_ESPORADICO
+	 * Adiciona entradas al log de la aplicación
+	 * @param id_apartamento - El id del apartamento
+	 * @param id_vivienda - El id de la vivienda
+	 * @param cantidad_noches - Cantidad de noches reservadas
+	 * @param costo_base - Costo base del contrato
+	 * @param costo_seguro - Costo del seguro
+	 * @param num_habitaciones - Numero de habitaciones contratadas
+	 * @param ubicacion - Ubicacion del alojamiento
+	 * @return El objeto Contrato_Cliente_Esporadico adicionado. null si ocurre alguna Excepción	
+	 */
 	public Contrato_Cliente_Esporadico adicionarContratoClienteEsporadico(long id_apartamento, long id_vivienda, int cantidad_noches,
 			int costo_base, int costo_seguro, int num_habitaciones, String ubicacion) 
 	{
@@ -706,9 +751,9 @@ public class PersistenciaParranderos
 
 
 	/**
-	 * Método que elimina, de manera transaccional, una tupla en la tabla TipoBebida, dado el identificador del tipo de bebida
+	 * Método que elimina, de manera transaccional, una tupla en la tabla CONTRATO_CLIENTE_ESPORADICO, dado el identificador del contrato del cliente esporadico
 	 * Adiciona entradas al log de la aplicación
-	 * @param idTipoBebida - El identificador del tipo de bebida
+	 * @param idContrato_Cliente_Esporadico - El identificador del contrato del cliente esporadico
 	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
 	 */
 	public long eliminarContratoClienteEsporadicoPorId (long idContrato_Cliente_Esporadico) 
@@ -740,18 +785,26 @@ public class PersistenciaParranderos
 
 
 	/**
-	 * Método que consulta todas las tuplas en la tabla Bebida
-	 * @return La lista de objetos Bebida, construidos con base en las tuplas de la tabla BEBIDA
+	 * Método que consulta todas las tuplas en la tabla CONTRATO_CLIENTE_ESPORADICO
+	 * @return La lista de objetos Contrato_Cliente_Esporadico, construidos con base en las tuplas de la tabla CONTRATO_CLIENTE_ESPORADICO
 	 */
 	public List<Contrato_Cliente_Esporadico> darContratosClienteEsporadico()
 	{
 		return sqlContratoClienteEsporadico.darContratosClienteEsporadico(pmf.getPersistenceManager());
 	}
 
+
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación CONTRATO_HAB_VIVIENDA
 	 *****************************************************************/
 
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla CONTRATO_HAB_VIVIENDA
+	 * Adiciona entradas al log de la aplicación
+	 * @param id_vivienda - El id de la vivienda
+	 * @param meses_contratados - meses contratados a la vivienda
+	 * @return El objeto Contrato_Hab_Vivienda adicionado. null si ocurre alguna Excepción	
+	 */
 	public Contrato_Hab_Vivienda adicionarContratoHabVivienda(long id_vivienda, int meses_contratados) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -784,9 +837,9 @@ public class PersistenciaParranderos
 
 
 	/**
-	 * Método que elimina, de manera transaccional, una tupla en la tabla TipoBebida, dado el identificador del tipo de bebida
+	 * Método que elimina, de manera transaccional, una tupla en la tabla CONTRATO_HAB_VIVIENDA, dado el identificador del contrato de la habitacion de la vivienda
 	 * Adiciona entradas al log de la aplicación
-	 * @param idTipoBebida - El identificador del tipo de bebida
+	 * @param idContrato_Hab_Vivienda - El identificador del contrato de la habitacion vivienda
 	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
 	 */
 	public long eliminarContratoHabViviendaPorId (long idContrato_Hab_Vivienda) 
@@ -818,8 +871,8 @@ public class PersistenciaParranderos
 
 
 	/**
-	 * Método que consulta todas las tuplas en la tabla Bebida
-	 * @return La lista de objetos Bebida, construidos con base en las tuplas de la tabla BEBIDA
+	 * Método que consulta todas las tuplas en la tabla CONTRATO_HAB_VIVIENDA
+	 * @return La lista de objetos Contrato_Hab_Vivienda, construidos con base en las tuplas de la tabla CONTRATO_HAB_VIVIENDA
 	 */
 	public List<Contrato_Hab_Vivienda> darContratosHabVivienda()
 	{
@@ -827,11 +880,16 @@ public class PersistenciaParranderos
 	}
 
 
-	
+
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación CONTRATOHABHOSTAL
 	 *****************************************************************/
-
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla CONTRATOHABHOSTAL
+	 * Adiciona entradas al log de la aplicación
+	 * @param id_hostal - El id del hostal
+	 * @return El objeto ContratoHabHostal adicionado. null si ocurre alguna Excepción	
+	 */
 	public ContratoHabHostal adicionarContratoHabHostal(long id_hostal) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -864,9 +922,9 @@ public class PersistenciaParranderos
 
 
 	/**
-	 * Método que elimina, de manera transaccional, una tupla en la tabla TipoBebida, dado el identificador del tipo de bebida
+	 * Método que elimina, de manera transaccional, una tupla en la tabla CONTRATOHABHOSTAL, dado el identificador del contrato de la habitacion del hostal
 	 * Adiciona entradas al log de la aplicación
-	 * @param idTipoBebida - El identificador del tipo de bebida
+	 * @param idContratoHabHostal - El identificador del contrato de la habitacion del hostal
 	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
 	 */
 	public long eliminarContratoHabHostalPorId (long idContratoHabHostal) 
@@ -898,19 +956,28 @@ public class PersistenciaParranderos
 
 
 	/**
-	 * Método que consulta todas las tuplas en la tabla Bebida
-	 * @return La lista de objetos Bebida, construidos con base en las tuplas de la tabla BEBIDA
+	 * Método que consulta todas las tuplas en la tabla CONTRATOHABHOSTAL
+	 * @return La lista de objetos ContratoHabHostal, construidos con base en las tuplas de la tabla CONTRATOHABHOSTAL
 	 */
 	public List<ContratoHabHostal> darContratosHabHostal()
 	{
 		return sqlContratoHabHostal.darContratosHabHostal(pmf.getPersistenceManager());
 	}
 
-	
+
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación CONTRATOHABHOTEL
 	 *****************************************************************/
-
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla CONTRATOHABHOTEL
+	 * Adiciona entradas al log de la aplicación
+	 * @param id_hotel - El id del hotel
+	 * @param categoria - categoria de la habitacion del hotel
+	 * @param tamanio - tamaño de la habitacion
+	 * @param tipo_habitacion - tipo de habitacion del hotel
+	 * @param ubicacion - ubicacion de la habitacion dentro del hotel
+	 * @return El objeto ContratoHabHotel adicionado. null si ocurre alguna Excepción	
+	 */
 	public ContratoHabHotel adicionarContratoHabHotel(long id_hotel, int categoria, int tamanio, String tipo_habitacion,
 			int ubicacion) 
 	{
@@ -944,9 +1011,8 @@ public class PersistenciaParranderos
 
 
 	/**
-	 * Método que elimina, de manera transaccional, una tupla en la tabla TipoBebida, dado el identificador del tipo de bebida
-	 * Adiciona entradas al log de la aplicación
-	 * @param idTipoBebida - El identificador del tipo de bebida
+	 * Método que elimina, de manera transaccional, una tupla en la tabla CONTRATOHABHOTEL, dado el identificador del contrato de la habitacion del hotel
+	 * @param idContratoHabHotel - El identificador del contrato de la habitacion del hotel
 	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
 	 */
 	public long eliminarContratoHabHotelPorId (long idContratoHabHotel) 
@@ -978,8 +1044,8 @@ public class PersistenciaParranderos
 
 
 	/**
-	 * Método que consulta todas las tuplas en la tabla Bebida
-	 * @return La lista de objetos Bebida, construidos con base en las tuplas de la tabla BEBIDA
+	 * Método que consulta todas las tuplas en la tabla CONTRATOHABHOTEL
+	 * @return La lista de objetos ContratoHabHotel, construidos con base en las tuplas de la tabla CONTRATOHABHOTEL
 	 */
 	public List<ContratoHabHotel> darContratosHabHotel()
 	{
@@ -987,10 +1053,23 @@ public class PersistenciaParranderos
 	}
 
 
-	/* ****************************************************************
+	/* ************************************************************************
 	 * 			Métodos para manejar la relación CONTRATOHABUNIVERSITARIA
-	 *****************************************************************/
+	 **************************************************************************/
 
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla CONTRATOHABUNIVERSITARIA
+	 * Adiciona entradas al log de la aplicación
+	 * @param id_vivienda - el id de la vivienda universitaria
+	 * @param meses_contratados - meses contratados a la habitacion
+	 * @param individual - es individual o no
+	 * @param ubicacion - ubicacion de la habitacion universitaria
+	 * @param gimnasio - tiene gimnasio o no
+	 * @param restaurante - tiene restaurante o no
+	 * @param sala_esparcimiento - tiene salas de espacio o no
+	 * @param sala_estudio - tiene salas de estudio o no
+	 * @return El objeto ContratoHabUniveristaria adicionado. null si ocurre alguna Excepción	
+	 */
 	public ContratoHabUniversitaria adicionarContratoHabUniversitaria(long id_vivienda, int meses_contratados, String individual,
 			int ubicacion, String gimnasio, String restaurante, String sala_esparcimiento, String sala_estudio) 
 	{
@@ -1024,9 +1103,9 @@ public class PersistenciaParranderos
 
 
 	/**
-	 * Método que elimina, de manera transaccional, una tupla en la tabla TipoBebida, dado el identificador del tipo de bebida
+	 * Método que elimina, de manera transaccional, una tupla en la tabla CONTRATOHABUNIVERSITARIA, dado el identificador del contrato de la habitacion universitaria
 	 * Adiciona entradas al log de la aplicación
-	 * @param idTipoBebida - El identificador del tipo de bebida
+	 * @param idContratoHabUniversitaria - El identificador del contrato de la habitación universitaria
 	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
 	 */
 	public long eliminarContratoHabUniversitariaPorId (long idContratoHabUniversitaria) 
@@ -1058,8 +1137,8 @@ public class PersistenciaParranderos
 
 
 	/**
-	 * Método que consulta todas las tuplas en la tabla Bebida
-	 * @return La lista de objetos Bebida, construidos con base en las tuplas de la tabla BEBIDA
+	 * Método que consulta todas las tuplas en la tabla CONTRATOHABUNIVERSITARIA
+	 * @return La lista de objetos ContratoHabUniversitaria, construidos con base en las tuplas de la tabla CONTRATOHABUNIVERSITARIA
 	 */
 	public List<ContratoHabUniversitaria> darContratosHabUniversitaria() 
 	{
@@ -1069,7 +1148,7 @@ public class PersistenciaParranderos
 
 
 	/**
-	 * Elimina todas las tuplas de todas las tablas de la base de datos de Parranderos
+	 * Elimina todas las tuplas de todas las tablas de la base de datos de Alohandes
 	 * Crea y ejecuta las sentencias SQL para cada tabla de la base de datos - EL ORDEN ES IMPORTANTE 
 	 * @return Un arreglo con 7 números que indican el número de tuplas borradas en las tablas GUSTAN, SIRVEN, VISITAN, BEBIDA,
 	 * TIPOBEBIDA, BEBEDOR y BAR, respectivamente

@@ -1,7 +1,7 @@
 package uniandes.isis2304.parranderos.negocio;
 
 /**
- * Interfaz para los métodos get de CONTRATOHABUNIVERSITARIO.
+ * Interfaz para los métodos get de CONTRATOHABUNIVERSITARIA.
  * Sirve para proteger la información del negocio de posibles manipulaciones desde la interfaz 
  * 
  */

@@ -66,8 +66,4 @@ public class Operador implements VOOperador {
 		this.nombre = nombre;
 	}
 
-
-
-
-
 }

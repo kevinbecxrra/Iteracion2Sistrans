@@ -405,3 +405,8 @@ ORA-02290: restricción de control (ISIS2304C032010.CK_TIPORESERVA) violada
 12:01:53,913 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : Error con la ejecucion de Query de SQL "SELECT * FROM RESERVA WHERE ID_CONTRATO =? AND TO_DATE(FECHA_FIN,'DD/MM/YYYY HH24;MI:SS')<TO_DATE(27/03/2020 12:01:52,'DD/MM/YYYY HH24;MI:SS')".
 Falta el parámetro IN o OUT en el índice:: 2
 12:01:54,008 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando contrato por id: -1 tuplas eliminadas
+20:38:07,502 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+20:38:07,503 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+20:38:07,519 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+20:38:36,309 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando Reserva por id: 21
+20:38:38,175 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando Reserva por id: 1 tuplas eliminadas
