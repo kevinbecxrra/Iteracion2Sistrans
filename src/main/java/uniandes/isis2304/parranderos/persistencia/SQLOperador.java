@@ -5,6 +5,7 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import uniandes.isis2304.parranderos.negocio.Ganancia;
 import uniandes.isis2304.parranderos.negocio.Operador;
 
 /**
@@ -97,6 +98,53 @@ public class SQLOperador{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaOperador());
 		q.setResultClass(Operador.class);
 		return (List<Operador>) q.executeList();
+	}
+	public List<Ganancia> darGanancias(PersistenceManager pm){
+		Query q = pm.newQuery(SQL, "SELECT ID,NOMBRE,GANANCIA_TOTAL AS GANANCIA, VECES\n" + 
+				"    FROM OPERADOR JOIN (SELECT ID_OPERADOR, SUM(GANANCIA) AS GANANCIA_TOTAL, SUM(VECES) AS VECES\n" + 
+				"    FROM (SELECT contrato.id AS CONTRATO_ID, contratohabhotel.id_hotel AS ID_OPERADOR\n" + 
+				"    FROM CONTRATO JOIN CONTRATOHABHOTEL\n" + 
+				"                    ON CONTRATO.ID=CONTRATOHABHOTEL.ID_CONTRATO\n" + 
+				"          UNION                \n" + 
+				"    SELECT contrato.id AS CONTRATO_ID, contratohabhostal.id_hostal AS ID_OPERADOR\n" + 
+				"    FROM CONTRATO JOIN CONTRATOHABHOSTAL\n" + 
+				"                    ON CONTRATO.ID=CONTRATOHABHOSTAL.ID_CONTRATO\n" + 
+				"            UNION\n" + 
+				"    SELECT CONTRATO.ID AS CONTRATO_ID, contratohabuniversitaria.id_vivienda AS ID_OPERADOR\n" + 
+				"    FROM CONTRATO JOIN CONTRATOHABUNIVERSITARIA\n" + 
+				"                  ON CONTRATO.ID=CONTRATOHABUNIVERSITARIA.ID_CONTRATO\n" + 
+				"            UNION      \n" + 
+				"    SELECT CONTRATO_ID, VIVIENDA_FAMILIAR.ID_PERSONA_NATURAL AS ID_OPERADOR\n" + 
+				"    FROM VIVIENDA_FAMILIAR JOIN (SELECT CONTRATO.ID AS CONTRATO_ID , CONTRATO_HAB_VIVIENDA.ID_VIVIENDA AS ID_VIVIENDA\n" + 
+				"                                FROM CONTRATO JOIN CONTRATO_HAB_VIVIENDA\n" + 
+				"                                              ON CONTRATO.ID=CONTRATO_HAB_VIVIENDA.ID_CONTRATO)\n" + 
+				"                          ON VIVIENDA_FAMILIAR.ID=ID_VIVIENDA\n" + 
+				"            UNION\n" + 
+				"    SELECT CONTRATO_ID, APARTAMENTO.ID_PERSONA_NATURAL AS ID_OPERADOR\n" + 
+				"    FROM APARTAMENTO JOIN (SELECT CONTRATO.ID AS CONTRATO_ID , CONTRATO_APARTAMENTO.ID_APARTAMENTO AS ID_APARTAMENTO\n" + 
+				"                           FROM CONTRATO JOIN CONTRATO_APARTAMENTO\n" + 
+				"                                         ON CONTRATO.ID=CONTRATO_APARTAMENTO.ID_CONTRATO)\n" + 
+				"                          ON APARTAMENTO.ID=ID_APARTAMENTO\n" + 
+				"            UNION\n" + 
+				"    SELECT CONTRATO_ID, VIVIENDA_FAMILIAR.ID_PERSONA_NATURAL AS ID_OPERADOR\n" + 
+				"    FROM VIVIENDA_FAMILIAR JOIN (SELECT CONTRATO.ID AS CONTRATO_ID, CONTRATO_CLIENTE_ESPORADICO.ID_VIVIENDA AS ID_VIVIENDA\n" + 
+				"                                FROM CONTRATO JOIN CONTRATO_CLIENTE_ESPORADICO\n" + 
+				"                                              ON CONTRATO.ID=CONTRATO_CLIENTE_ESPORADICO.ID_CONTRATO)\n" + 
+				"                          ON VIVIENDA_FAMILIAR.ID=ID_VIVIENDA) UNIONES LEFT JOIN (\n" + 
+				"    SELECT ID_CONT, SUM(COSTO) AS GANANCIA, COUNT(ID_CONT) AS VECES\n" + 
+				"    FROM ( SELECT RES.ID AS ID_RES,CTS.ID AS ID_CONT,CTS.COSTO AS COSTO,RES.FECHA_REALIZACIOM AS FECHA_REALIZACIO\n" + 
+				"           FROM CONTRATO CTS JOIN (SELECT * \n" + 
+				"                       FROM RESERVA\n" + 
+				"                       WHERE FECHA_REALIZACIOM LIKE '%2020%') RES\n" + 
+				"                     ON RES.ID_CONTRATO=CTS.ID) \n" + 
+				"    GROUP BY ID_CONT) GANANCIAS\n" + 
+				"    ON GANANCIAS.ID_CONT=uniones.contrato_id\n" + 
+				"    GROUP BY ID_OPERADOR)\n" + 
+				"                  ON OPERADOR.ID=ID_OPERADOR\n" + 
+				"                  WHERE GANANCIA_TOTAL>0\n" + 
+				"                  ORDER BY GANANCIA_TOTAL ASC");
+		q.setResultClass(Ganancia.class);
+		return (List<Ganancia>)q.executeList();
 	}
 	
 

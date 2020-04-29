@@ -30,6 +30,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.jdo.JDODataStoreException;
 import javax.swing.ImageIcon;
@@ -49,8 +50,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
+import uniandes.isis2304.parranderos.negocio.Contrato;
 import uniandes.isis2304.parranderos.negocio.Parranderos;
 import uniandes.isis2304.parranderos.negocio.Reserva;
+import uniandes.isis2304.parranderos.negocio.VOContrato;
+import uniandes.isis2304.parranderos.negocio.VOGanancia;
 import uniandes.isis2304.parranderos.negocio.VOReserva;
 
 /**
@@ -623,7 +627,8 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     @Override
 	public void actionPerformed(ActionEvent pEvento)
 	{
-		String evento = pEvento.getActionCommand( );		
+		String evento = pEvento.getActionCommand( );	
+		System.out.println(pEvento);
         try 
         {
 			Method req = InterfazParranderosApp.class.getMethod ( evento );			
@@ -765,7 +770,63 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		}
     }
     
+    public void mostrarGanancias() {
+    	try 
+    	{
+    		System.out.println("Entro al método");
+			List <VOGanancia> lista = parranderos.mostrarGanancias();
+
+			String resultado = "Mostrar Ganancias Operadores";
+			resultado +=  "\n" + listarGanancias (lista);
+			panelDatos.actualizarInterfaz(resultado);
+			resultado += "\n Operación terminada";
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
     
+    private String listarGanancias(List<VOGanancia> lista) 
+    {
+    	String resp = "Los tipos de bebida existentes son:\n";
+    	int i = 1;
+        for (VOGanancia tb : lista)
+        {
+        	resp += i++ + ". " + tb.toString() + "\n";
+        }
+        return resp;
+	}
+    
+    public void mostrarPopulares() {
+    	try 
+    	{
+			List <VOContrato> lista = parranderos.mostrarPopulares();
+
+			String resultado = "Mostrar Ofertas más populares";
+			resultado +=  "\n" + listarContratos (lista);
+			panelDatos.actualizarInterfaz(resultado);
+			resultado += "\n Operación terminada";
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+    private String listarContratos(List<VOContrato> lista) 
+    {
+    	String resp = "Los tipos de bebida existentes son:\n";
+    	int i = 1;
+        for (VOContrato tb : lista)
+        {
+        	resp += i++ + ". " + tb.toString() + "\n";
+        }
+        return resp;
+	}
     
 	/* ****************************************************************
 	 * 			Programa principal

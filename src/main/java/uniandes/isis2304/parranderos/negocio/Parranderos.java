@@ -181,6 +181,17 @@ public class Parranderos
 		log.info ("Generando los VO de Reserva " + voContratos.size() + " existentes");
 		return voContratos;
 	}
+	public List<VOContrato> mostrarPopulares ()
+	{
+		log.info ("Generando los VO de las Reservas Populares");        
+        List<VOContrato> voContrato = new LinkedList<VOContrato> ();
+        for (Contrato tb : pp.darPopulares())
+        {
+        	voContrato.add(tb);
+        }
+        log.info ("Generando los VO de las Ganancias: " + voContrato.size());
+        return voContrato;
+	}
 
 	/* ****************************************************************
 	 * 			Métodos para manejar los OPERADORES
@@ -234,6 +245,17 @@ public class Parranderos
 		return voOperadores;
 	}
 	
+	public List<VOGanancia> mostrarGanancias ()
+	{
+		log.info ("Generando los VO de las Ganancias");        
+        List<VOGanancia> voGanancias = new LinkedList<VOGanancia> ();
+        for (Ganancia tb : pp.darGanancias ())
+        {
+        	voGanancias.add(tb);
+        }
+        log.info ("Generando los VO de las Ganancias: " + voGanancias.size());
+        return voGanancias;
+	}
 	/* ****************************************************************
 	 * 			Métodos para manejar los Contrato_Apartamento
 	 *****************************************************************/

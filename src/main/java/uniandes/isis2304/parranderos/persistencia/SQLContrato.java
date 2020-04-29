@@ -180,5 +180,18 @@ public class SQLContrato{
 		return (List<Contrato>) q.executeList();
 	}
 	
+	public List<Contrato> darPopulares (PersistenceManager pm){
+		Query q=pm.newQuery(SQL,"SELECT ID, CAPACIDAD,COSTO\n" + 
+				"FROM CONTRATO CTS JOIN (SELECT ID_CONTRATO,VECES\n" + 
+				"		    FROM (SELECT ID_CONTRATO, COUNT(ID_CONTRATO) AS VECES\n" + 
+				"		    FROM RESERVA\n" + 
+				"	            GROUP BY ID_CONTRATO\n" + 
+				"	            ORDER BY VECES DESC)\n" + 
+				"	            WHERE ROWNUM<=20) POP\n" + 
+				"	            ON CTS.ID=POP.ID_CONTRATO"); 
+		q.setResultClass(Contrato.class);
+		return (List<Contrato>)q.executeList(); 
+	}
+	
 	
 }

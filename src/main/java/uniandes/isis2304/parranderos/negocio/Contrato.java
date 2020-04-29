@@ -51,6 +51,7 @@ public class Contrato implements VOContrato{
 		this.id = 0;
 		this.capacidad = 0;
 		this.costo = 0;
+		System.out.println("Creo");
 	}
 
 

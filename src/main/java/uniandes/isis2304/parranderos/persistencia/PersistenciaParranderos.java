@@ -35,7 +35,7 @@ import uniandes.isis2304.parranderos.negocio.Contrato_Cliente_Esporadico;
 import uniandes.isis2304.parranderos.negocio.Contrato_Hab_Vivienda;
 import uniandes.isis2304.parranderos.negocio.Operador;
 import uniandes.isis2304.parranderos.negocio.Reserva;
-
+import uniandes.isis2304.parranderos.negocio.Ganancia;
 /**
  * Clase para el manejador de persistencia del proyecto Alohandes
  * Traduce la información entre objetos Java y tuplas de la base de datos, en ambos sentidos
@@ -531,7 +531,10 @@ public class PersistenciaParranderos
 	{
 		return sqlContrato.darContratos(pmf.getPersistenceManager());
 	}
-
+	
+	public List<Contrato> darPopulares() {
+		return sqlContrato.darPopulares(pmf.getPersistenceManager());
+	}
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación OPERADOR
 	 *****************************************************************/
@@ -616,7 +619,9 @@ public class PersistenciaParranderos
 		return sqlOperador.darOperadores(pmf.getPersistenceManager());
 	}
 
-
+	public List<Ganancia> darGanancias() {
+		return sqlOperador.darGanancias(pmf.getPersistenceManager());
+	}
 	/* ****************************************************************
 	 * 			Métodos para manejar la relación CONTRATO_APARTAMENTO
 	 *****************************************************************/
