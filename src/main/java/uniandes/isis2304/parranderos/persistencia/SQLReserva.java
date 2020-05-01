@@ -11,6 +11,7 @@ import jdk.internal.org.jline.utils.Log;
 import sun.util.logging.resources.logging;
 import uniandes.isis2304.parranderos.negocio.Parranderos;
 import uniandes.isis2304.parranderos.negocio.Reserva;
+import uniandes.isis2304.parranderos.negocio.UsosVinculo;
 
 /**
  * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto RESERVA de Alohandes
@@ -114,5 +115,10 @@ public class SQLReserva {
 		return (List<Reserva>) q.executeList();
 	}
 	
+	public List<UsosVinculo> darUsosPorVinculo(PersistenceManager pm){
+		Query q =pm.newQuery(SQL,"SELECT C.VINCULO AS VINCULO,COUNT(C.VINCULO) AS VECES FROM RESERVA R JOIN (SELECT * FROM CLIENTE) C ON R.ID_CLIENTE=C.ID GROUP BY C.VINCULO");
+		q.setResultClass(UsosVinculo.class);
+		return (List<UsosVinculo>) q.executeList(); 
+	}
 	
 }

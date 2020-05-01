@@ -35,6 +35,8 @@ import uniandes.isis2304.parranderos.negocio.Contrato_Cliente_Esporadico;
 import uniandes.isis2304.parranderos.negocio.Contrato_Hab_Vivienda;
 import uniandes.isis2304.parranderos.negocio.Operador;
 import uniandes.isis2304.parranderos.negocio.Reserva;
+import uniandes.isis2304.parranderos.negocio.UsosVinculo;
+import uniandes.isis2304.parranderos.negocio.VOUsosVinculo;
 import uniandes.isis2304.parranderos.negocio.Ganancia;
 /**
  * Clase para el manejador de persistencia del proyecto Alohandes
@@ -1150,7 +1152,9 @@ public class PersistenciaParranderos
 		return sqlContratoHabUniversitaria.darContratosHabUniversitaria(pmf.getPersistenceManager());
 	}
 
-
+	public List<UsosVinculo> darUsosPorVinculo() {
+		return sqlReserva.darUsosPorVinculo(pmf.getPersistenceManager());
+	}
 
 	/**
 	 * Elimina todas las tuplas de todas las tablas de la base de datos de Alohandes

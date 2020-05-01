@@ -573,6 +573,20 @@ public class Parranderos
 		return voContratoHabUniversitaria;
 	}
 	
+	/* ****************************************************************
+	 * 			Tipos de Usuarios
+	 *****************************************************************/
+	public List<VOUsosVinculo> mostrarUsosVinculos(){
+		log.info ("Generando los VO de los usos por vínculo");        
+        List<VOUsosVinculo> voUsos = new LinkedList<VOUsosVinculo>();
+        for (UsosVinculo tb : pp.darUsosPorVinculo())
+        {
+        	voUsos.add(tb);
+        }
+        log.info ("Generando los VO de los Usos por vínculo: " + voUsos.size());
+        return voUsos;
+	}
+	
 
 	/* ****************************************************************
 	 * 			Métodos para administración
