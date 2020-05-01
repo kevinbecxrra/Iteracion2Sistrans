@@ -13,13 +13,13 @@ import org.apache.log4j.Logger;
 import uniandes.isis2304.parranderos.negocio.Contrato;
 import uniandes.isis2304.parranderos.negocio.ContratoHabHostal;
 import uniandes.isis2304.parranderos.negocio.ContratoHabHotel;
+import uniandes.isis2304.parranderos.negocio.ContratoHabUniversitaria;
 import uniandes.isis2304.parranderos.negocio.Contrato_Apartamento;
 import uniandes.isis2304.parranderos.negocio.Contrato_Cliente_Esporadico;
 import uniandes.isis2304.parranderos.negocio.Contrato_Hab_Vivienda;
 import uniandes.isis2304.parranderos.negocio.Parranderos;
 import uniandes.isis2304.parranderos.negocio.Reserva;
-
-
+import uniandes.isis2304.parranderos.persistencia.*;
 
 /**
  * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto CONTRATO de Alohandes
@@ -106,13 +106,51 @@ public class SQLContrato{
         	tablas.add(pp.darTablaContratoHabUniversitaria());
         	boolean termino=false;
         	for (int i=0;i<tablas.size() && !termino;i++){
+        		if (tablas.get(i).equals(pp.darTablaContrato_Apartamento())) {
+        			Query q2 = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaContrato_Apartamento() + " WHERE ID_CONTRATO=?");
+        			q2.setResultClass(Contrato_Apartamento.class);
+        			q2.setParameters(idContrato);
+        			Contrato_Apartamento contrato =(Contrato_Apartamento) q2.executeUnique();
+        			if (contrato!=null){log.info("Eliminando"+contrato);}
+        		}else if (tablas.get(i).equals(pp.darTablaContrato_Cliente_Esporadico())) {
+        			Query q2 = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaContrato_Cliente_Esporadico() + " WHERE ID_CONTRATO=?");
+        			q2.setResultClass(Contrato_Cliente_Esporadico.class);
+        			q2.setParameters(idContrato);
+        			Contrato_Cliente_Esporadico contrato= (Contrato_Cliente_Esporadico) q2.executeUnique();
+        			if (contrato!=null){log.info("Eliminando"+contrato);}
+        		}else if(tablas.get(i).equals(pp.darTablaContrato_Hab_Vivienda())){
+        			Query q2 = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaContrato_Hab_Vivienda() + " WHERE ID_CONTRATO=?");
+        			q2.setResultClass(Contrato_Hab_Vivienda.class);
+        			q2.setParameters(idContrato);
+        			Contrato_Hab_Vivienda contrato=(Contrato_Hab_Vivienda) q2.executeUnique();
+        			if (contrato!=null){log.info("Eliminando"+contrato);}
+        		}
+        		else if (tablas.get(i).equals(pp.darTablaContratoHabHostal())) {
+        			Query q2 = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaContratoHabHostal () + " WHERE ID_CONTRATO=?");
+        			q2.setResultClass(ContratoHabHostal.class);
+        			q2.setParameters(idContrato);
+        			ContratoHabHostal contrato = (ContratoHabHostal) q2.executeUnique();
+        			if (contrato!=null){log.info("Eliminando"+contrato);}
+        		}else if (tablas.get(i).equals(pp.darTablaContratoHabHotel())) {
+        			Query q2 = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaContratoHabHotel () + " WHERE ID_CONTRATO=?");
+        			q2.setResultClass(ContratoHabHotel.class);
+        			q2.setParameters(idContrato);
+        			ContratoHabHotel contrato= (ContratoHabHotel) q2.executeUnique();
+        			if (contrato!=null){log.info("Eliminando"+contrato);}
+        		}else {
+        			Query q2 = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaContratoHabUniversitaria () + " WHERE ID_CONTRATO=?");
+        			q2.setResultClass(ContratoHabUniversitaria.class);
+        			q2.setParameters(idContrato);
+        			ContratoHabUniversitaria contrato=(ContratoHabUniversitaria) q2.executeUnique();
+        			if (contrato!=null){log.info("Eliminando"+contrato);}
+        		}
         		
         		Query qdel=pm.newQuery(SQL,"DELETE FROM " +tablas.get(i)+ " WHERE ID_CONTRATO=?");
         		qdel.setParameters(idContrato);
         		qdel.executeUnique();
         	}
         	Contrato eliminar=darContratoPorId(pm, idContrato);
-    		log.info ("Eliminando Reserva: " + eliminada);
+    		log.info ("Eliminando: " + eliminar);
         	Query qCt=pm.newQuery(SQL, "DELETE FROM " +pp.darTablaContrato()+ " WHERE ID=?");
         	qCt.setParameters(idContrato); 
         	return (long) qCt.executeUnique();

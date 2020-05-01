@@ -818,3 +818,34 @@ ORA-00904: "ID": identificador no válido
 12:03:33,483 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : SQL query "SELECT * FROM CONTRATO_APARTAMENTO WHERE ID_CONTRATO=?" necesita 1 parametros pero no hay ninguno
 
 12:03:33,585 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando contrato por id: -1 tuplas eliminadas
+16:15:05,496 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+16:15:05,498 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+16:15:05,531 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+16:15:32,254 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando bebida por id: 500
+16:15:34,045 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando:null
+16:15:34,137 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando:null
+16:15:34,243 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : SQL query tiene parametro "2" pero no existe en el query : SELECT * FROM CONTRATO_HAB_VIVIENDA WHERE ID_CONTRATO=? = ?
+
+16:15:34,358 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando contrato por id: -1 tuplas eliminadas
+16:18:14,068 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+16:18:14,068 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+16:18:14,103 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+16:18:28,242 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando bebida por id: 500
+16:18:30,589 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : SQL query tiene parametro "2" pero no existe en el query : SELECT * FROM CONTRATO_HAB_VIVIENDA WHERE ID_CONTRATO=? = ?
+
+16:18:30,673 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando contrato por id: -1 tuplas eliminadas
+16:19:33,692 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+16:19:33,693 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+16:19:33,718 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+16:19:42,413 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando bebida por id: 500
+16:19:44,299 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - EliminandoContratoHabHostal [id_contrato=500, id_hostal=11]
+16:19:44,490 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : SQL query "SELECT * FROM RESERVA WHERE ID_CONTRATO =? AND TO_DATE(FECHA_FIN,'DD/MM/YYYY HH24;MI:SS')<TO_DATE('01/05/2020 04:19:42','DD/MM/YYYY HH24;MI:SS')" necesita 1 parametros pero no hay ninguno
+
+16:19:44,559 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando contrato por id: -1 tuplas eliminadas
+16:22:59,931 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+16:22:59,932 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+16:22:59,950 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+16:23:08,534 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando bebida por id: 500
+16:23:10,183 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - EliminandoContratoHabHostal [id_contrato=500, id_hostal=11]
+16:23:10,562 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando: Contrato [id=500, capacidad=10, costo=2001445]
+16:23:10,750 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando contrato por id: 1 tuplas eliminadas
