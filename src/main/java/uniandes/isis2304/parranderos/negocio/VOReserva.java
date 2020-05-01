@@ -52,7 +52,7 @@ public interface VOReserva {
 	 * 
 	 * @return Fecha de realizacion de la reserva
 	 */
-	public String getFecha_realizacion() ;
+	public String getFecha_realizaciom() ;
 
 	/**
 	 * 

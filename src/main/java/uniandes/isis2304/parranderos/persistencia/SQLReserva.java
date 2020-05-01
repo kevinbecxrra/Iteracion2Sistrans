@@ -5,6 +5,11 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import org.apache.log4j.Logger;
+
+import jdk.internal.org.jline.utils.Log;
+import sun.util.logging.resources.logging;
+import uniandes.isis2304.parranderos.negocio.Parranderos;
 import uniandes.isis2304.parranderos.negocio.Reserva;
 
 /**
@@ -18,6 +23,8 @@ public class SQLReserva {
 	/* ****************************************************************
 	 * 			Constantes
 	 *****************************************************************/
+	private static Logger log = Logger.getLogger(Parranderos.class.getName());
+	
 	/**
 	 * Cadena que representa el tipo de consulta que se va a realizar en las sentencias de acceso a la base de datos
 	 * Se renombra acá para facilitar la escritura de las sentencias
@@ -71,8 +78,9 @@ public class SQLReserva {
 	 * @return EL número de tuplas eliminadas
 	 */
 	public long eliminarReservaPorId (PersistenceManager pm, long idReserva)
-	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaReserva () + " WHERE id = ?");
+	{	Reserva eliminada=darReservaPorId(pm, idReserva);
+		log.info ("Eliminando Reserva: " + eliminada);
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaReserva () + " WHERE id = ?");
         q.setParameters(idReserva);
         return (long) q.executeUnique();            
 	}

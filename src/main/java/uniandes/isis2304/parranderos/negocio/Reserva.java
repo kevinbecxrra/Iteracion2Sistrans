@@ -45,7 +45,7 @@ public class Reserva implements VOReserva {
 	/**
 	 * Fecha de realizacion de la reserva
 	 */
-	private String fecha_realizacion; 
+	private String fecha_realizaciom; 
 
 	/**
 	 * Tipo de alojamiento a elegir
@@ -72,7 +72,7 @@ public class Reserva implements VOReserva {
 		this.fecha_inicio ="";
 		this.fecha_fin = "";
 		this.fecha_limite = "";
-		this.fecha_realizacion = "";
+		this.fecha_realizaciom = "";
 		this.tipo = null;
 		this.id_cliente = 0;
 
@@ -91,7 +91,7 @@ public class Reserva implements VOReserva {
 	 * @param id_cliente - El id del cliente
 	 */
 	public Reserva(long id, long id_contrato, int personas, String fehca_inicio, String fecha_fin,
-			String fecha_limite, String fecha_realizacion, String tipo, long id_cliente) {
+			String fecha_limite, String fecha_realizaciom, String tipo, long id_cliente) {
 		super();
 		this.id = id;
 		this.id_contrato = id_contrato;
@@ -99,7 +99,7 @@ public class Reserva implements VOReserva {
 		this.fecha_inicio = fehca_inicio;
 		this.fecha_fin = fecha_fin;
 		this.fecha_limite = fecha_limite;
-		this.fecha_realizacion = fecha_realizacion;
+		this.fecha_realizaciom = fecha_realizaciom;
 		this.tipo = tipo;
 		this.id_cliente = id_cliente;
 	}
@@ -200,16 +200,16 @@ public class Reserva implements VOReserva {
 	 * 
 	 * @return Fecha de realizacion de la reserva
 	 */
-	public String getFecha_realizacion() {
-		return fecha_realizacion;
+	public String getFecha_realizaciom() {
+		return fecha_realizaciom;
 	}
 
 	/**
 	 * 
 	 * @return Fecha de realizacion de la reserva
 	 */
-	public void setFecha_realizacion(String fecha_realizacion) {
-		this.fecha_realizacion = fecha_realizacion;
+	public void setFecha_realizaciom(String fecha_realizacion) {
+		this.fecha_realizaciom = fecha_realizacion;
 	}
 
 
@@ -252,7 +252,7 @@ public class Reserva implements VOReserva {
 	public String toString() {
 		return "Reserva [id=" + id + ", id_contrato=" + id_contrato + ", personas=" + personas + ", fecha_inicio="
 				+ fecha_inicio + ", fecha_fin=" + fecha_fin + ", fecha_limite=" + fecha_limite + ", fecha_realizacion="
-				+ fecha_realizacion + ", tipo=" + tipo + ", id_cliente=" + id_cliente + "]";
+				+ fecha_realizaciom + ", tipo=" + tipo + ", id_cliente=" + id_cliente + "]";
 	}
 
 

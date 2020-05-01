@@ -21,6 +21,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import com.google.gson.JsonObject;
 
+import jdk.internal.org.jline.utils.Log;
 import uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos;
 
 /**
@@ -90,7 +91,7 @@ public class Parranderos
 	{
 		log.info ("Adicionando reserva");
 		Reserva reserva = pp.adicionarReserva(id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);
-		log.info ("Adicionando bebida: " + reserva);
+		log.info ("Adicionando reserva: " + reserva);
 		return reserva;
 	}
 

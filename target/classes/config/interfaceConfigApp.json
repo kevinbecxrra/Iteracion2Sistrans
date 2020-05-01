@@ -24,6 +24,19 @@
 				{
 					"label": "Borrar por Id",
 					"event": "eliminarOfertaPorId"
+				},
+				{
+					"label": "20 más populares",
+					"event": "mostrarPopulares"
+				}
+			]
+		},
+		{ "menuTitle": "Operadores",
+		  		"options":
+			[
+				{
+					"label": "Mostrar ganacias",
+					"event": "mostrarGanancias"
 				}
 			]
 		},
