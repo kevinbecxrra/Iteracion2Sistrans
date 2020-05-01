@@ -40,6 +40,15 @@
 				}
 			]
 		},
+		{"menuTitle": "Tipos Usuarios",
+		  		"options":
+			[
+				{
+					"label": "Mostrar uso por Vinculo",
+					"event": "mostrarPorVinculo"
+				}
+			]
+		},
 		{ "menuTitle": "Mantenimiento",
 		  "options":
 			[
