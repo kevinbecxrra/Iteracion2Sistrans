@@ -55,6 +55,7 @@ import uniandes.isis2304.parranderos.negocio.Parranderos;
 import uniandes.isis2304.parranderos.negocio.Reserva;
 import uniandes.isis2304.parranderos.negocio.VOContrato;
 import uniandes.isis2304.parranderos.negocio.VOGanancia;
+import uniandes.isis2304.parranderos.negocio.VOIndice;
 import uniandes.isis2304.parranderos.negocio.VOReserva;
 import uniandes.isis2304.parranderos.negocio.VOUsosVinculo;
 
@@ -860,6 +861,35 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         }
         return resp;
 	}
+    
+    public void mostrarIndices() {
+    	try 
+    	{
+			List <VOIndice> lista = parranderos.mostrarIndices();
+
+			String resultado = "Mostrar Ganancias Operadores";
+			resultado +=  "\n" + listarIndices(lista);
+			panelDatos.actualizarInterfaz(resultado);
+			resultado += "\n Operación terminada";
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+    private String listarIndices(List<VOIndice> lista) 
+    {
+    	String resp = "Los usos por tipos de usuario son:\n";
+    	int i = 1;
+        for (VOIndice tb : lista)
+        {
+        	resp += i++ + ". " + tb.toString() + "\n";
+        }
+        return resp;
+    }
+    
 	/* ****************************************************************
 	 * 			Programa principal
 	 *****************************************************************/

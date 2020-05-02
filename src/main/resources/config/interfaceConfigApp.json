@@ -28,6 +28,10 @@
 				{
 					"label": "20 más populares",
 					"event": "mostrarPopulares"
+				},
+				{
+					"label": "Indices de ocupacion",
+					"event": "mostrarIndices"
 				}
 			]
 		},

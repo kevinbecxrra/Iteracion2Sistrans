@@ -587,6 +587,16 @@ public class Parranderos
         return voUsos;
 	}
 	
+	public List<VOIndice> mostrarIndices(){
+		log.info ("Generando los VO de los Indices de Ocupación");        
+        List<VOIndice> voIndices = new LinkedList<VOIndice>();
+        for (Indice tb : pp.darIndices())
+        {
+        	voIndices.add(tb);
+        }
+        log.info ("Generando los VO de los indices de Ocupación: " + voIndices.size());
+        return voIndices;
+	}
 
 	/* ****************************************************************
 	 * 			Métodos para administración

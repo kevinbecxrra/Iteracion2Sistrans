@@ -38,6 +38,7 @@ import uniandes.isis2304.parranderos.negocio.Reserva;
 import uniandes.isis2304.parranderos.negocio.UsosVinculo;
 import uniandes.isis2304.parranderos.negocio.VOUsosVinculo;
 import uniandes.isis2304.parranderos.negocio.Ganancia;
+import uniandes.isis2304.parranderos.negocio.Indice;
 /**
  * Clase para el manejador de persistencia del proyecto Alohandes
  * Traduce la información entre objetos Java y tuplas de la base de datos, en ambos sentidos
@@ -1191,6 +1192,8 @@ public class PersistenciaParranderos
 
 	}
 
-
+	public List<Indice>darIndices() {
+		return sqlContrato.darIndices(pmf.getPersistenceManager());
+	}
 
 }

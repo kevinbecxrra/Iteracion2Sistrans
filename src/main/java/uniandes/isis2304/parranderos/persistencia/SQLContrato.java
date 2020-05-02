@@ -17,6 +17,7 @@ import uniandes.isis2304.parranderos.negocio.ContratoHabUniversitaria;
 import uniandes.isis2304.parranderos.negocio.Contrato_Apartamento;
 import uniandes.isis2304.parranderos.negocio.Contrato_Cliente_Esporadico;
 import uniandes.isis2304.parranderos.negocio.Contrato_Hab_Vivienda;
+import uniandes.isis2304.parranderos.negocio.Indice;
 import uniandes.isis2304.parranderos.negocio.Parranderos;
 import uniandes.isis2304.parranderos.negocio.Reserva;
 import uniandes.isis2304.parranderos.persistencia.*;
@@ -199,5 +200,15 @@ public class SQLContrato{
 		return (List<Contrato>)q.executeList(); 
 	}
 	
+	public List<Indice>darIndices(PersistenceManager pm){
+		Query q= pm.newQuery(SQL,"SELECT CONT.ID AS ID_OFERTA, CONT.CAPACIDAD, TOTAL.ALOJADAS, TOTAL.ALOJADAS/CONT.CAPACIDAD AS INDICE\n" + 
+				"FROM CONTRATO CONT JOIN (SELECT ID_CONTRATO, SUM(PERSONAS) AS ALOJADAS\n" + 
+				"                    FROM RESERVA\n" + 
+				"                    GROUP BY ID_CONTRATO) TOTAL\n" + 
+				"              ON CONT.ID=TOTAL.ID_CONTRATO\n" + 
+				"ORDER BY INDICE DESC");
+		q.setResultClass(Indice.class);
+		return (List<Indice>) q.executeList();
+	}
 	
 }
