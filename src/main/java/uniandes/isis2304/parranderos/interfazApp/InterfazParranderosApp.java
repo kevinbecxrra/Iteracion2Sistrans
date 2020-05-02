@@ -29,6 +29,7 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -115,6 +116,8 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
      * Menú de la aplicación
      */
     private JMenuBar menuBar;
+    
+    private List<String> caracteristicas;
 
 	/* ****************************************************************
 	 * 			Métodos
@@ -836,6 +839,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     public void mostrarPorVinculo() {
     	try 
     	{
+    		VentanaChecks a =new VentanaChecks(this);
 			List <VOUsosVinculo> lista = parranderos.mostrarUsosVinculos();
 
 			String resultado = "Mostrar Ganancias Operadores";
@@ -910,5 +914,9 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         {
             e.printStackTrace( );
         }
+    }
+    public void setCaracteristicas(ArrayList<String> car) {
+    	caracteristicas=(List<String>)car;
+    	System.out.println(caracteristicas);
     }
 }
