@@ -841,7 +841,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     public void mostrarPorVinculo() {
     	try 
     	{
-    		VentanaChecks a =new VentanaChecks(this);
+    		
 			List <VOUsosVinculo> lista = parranderos.mostrarUsosVinculos();
 
 			String resultado = "Mostrar Ganancias Operadores";
@@ -919,6 +919,5 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     }
     public void setCaracteristicas(ArrayList<String> car) {
     	caracteristicas=(List<String>)car;
-    	System.out.println(caracteristicas);
     }
 }
