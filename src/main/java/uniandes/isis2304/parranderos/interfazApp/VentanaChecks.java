@@ -1,26 +1,34 @@
 package uniandes.isis2304.parranderos.interfazApp;
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
-public class VentanaChecks extends JFrame implements ActionListener{
+import com.sun.source.doctree.StartElementTree;
+
+public class VentanaChecks extends JDialog implements ActionListener{
 	private JCheckBox check1,check2,check3,check4,check5,check6,check7,check8,check9,check10,check11,check12,check13,check14,check15,check16,check17,check18,check19;
 	private JButton boton;
 	private ArrayList<String> cad;
 	private InterfazParranderosApp interfaz;
 	public VentanaChecks(InterfazParranderosApp pInterfaz) {
-		interfaz=pInterfaz;
+		interfaz=pInterfaz;	
 		setSize(400, 400);
 		setLayout(new BorderLayout());
-		setVisible(true);
 		cad=new ArrayList<String>();
 		JPanel central=new JPanel();
 		central.setLayout(new GridLayout(10,2));
@@ -82,11 +90,12 @@ public class VentanaChecks extends JFrame implements ActionListener{
 		central.add(check18);
 		central.add(check19);
 		add(central,BorderLayout.CENTER);
-
 		boton=new JButton();
 		boton.setText("Aceptar");
 		boton.addActionListener(this);
 		add(boton,BorderLayout.SOUTH);
+		setModal(true);
+		setVisible(true);
 
 	}
 
