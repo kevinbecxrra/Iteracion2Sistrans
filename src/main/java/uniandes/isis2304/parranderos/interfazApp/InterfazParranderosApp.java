@@ -704,12 +704,14 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         		VOReserva tb = parranderos.adicionarReserva(Integer.parseInt(contrato), Integer.parseInt(persona),fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, Integer.parseInt(cliente));
         		if (tb == null)
         		{
-        			throw new Exception ("No se pudo crear la Reserva: ");
+        			panelDatos.actualizarInterfaz("No se pudo crear la reserva");
         		}
+        		else {
         		String resultado = "En adicionarReserva\n\n";
         		resultado += "Reserva adicionada exitosamente: " + tb;
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
+        		}
     		}
     		else
     		{

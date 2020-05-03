@@ -65,7 +65,7 @@ public interface VOReserva {
 	 */
 	public long getId_cliente();
 
-
+	public String getTipo_reserva();
 	/**
 	 * @return Una cadena de caracteres con la información de la reserva
 	 */

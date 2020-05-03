@@ -1,11 +1,15 @@
 package uniandes.isis2304.parranderos.negocio;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Clase para modelar el concepto RESERVA del negocio de AlohAndes
  *
  */
-public class Reserva implements VOReserva {
+public class Reserva implements VOReserva,Comparable<Reserva> {
 
 
 	/* ****************************************************************
@@ -57,6 +61,7 @@ public class Reserva implements VOReserva {
 	 */
 	private long id_cliente; 
 
+	private String tipo_reserva;
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
@@ -75,7 +80,7 @@ public class Reserva implements VOReserva {
 		this.fecha_realizaciom = "";
 		this.tipo = null;
 		this.id_cliente = 0;
-
+		this.tipo_reserva="";
 	}
 
 	/**
@@ -244,7 +249,12 @@ public class Reserva implements VOReserva {
 		this.id_cliente = id_cliente;
 	}
 
-
+	public void setTipo_reserva(String tipo) {
+		this.tipo_reserva=tipo;
+	}
+	public String getTipo_reserva() {
+		return tipo_reserva;
+	}
 	/** 
 	 * @return Una cadena con la información básica
 	 */
@@ -253,6 +263,21 @@ public class Reserva implements VOReserva {
 		return "Reserva [id=" + id + ", id_contrato=" + id_contrato + ", personas=" + personas + ", fecha_inicio="
 				+ fecha_inicio + ", fecha_fin=" + fecha_fin + ", fecha_limite=" + fecha_limite + ", fecha_realizacion="
 				+ fecha_realizaciom + ", tipo=" + tipo + ", id_cliente=" + id_cliente + "]";
+	}
+
+	@Override
+	public int compareTo(Reserva o) {
+		DateFormat fechaHora = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+		int rta=0;
+		try {
+			Date fecha_realizacion = fechaHora.parse(this.fecha_realizaciom);
+			Date fecha_realizacion2=fechaHora.parse(o.getFecha_realizaciom());
+			rta= fecha_realizacion.compareTo(fecha_realizacion2);
+		} catch (ParseException e) {
+			System.out.println("ERROR AL COMPARAR FECHAS DE RESERVAS ");
+			e.printStackTrace();
+		}
+		return rta; 
 	}
 
 

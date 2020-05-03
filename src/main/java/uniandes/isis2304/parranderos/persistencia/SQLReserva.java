@@ -77,13 +77,14 @@ public class SQLReserva {
 		q1.setParameters(id_contrato); 
 		List<Reserva> reservas=(List<Reserva>)q1.executeList();
 		DateFormat fechaHora = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+		long rta=(long) 0;
 		try {
 			Date fecha_fin_date = fechaHora.parse(fecha_fin);
 			Date fecha_inicio_date=fechaHora.parse(fecha_inicio);
 			boolean Sepuede=true; 
 			for (int i=0; i<reservas.size() && Sepuede;i++) {
 				Date fecha_fin_date_reserva = fechaHora.parse(reservas.get(i).getFecha_fin());
-				Date fecha_inicio_date_reserva=fechaHora.parse(reservas.get(i).getFecha_inicio());	
+				Date fecha_inicio_date_reserva=fechaHora.parse(reservas.get(i).getFecha_inicio());
 				if (!(fecha_fin_date.before(fecha_inicio_date_reserva)||fecha_inicio_date.after(fecha_fin_date_reserva))){
 					Sepuede=false;
 				}
@@ -92,15 +93,14 @@ public class SQLReserva {
 			if (Sepuede) {
 				Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReserva() + "(ID,ID_CONTRATO,PERSONAS,FECHA_INICIO,FECHA_FIN,FECHA_LIMITE,FECHA_REALIZACIOM,TIPO,ID_CLIENTE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 				q.setParameters(id, id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);
-				return (long) q.executeUnique();  
-			}else {
-				return (long)0;
-			}
-		} catch (ParseException e) {
+				rta= (long) q.executeUnique();  
+		}} catch (ParseException e) {
 			System.out.println("Error al convertir las fechas");
 			e.printStackTrace();
 		}
+		return rta;
 	}
+		
 
 	/**
 	 * Crea y ejecuta la sentencia SQL para eliminar RESERVAS de la base de datos de Parranderos, por su identificador

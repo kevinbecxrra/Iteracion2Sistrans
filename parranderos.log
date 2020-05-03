@@ -1197,3 +1197,69 @@ ORA-00904: "ID": identificador no válido
 ORA-02291: restricción de integridad (ISIS2304C032010.FK_CONTRATORESERVA) violada - clave principal no encontrada
 
 14:34:26,519 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva: null
+15:22:39,362 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+15:22:39,362 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+15:22:39,384 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+15:22:54,039 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando las ofertas que cumplen con las características
+15:23:10,086 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Se generaron las ofertas con las características
+15:25:30,305 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva
+15:25:33,218 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva: Reserva [id=222, id_contrato=3, personas=10, fecha_inicio=20/04/2020 1:29:09 PM, fecha_fin=1/05/2020 3:05:09, fecha_limite=06/05/2020 03:25:16, fecha_realizacion=03/05/2020 03:25:16, tipo=HOTEL, id_cliente=6]
+15:32:37,746 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando las ofertas que cumplen con las características
+15:32:40,402 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Se generaron las ofertas con las características
+15:33:19,824 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva
+15:33:20,158 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva: Reserva [id=223, id_contrato=3, personas=2, fecha_inicio=18/04/2020 1:29:09 PM, fecha_fin=3/05/2020 3:05:09, fecha_limite=06/05/2020 03:33:12, fecha_realizacion=03/05/2020 03:33:12, tipo=HOTEL, id_cliente=6]
+15:41:47,405 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+15:41:47,406 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+15:41:47,421 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+15:41:59,651 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando las ofertas que cumplen con las características
+15:42:02,730 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Se generaron las ofertas con las características
+15:42:45,802 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva
+15:42:47,080 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : El Query tenia que devolver objetos de tipo "uniandes.isis2304.parranderos.negocio.Reserva" pero era imposible poner el valor al campo "TIPO_RESERVA"  tipo "java.lang.String". El campo debe tener un metodo publico set/put o ser publico.
+
+15:42:47,234 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva: null
+15:42:58,375 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando las ofertas que cumplen con las características
+15:43:02,343 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Se generaron las ofertas con las características
+15:44:14,433 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva
+15:44:14,677 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : El Query tenia que devolver objetos de tipo "uniandes.isis2304.parranderos.negocio.Reserva" pero era imposible poner el valor al campo "TIPO_RESERVA"  tipo "java.lang.String". El campo debe tener un metodo publico set/put o ser publico.
+
+15:44:14,796 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva: null
+15:45:35,882 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando las ofertas que cumplen con las características
+15:45:39,373 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Se generaron las ofertas con las características
+15:46:42,244 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva
+15:46:42,736 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : El Query tenia que devolver objetos de tipo "uniandes.isis2304.parranderos.negocio.Reserva" pero era imposible poner el valor al campo "TIPO_RESERVA"  tipo "java.lang.String". El campo debe tener un metodo publico set/put o ser publico.
+
+15:46:42,881 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva: null
+15:49:33,506 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+15:49:33,506 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+15:49:33,523 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+15:49:47,253 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando las ofertas que cumplen con las características
+15:49:50,470 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Se generaron las ofertas con las características
+15:51:34,054 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva
+15:51:34,913 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : El Query tenia que devolver objetos de tipo "uniandes.isis2304.parranderos.negocio.Reserva" pero era imposible poner el valor al campo "TIPO_RESERVA"  tipo "java.lang.String". El campo debe tener un metodo publico set/put o ser publico.
+
+15:51:34,973 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva: null
+15:53:32,644 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+15:53:32,645 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+15:53:32,659 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+15:53:47,497 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando las ofertas que cumplen con las características
+15:53:48,588 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Se generaron las ofertas con las características
+15:54:34,821 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva
+15:54:38,716 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : El Query tenia que devolver objetos de tipo "uniandes.isis2304.parranderos.negocio.Reserva" pero era imposible poner el valor al campo "TIPO_RESERVA"  tipo "java.lang.String". El campo debe tener un metodo publico set/put o ser publico.
+
+15:54:38,767 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva: null
+16:00:22,625 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+16:00:22,625 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+16:00:22,641 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+16:00:35,227 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando las ofertas que cumplen con las características
+16:00:36,349 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Se generaron las ofertas con las características
+16:01:18,239 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando las ofertas que cumplen con las características
+16:01:18,922 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Se generaron las ofertas con las características
+16:01:35,232 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva
+16:01:36,150 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva: Reserva [id=229, id_contrato=3, personas=2, fecha_inicio=15/05/2020 1:29:09 PM , fecha_fin=20/05/2020 1:29:09 PM , fecha_limite=06/05/2020 04:01:28, fecha_realizacion=03/05/2020 04:01:28, tipo=HOTEL, id_cliente=2]
+16:02:08,334 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando las ofertas que cumplen con las características
+16:02:14,188 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Se generaron las ofertas con las características
+16:02:55,584 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva
+16:02:55,838 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva: null
+16:07:03,819 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+16:07:03,820 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+16:07:03,835 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD

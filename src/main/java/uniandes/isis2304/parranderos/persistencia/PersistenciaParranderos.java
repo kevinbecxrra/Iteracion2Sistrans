@@ -387,7 +387,11 @@ public class PersistenciaParranderos
 			tx.commit();
 
 			log.trace ("Inserción reserva: " + idReserva+ ": " + tuplasInsertadas + " tuplas insertadas");
+			if (tuplasInsertadas!=0){
 			return new Reserva (idReserva,id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);
+			}else {
+				return null;
+			}
 		}
 		catch (Exception e)
 		{

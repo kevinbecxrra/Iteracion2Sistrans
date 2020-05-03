@@ -256,12 +256,40 @@ public class SQLContrato{
     				contratos_con_car.remove(i);
     			}
     		}
+    		List<Reserva> faltantes= new LinkedList<Reserva>();
+    		// Se añaden las vigentes
     		for (int i=0;i<vigentes.size();i++) {
-    			boolean agendo=false; 
-    			Reserva reagendar=vigentes.get(i); 
-    			for(int j=0;j<contratos_con_car.size();j++) {
-    				Contrato contrato_actual= contratos_con_car.get(j); 
+    			Reserva res=vigentes.get(i);
+    			boolean agendo=false;
+    			for (int j=0;j<contratos_con_car.size() && !agendo;j++) {
+        			long rta=sqlreserva.adicionarReserva(pm,res.getId(),contratos_con_car.get(j).getId(),res.getPersonas(),res.getFecha_inicio(), res.getFecha_fin(),res.getFecha_limite(),res.getFecha_realizaciom(),res.getTipo(), res.getId_cliente());
+        			if (rta!=0) {
+        				log.info("Se reagendo la reserva:"+res.getId()+" en la oferta"+ contratos_con_car.get(j).getId());
+        				res.setId_contrato(contratos_con_car.get(j).getId());
+        				log.info("Reserva reagendada:"+ res.toString());
+        				agendo=true;
+        			}
     			}
+    			if (!agendo){
+    				faltantes.add(res);
+    			}    			
+    		}
+    		// se miran las que no están vigentes
+    		for (int i=0;i<vigentes.size();i++) {
+    			Reserva res=vigentes.get(i);
+    			boolean agendo=false;
+    			for (int j=0;j<contratos_con_car.size() && !agendo;j++) {
+        			long rta=sqlreserva.adicionarReserva(pm,res.getId(),contratos_con_car.get(j).getId(),res.getPersonas(),res.getFecha_inicio(), res.getFecha_fin(),res.getFecha_limite(),res.getFecha_realizaciom(),res.getTipo(), res.getId_cliente());
+        			if (rta!=0) {
+        				log.info("Se reagendo la reserva:"+res.getId()+" en la oferta"+ contratos_con_car.get(j).getId());
+        				res.setId_contrato(contratos_con_car.get(j).getId());
+        				log.info("Reserva reagendada:"+ res.toString());
+        				agendo=true;
+        			}
+    			}
+    			if (!agendo){
+    				faltantes.add(res);
+    			}    			
     		}
     			
     		
