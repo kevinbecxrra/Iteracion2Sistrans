@@ -3,6 +3,8 @@ package uniandes.isis2304.parranderos.persistencia;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -17,6 +19,7 @@ import uniandes.isis2304.parranderos.negocio.ContratoHabUniversitaria;
 import uniandes.isis2304.parranderos.negocio.Contrato_Apartamento;
 import uniandes.isis2304.parranderos.negocio.Contrato_Cliente_Esporadico;
 import uniandes.isis2304.parranderos.negocio.Contrato_Hab_Vivienda;
+import uniandes.isis2304.parranderos.negocio.Id;
 import uniandes.isis2304.parranderos.negocio.Indice;
 import uniandes.isis2304.parranderos.negocio.Parranderos;
 import uniandes.isis2304.parranderos.negocio.Reserva;
@@ -70,7 +73,7 @@ public class SQLContrato{
 	 */
 	public long adicionarContrato (PersistenceManager pm, long id, int capacidad, int costo) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaContrato() + "(id, capacidad, costo) values (?, ?, ?)");
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaContrato() + "(id, capacidad, costo,habiliatada) values (?, ?, ?,'YES')");
         q.setParameters(id, capacidad, costo);
         return (long) q.executeUnique();            
 	}
@@ -167,7 +170,7 @@ public class SQLContrato{
 	 */
 	public Contrato darContratoPorId (PersistenceManager pm, long idContrato) 
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaContrato () + " WHERE id = ?");
+		Query q = pm.newQuery(SQL, "SELECT * FROM CONTRATO WHERE id = ?");
 		q.setResultClass(Contrato.class);
 		q.setParameters(idContrato);
 		return (Contrato) q.executeUnique();
@@ -210,5 +213,37 @@ public class SQLContrato{
 		q.setResultClass(Indice.class);
 		return (List<Indice>) q.executeList();
 	}
+	
+	public List<Contrato> darContratosPorCar(List<String> car, PersistenceManager pm){
+		List<Contrato> retornar = new LinkedList<>();
+		List<Integer> todos= new LinkedList<>();
+		for (int i=0; i<car.size();i++) {
+			
+			Query q=pm.newQuery(SQL, "SELECT ID FROM SERVICIO WHERE NOMBRE_SERVICIO = ?");
+			q.setResultClass(Integer.class);
+			q.setParameters(car.get(i));
+			List<Integer>actual=((List<Integer>)q.executeList());
+			for (int j=0; j<actual.size();j++) {
+				todos.add(actual.get(j));
+			}
+		}
+		ArrayList<Integer> revisados= new ArrayList<>(); 
+		for (int i=0; i<todos.size(); i++) {
+			if (!revisados.contains(todos.get(i))){
+				revisados.add(todos.get(i));
+				int veces = Collections.frequency(todos,todos.get(i)); 
+				if (veces==car.size()) {
+					Contrato ct=darContratoPorId(pm, todos.get(i));
+					retornar.add(ct);
+				}
+			}
+		}
+		return retornar;
+	}
+	
+	
+	
+	
+	
 	
 }

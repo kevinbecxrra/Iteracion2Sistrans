@@ -597,7 +597,15 @@ public class Parranderos
         log.info ("Generando los VO de los indices de Ocupación: " + voIndices.size());
         return voIndices;
 	}
-
+	public List<VOContrato> mostrarOfertasConCaracteristicas(List<String> car){
+		log.info("Generando las ofertas que cumplen con las características");
+		List<VOContrato> ofertas=new LinkedList<>();
+		for (Contrato i: pp.darOfertasCar(car)) {
+			ofertas.add(i);
+		}
+		log.info("Se generaron las ofertas con las características");
+		return ofertas;
+	}
 	/* ****************************************************************
 	 * 			Métodos para administración
 	 *****************************************************************/

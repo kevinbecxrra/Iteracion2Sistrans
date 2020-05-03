@@ -658,8 +658,14 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     public void adicionarReserva( )
     {
     	try 
-    	{
-    		String contrato = JOptionPane.showInputDialog (this, "Identificador del contrato?", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
+    	{	
+    		VentanaChecks check=new VentanaChecks(this);
+    		List<VOContrato> contratos=parranderos.mostrarOfertasConCaracteristicas(caracteristicas);
+			String resultado1 = "Mostrar Contratos que cumplen con las características";
+			resultado1 +=  "\n" + listarContratos(contratos);
+			panelDatos.actualizarInterfaz(resultado1);
+			resultado1 += "\n Operación terminada";
+    		listarContratos(contratos);
     		String persona=JOptionPane.showInputDialog(this, "Número de personas", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
     		String fecha_inicio= JOptionPane.showInputDialog(this, "Fecha de Inicio(dd/MM/YYYY hh:mm:ss PM/AM)", "Adicionar Reserva" ,JOptionPane.QUESTION_MESSAGE);
     		String fecha_fin=JOptionPane.showInputDialog(this, "Fecha de Finalización(dd/MM/YYYY hh:mm:ss PM/AM)", "Adicionar Reserva" ,JOptionPane.QUESTION_MESSAGE);
@@ -693,6 +699,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     			tipo="CLIENTE_ESPORADICO";
     		}
     		String cliente=JOptionPane.showInputDialog(this,"ID cliente", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
+    		String contrato = JOptionPane.showInputDialog (this, "Identificador del contrato?", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
     		if(contrato!=null && fecha_inicio!=null&&fecha_fin!=null&&persona!=null&&tipo!=null && cliente!=null) {
         		VOReserva tb = parranderos.adicionarReserva(Integer.parseInt(contrato), Integer.parseInt(persona),fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, Integer.parseInt(cliente));
         		if (tb == null)
@@ -779,7 +786,6 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     public void mostrarGanancias() {
     	try 
     	{
-    		System.out.println("Entro al método");
 			List <VOGanancia> lista = parranderos.mostrarGanancias();
 
 			String resultado = "Mostrar Ganancias Operadores";
@@ -825,7 +831,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     }
     private String listarContratos(List<VOContrato> lista) 
     {
-    	String resp = "Los tipos de bebida existentes son:\n";
+    	String resp = "Los Contratos con las características son:\n";
     	int i = 1;
         for (VOContrato tb : lista)
         {
@@ -895,6 +901,32 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         }
         return resp;
     }
+    
+//    public void mostrarUsoUsuario() {
+//    	try 
+//    	{
+//    		String id_cliente = JOptionPane.showInputDialog (this, "Id del cliente", "Mostrar Uso de Alohandes", JOptionPane.QUESTION_MESSAGE);
+//    		if (id_cliente!=null){
+//    			List <VOIndice> lista = parranderos.mostrarUsoUsuario();
+//
+//    			String resultado = "Mostrar Uso del Operador";
+//    			resultado +=  "\n" + listarIndices(lista);
+//    			panelDatos.actualizarInterfaz(resultado);
+//    			resultado += "\n Operación terminada";	
+//    		}
+//    		else
+//    		{
+//    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+//    		}
+//		} 
+//    	catch (Exception e) 
+//    	{
+////			e.printStackTrace();
+//			String resultado = generarMensajeError(e);
+//			panelDatos.actualizarInterfaz(resultado);
+//		}
+//    }
+    
     
 	/* ****************************************************************
 	 * 			Programa principal

@@ -39,7 +39,7 @@ public class Contrato implements VOContrato{
 	 */
 	private int costo;
 	
-
+	private String habilitada;
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
@@ -51,15 +51,17 @@ public class Contrato implements VOContrato{
 		this.id = 0;
 		this.capacidad = 0;
 		this.costo = 0;
-		System.out.println("Creo");
+		this.habilitada="";
+		
 	}
 
 
-	public Contrato(long id, int capacidad, int costo) {
+	public Contrato(long id, int capacidad, int costo,String habilitada) {
 		super();
 		this.id = id;
 		this.capacidad = capacidad;
 		this.costo = costo;
+		this.habilitada=habilitada;
 	}
 
 
@@ -82,6 +84,12 @@ public class Contrato implements VOContrato{
 		this.capacidad = capacidad;
 	}
 
+	public void setHabilitada(String habilitada) {
+		this.habilitada=habilitada;
+	}
+	public String getHabilitada() {
+		return this.habilitada;
+	}
 
 	@Override
 	public String toString() {

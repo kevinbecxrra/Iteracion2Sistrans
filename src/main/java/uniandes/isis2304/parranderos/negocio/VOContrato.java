@@ -31,6 +31,7 @@ public interface VOContrato {
 	/**
 	 * @return Una cadena de caracteres con la información del contrato
 	 */
+	public String getHabilitada();
 	@Override
 	public String toString(); 
 

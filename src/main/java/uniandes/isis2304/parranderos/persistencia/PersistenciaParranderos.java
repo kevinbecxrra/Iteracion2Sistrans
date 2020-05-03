@@ -38,6 +38,7 @@ import uniandes.isis2304.parranderos.negocio.Reserva;
 import uniandes.isis2304.parranderos.negocio.UsosVinculo;
 import uniandes.isis2304.parranderos.negocio.VOUsosVinculo;
 import uniandes.isis2304.parranderos.negocio.Ganancia;
+import uniandes.isis2304.parranderos.negocio.Id;
 import uniandes.isis2304.parranderos.negocio.Indice;
 /**
  * Clase para el manejador de persistencia del proyecto Alohandes
@@ -473,7 +474,7 @@ public class PersistenciaParranderos
 			tx.commit();
 
 			log.trace ("Inserción contrato: " + idContrato+ ": " + tuplasInsertadas + " tuplas insertadas");
-			return new Contrato (idContrato, capacidad, costo);
+			return new Contrato (idContrato, capacidad, costo,"YES");
 		}
 		catch (Exception e)
 		{
@@ -1050,7 +1051,10 @@ public class PersistenciaParranderos
 		}
 	}
 
-
+	public List<Contrato> darOfertasCar(List<String> car){
+		
+		return sqlContrato.darContratosPorCar(car,pmf.getPersistenceManager());
+	}
 	/**
 	 * Método que consulta todas las tuplas en la tabla CONTRATOHABHOTEL
 	 * @return La lista de objetos ContratoHabHotel, construidos con base en las tuplas de la tabla CONTRATOHABHOTEL

@@ -50,6 +50,10 @@
 				{
 					"label": "Mostrar uso por Vinculo",
 					"event": "mostrarPorVinculo"
+				},
+				{
+					"label": "Uso por Usuario",
+					"event": "mostrarUsoUsuario"
 				}
 			]
 		},
