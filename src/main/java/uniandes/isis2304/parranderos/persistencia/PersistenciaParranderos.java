@@ -535,7 +535,7 @@ public class PersistenciaParranderos
 	{
 		return sqlContrato.darContratos(pmf.getPersistenceManager());
 	}
-	
+
 	public List<Contrato> darPopulares() {
 		return sqlContrato.darPopulares(pmf.getPersistenceManager());
 	}
@@ -1052,7 +1052,7 @@ public class PersistenciaParranderos
 	}
 
 	public List<Contrato> darOfertasCar(List<String> car){
-		
+
 		return sqlContrato.darContratosPorCar(car,pmf.getPersistenceManager());
 	}
 	/**
@@ -1195,9 +1195,32 @@ public class PersistenciaParranderos
 		}
 
 	}
-
+	public long deshabilitarOferta(long idCont) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			long resp = sqlContrato.deshabilitarContrato(pm, idCont);
+			tx.commit();
+			return resp;
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
 	public List<Indice>darIndices() {
 		return sqlContrato.darIndices(pmf.getPersistenceManager());
 	}
-
 }

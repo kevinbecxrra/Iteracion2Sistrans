@@ -902,6 +902,34 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         return resp;
     }
     
+    public void deshabilitarOferta() {
+    	try 
+    	{
+    		String id = JOptionPane.showInputDialog (this, "Id de la Oferta a deshabilitar", "Deshabilitar Oferta", JOptionPane.QUESTION_MESSAGE);
+    		if (id != null)
+    		{
+    			long idCont = Long.valueOf (id);
+    			long tbDeshabilitada = parranderos.deshabilitarOferta(idCont);
+    			String resultado = "Deshabilitando Oferta por Id\n\n";
+    			resultado += tbDeshabilitada + " Oferta Deshabilitada\n";
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+    		e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+    
+    
+    
 //    public void mostrarUsoUsuario() {
 //    	try 
 //    	{

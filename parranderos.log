@@ -1187,3 +1187,13 @@ ORA-00904: "ID": identificador no válido
 12:17:11,077 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
 12:17:33,904 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando las ofertas que cumplen con las características
 12:17:34,853 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Se generaron las ofertas con las características
+14:32:23,222 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+14:32:23,223 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+14:32:23,244 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+14:32:49,003 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando las ofertas que cumplen con las características
+14:32:54,642 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Se generaron las ofertas con las características
+14:34:24,706 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva
+14:34:26,479 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : Error con la ejecucion de Query de SQL "INSERT INTO RESERVA(ID,ID_CONTRATO,PERSONAS,FECHA_INICIO,FECHA_FIN,FECHA_LIMITE,FECHA_REALIZACIOM,TIPO,ID_CLIENTE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)".
+ORA-02291: restricción de integridad (ISIS2304C032010.FK_CONTRATORESERVA) violada - clave principal no encontrada
+
+14:34:26,519 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando reserva: null

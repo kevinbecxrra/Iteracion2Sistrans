@@ -32,6 +32,14 @@
 				{
 					"label": "Indices de ocupacion",
 					"event": "mostrarIndices"
+				},
+				{
+					"label": "Deshabilitar oferta",
+					"event": "deshabilitarOferta"
+				},
+				{
+					"label": "Habilitar oferta",
+					"event": "mostrarIndices"
 				}
 			]
 		},

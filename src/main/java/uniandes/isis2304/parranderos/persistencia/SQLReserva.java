@@ -1,5 +1,9 @@
 package uniandes.isis2304.parranderos.persistencia;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -20,18 +24,18 @@ import uniandes.isis2304.parranderos.negocio.UsosVinculo;
  * @author Kevin Becerra - Christian Forigua
  */
 public class SQLReserva {
-	
+
 	/* ****************************************************************
 	 * 			Constantes
 	 *****************************************************************/
 	private static Logger log = Logger.getLogger(Parranderos.class.getName());
-	
+
 	/**
 	 * Cadena que representa el tipo de consulta que se va a realizar en las sentencias de acceso a la base de datos
 	 * Se renombra acá para facilitar la escritura de las sentencias
 	 */
 	private final static String SQL = PersistenciaParranderos.SQL;
-	
+
 	/* ****************************************************************
 	 * 			Atributos
 	 *****************************************************************/
@@ -50,7 +54,7 @@ public class SQLReserva {
 	public SQLReserva(PersistenciaParranderos pp) {
 		this.pp = pp;
 	}
-	
+
 	/**
 	 * Crea y ejecuta la sentencia SQL para adicionar una RESERVA a la base de datos de Alohandes
 	 * @param pm - El manejador de persistencia
@@ -67,11 +71,37 @@ public class SQLReserva {
 	 */
 	public long adicionarReserva (PersistenceManager pm, long id, long id_contrato, int personas, String fecha_inicio, String fecha_fin, String fecha_limite, String fecha_realizacion, String tipo, long id_cliente) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReserva() + "(ID,ID_CONTRATO,PERSONAS,FECHA_INICIO,FECHA_FIN,FECHA_LIMITE,FECHA_REALIZACIOM,TIPO,ID_CLIENTE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        q.setParameters(id, id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);
-        return (long) q.executeUnique();            
+		//Ontener reservas del contrato
+		Query q1=pm.newQuery(SQL, "SELECT * FROM RESERVA WHERE ID_CONTRATO=?");
+		q1.setResultClass(Reserva.class);
+		q1.setParameters(id_contrato); 
+		List<Reserva> reservas=(List<Reserva>)q1.executeList();
+		DateFormat fechaHora = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+		try {
+			Date fecha_fin_date = fechaHora.parse(fecha_fin);
+			Date fecha_inicio_date=fechaHora.parse(fecha_inicio);
+			boolean Sepuede=true; 
+			for (int i=0; i<reservas.size() && Sepuede;i++) {
+				Date fecha_fin_date_reserva = fechaHora.parse(reservas.get(i).getFecha_fin());
+				Date fecha_inicio_date_reserva=fechaHora.parse(reservas.get(i).getFecha_inicio());	
+				if (!(fecha_fin_date.before(fecha_inicio_date_reserva)||fecha_inicio_date.after(fecha_fin_date_reserva))){
+					Sepuede=false;
+				}
+
+			}
+			if (Sepuede) {
+				Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReserva() + "(ID,ID_CONTRATO,PERSONAS,FECHA_INICIO,FECHA_FIN,FECHA_LIMITE,FECHA_REALIZACIOM,TIPO,ID_CLIENTE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+				q.setParameters(id, id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);
+				return (long) q.executeUnique();  
+			}else {
+				return 0;
+			}
+		} catch (ParseException e) {
+			System.out.println("Error al convertir las fechas");
+			e.printStackTrace();
+		}
 	}
-	
+
 	/**
 	 * Crea y ejecuta la sentencia SQL para eliminar RESERVAS de la base de datos de Parranderos, por su identificador
 	 * @param pm - El manejador de persistencia
@@ -80,12 +110,12 @@ public class SQLReserva {
 	 */
 	public long eliminarReservaPorId (PersistenceManager pm, long idReserva)
 	{	Reserva eliminada=darReservaPorId(pm, idReserva);
-		log.info ("Eliminando Reserva: " + eliminada);
-		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaReserva () + " WHERE id = ?");
-        q.setParameters(idReserva);
-        return (long) q.executeUnique();            
+	log.info ("Eliminando Reserva: " + eliminada.toString());
+	Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaReserva () + " WHERE id = ?");
+	q.setParameters(idReserva);
+	return (long) q.executeUnique();            
 	}
-	
+
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de UNA RESERVA de la 
 	 * base de datos de Alohandes, por su identificador
@@ -100,8 +130,8 @@ public class SQLReserva {
 		q.setParameters(idReserva);
 		return (Reserva) q.executeUnique();
 	}
-	
-	
+
+
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de LAS RESERVAS de la 
 	 * base de datos de Alohandes
@@ -114,11 +144,11 @@ public class SQLReserva {
 		q.setResultClass(Reserva.class);
 		return (List<Reserva>) q.executeList();
 	}
-	
+
 	public List<UsosVinculo> darUsosPorVinculo(PersistenceManager pm){
 		Query q =pm.newQuery(SQL,"SELECT C.VINCULO AS VINCULO,COUNT(C.VINCULO) AS VECES FROM RESERVA R JOIN (SELECT * FROM CLIENTE) C ON R.ID_CLIENTE=C.ID GROUP BY C.VINCULO");
 		q.setResultClass(UsosVinculo.class);
 		return (List<UsosVinculo>) q.executeList(); 
 	}
-	
+
 }

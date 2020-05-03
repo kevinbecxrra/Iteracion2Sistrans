@@ -1,9 +1,13 @@
 package uniandes.isis2304.parranderos.persistencia;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -50,7 +54,7 @@ public class SQLContrato{
 	 * El manejador de persistencia general de la aplicación
 	 */
 	private PersistenciaParranderos pp;
-
+	private SQLReserva sqlreserva;
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
@@ -214,6 +218,71 @@ public class SQLContrato{
 		return (List<Indice>) q.executeList();
 	}
 	
+	public long deshabilitarContrato(PersistenceManager pm, long idCont) throws Exception{
+		Query q1=pm.newQuery(SQL,"SELECT * FROM RESERVA WHERE ID_CONTRATO=? "); 
+		q1.setResultClass(Reserva.class);
+		q1.setParameters(idCont); 
+		List<Reserva> reservas=(List<Reserva>)q1.executeList();
+		//Borrar las reservas de la oferta deshabilitadas de la base de datos
+		for (int i=0; i<reservas.size();i++) {
+			sqlreserva.eliminarReservaPorId(pm,reservas.get(i).getId());
+		}
+		if (reservas.size()>0){
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss");  
+    		LocalDateTime actual = LocalDateTime.now();
+    		String fecha_actual_str=dtf.format(actual);
+    		List<Reserva> vigentes=new LinkedList<>();
+    		List<Reserva> no_vigentes=new LinkedList<>();
+    		for (int i=0; i<reservas.size();i++) {
+    			Reserva reserva_actual=reservas.get(i);
+    			DateFormat fechaHora = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+    			Date fecha_fin = fechaHora.parse(reserva_actual.getFecha_fin());
+    			Date fecha_actual=fechaHora.parse(fecha_actual_str);
+    			if (fecha_fin.before(fecha_actual)) {
+    				vigentes.add(reserva_actual);
+    			}else {
+    				no_vigentes.add(reserva_actual);
+    			}
+    		}
+    		//Se obtienen las características de la oferta deshabilitada
+    		List<String> caracteristicas=darCaracteristicas(pm,idCont);
+    		//Se obtienen los contratos con las caracteristicas
+    		List<Contrato> contratos_con_car=darContratosPorCar(caracteristicas, pm);
+    		//Se elimina el contrato deshabilitado
+    		boolean eliminado=false;
+    		for (int i=0; i<contratos_con_car.size() && !eliminado;i++) {
+    			if (contratos_con_car.get(i).getId()==idCont){
+    				eliminado=true;
+    				contratos_con_car.remove(i);
+    			}
+    		}
+    		for (int i=0;i<vigentes.size();i++) {
+    			boolean agendo=false; 
+    			Reserva reagendar=vigentes.get(i); 
+    			for(int j=0;j<contratos_con_car.size();j++) {
+    				Contrato contrato_actual= contratos_con_car.get(j); 
+    			}
+    		}
+    			
+    		
+    	}else {
+    		log.info("No se reagendo ninguna reserva. El contrato no tenía ninguna reserva agendada");
+    	}
+		Query q2=pm.newQuery(SQL,"UPDATE CONTRATO\n" + 
+				"SET HABILITADA='NO'\n" + 
+				"WHERE ID=?"); 
+		q2.setParameters(idCont);
+		log.info("Se deshabilito la oferta:"+idCont);
+		return (long)q2.executeUnique();
+		}
+	
+	
+	public List<String> darCaracteristicas(PersistenceManager pm, long IdCont){
+		Query q=pm.newQuery(SQL,"SELECT NOMBRE_SERVICIO FROM SERVICIO WHERE ID=?");
+		q.setResultClass(String.class);
+		q.setParameters(IdCont); 
+		return (List<String>)q.executeList();
+	}
 	public List<Contrato> darContratosPorCar(List<String> car, PersistenceManager pm){
 		List<Contrato> retornar = new LinkedList<>();
 		List<Integer> todos= new LinkedList<>();
@@ -239,11 +308,5 @@ public class SQLContrato{
 			}
 		}
 		return retornar;
-	}
-	
-	
-	
-	
-	
-	
+	}	
 }
