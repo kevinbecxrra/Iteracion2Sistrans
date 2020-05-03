@@ -94,7 +94,7 @@ public class SQLReserva {
 				q.setParameters(id, id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);
 				return (long) q.executeUnique();  
 			}else {
-				return 0;
+				return (long)0;
 			}
 		} catch (ParseException e) {
 			System.out.println("Error al convertir las fechas");
