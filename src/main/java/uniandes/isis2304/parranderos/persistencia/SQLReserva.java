@@ -16,6 +16,7 @@ import sun.util.logging.resources.logging;
 import uniandes.isis2304.parranderos.negocio.Contrato;
 import uniandes.isis2304.parranderos.negocio.Parranderos;
 import uniandes.isis2304.parranderos.negocio.Reserva;
+import uniandes.isis2304.parranderos.negocio.ReservaColectiva;
 import uniandes.isis2304.parranderos.negocio.UsosVinculo;
 
 /**
@@ -161,4 +162,7 @@ public class SQLReserva {
 		return (List<UsosVinculo>) q.executeList(); 
 	}
 
+
+
 }
+

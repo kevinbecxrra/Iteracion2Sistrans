@@ -65,6 +65,19 @@
 				}
 			]
 		},
+		{ "menuTitle": "Reserva Colectiva",
+		  		"options":
+			[
+				{
+					"label": "Adicionar Reserva Colectiva",
+					"event": "adicionarReservaColectiva"
+				},
+				{
+					"label": "Borrar reserva coelctiva por Id",
+					"event": "eliminarReservaColectivaPorId"
+				}
+			]
+		},
 		{ "menuTitle": "Mantenimiento",
 		  "options":
 			[
