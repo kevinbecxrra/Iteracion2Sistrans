@@ -134,6 +134,9 @@ public class PersistenciaParranderos
 	 * Atributo para el acceso a la tabla RESERVAN de la base de datos
 	 */
 	private SQLReserva sqlReserva; 
+	
+	private SQLReservaColectiva sqlReservaColectiva; 
+
 
 
 	/* ****************************************************************
@@ -160,6 +163,7 @@ public class PersistenciaParranderos
 		tablas.add("CONTRATOHABUNIVERSITARIA");
 		tablas.add("OPERADOR");
 		tablas.add("RESERVA");
+		tablas.add("RESERVA_COLECTIVA");
 
 	}
 
@@ -246,6 +250,7 @@ public class PersistenciaParranderos
 		sqlContratoHabUniversitaria = new SQLContratoHabUniversitaria(this);
 		sqlOperador = new SQLOperador(this);
 		sqlReserva = new SQLReserva(this);
+		sqlReservaColectiva = new SQLReservaColectiva(this);
 	}
 
 	/**
@@ -326,6 +331,11 @@ public class PersistenciaParranderos
 	 */
 	public String darTablaReserva() {
 		return tablas.get(14);
+	}
+	
+
+	public String darTablaReservaColectiva() {
+		return tablas.get(15);
 	}
 
 
@@ -1259,4 +1269,69 @@ public class PersistenciaParranderos
 	public List<Indice>darIndices() {
 		return sqlContrato.darIndices(pmf.getPersistenceManager());
 	}
+	
+	
+	
+	public Reserva adicionarReservaColectiva(long id_contrato, int personas, String fecha_inicio, String fecha_fin, String fecha_limite, String fecha_realizacion, String tipo, long id_cliente) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();            
+			long idReserva = nextval ();
+			long tuplasInsertadas = sqlReservaColectiva.adicionarReservaColectiva(pm, idReserva,id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);
+			tx.commit();
+
+			log.trace ("Inserción reserva: " + idReserva+ ": " + tuplasInsertadas + " tuplas insertadas");
+			if (tuplasInsertadas!=0){
+			return new Reserva (idReserva,id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);
+			}else {
+				return null;
+			}
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+	
+	
+	public long eliminarReservaColectivaPorId(long idCont) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			long resp = sqlReservaColectiva.eliminarReservaColectivaPorId(pm, idCont);
+			tx.commit();
+			return resp;
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
 }

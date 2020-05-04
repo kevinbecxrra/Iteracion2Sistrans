@@ -621,6 +621,7 @@ public class Parranderos
 		
 	}
 	
+<<<<<<< HEAD
 	public List<String>mostrarUso(){
 		log.info ("Generando el Uso de AlohAndes");        
         List<String> voUso = new LinkedList<String> ();
@@ -631,6 +632,31 @@ public class Parranderos
         log.info ("Generando Uso de AlohAndes:" + voUso.size());
         return voUso;
 	}
+=======
+	public Reserva adicionarReservaColectiva (long id_contrato, int personas, String fecha_inicio, String fecha_fin, String fecha_limite, String fecha_realizacion, String tipo, long id_cliente)
+	{
+		log.info ("Adicionando reserva colectiva");
+		Reserva reservaColectiva = pp.adicionarReserva(id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);
+		log.info ("Adicionando reserva colectiva: " + reservaColectiva);
+		return reservaColectiva;
+	}
+
+
+	/**
+	 * Elimina una bebida por su identificador
+	 * Adiciona entradas al log de la aplicación
+	 * @param idBebida - El identificador de la bebida a eliminar
+	 * @return El número de tuplas eliminadas (1 o 0)
+	 */
+	public long eliminarReservaColectivaPorId (long idReservaColectiva)
+	{
+		log.info ("Eliminando Reserva colectiva por id: " + idReservaColectiva);
+		long resp = pp.eliminarReservaColectivaPorId (idReservaColectiva);
+		log.info ("Eliminando Reserva colectiva por id: " + resp + " tuplas eliminadas");
+		return resp;
+	}
+
+>>>>>>> master
 	/* ****************************************************************
 	 * 			Métodos para administración
 	 *****************************************************************/

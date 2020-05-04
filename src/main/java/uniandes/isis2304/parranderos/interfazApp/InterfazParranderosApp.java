@@ -62,6 +62,7 @@ import uniandes.isis2304.parranderos.negocio.VOIndice;
 import uniandes.isis2304.parranderos.negocio.VOReserva;
 import uniandes.isis2304.parranderos.negocio.VOUsosVinculo;
 
+
 /**
  * Clase principal de la interfaz
  * @author Germán Bravo
@@ -930,6 +931,9 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		}
 	}
 
+
+
+
 	public void habilitarOferta() {
 		try 
 		{
@@ -948,6 +952,74 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 					resultado+=" La Oferta ya estaba habilitada";
 					panelDatos.actualizarInterfaz(resultado);
 				}
+			}
+			else
+			{
+				panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+			}
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	}
+	public void adicionarReservaColectiva( )
+	{
+		try 
+		{
+			VentanaChecks check=new VentanaChecks(this);
+			List<VOContrato> contratos=parranderos.mostrarOfertasConCaracteristicas(caracteristicas);
+			String resultado1 = "Mostrar Contratos que cumplen con las características";
+			resultado1 +=  "\n" + listarContratos(contratos);
+			panelDatos.actualizarInterfaz(resultado1);
+			resultado1 += "\n Operación terminada";
+			listarContratos(contratos);
+			String contrato = JOptionPane.showInputDialog (this, "Identificador del contrato?", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
+			String persona=JOptionPane.showInputDialog(this, "Número de personas", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
+			String fecha_inicio= JOptionPane.showInputDialog(this, "Fecha de Inicio(dd/MM/YYYY hh:mm:ss PM/AM)", "Adicionar Reserva" ,JOptionPane.QUESTION_MESSAGE);
+			String fecha_fin=JOptionPane.showInputDialog(this, "Fecha de Finalización(dd/MM/YYYY hh:mm:ss PM/AM)", "Adicionar Reserva" ,JOptionPane.QUESTION_MESSAGE);
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss");  
+			LocalDateTime actual = LocalDateTime.now();
+			String fecha_realizacion=dtf.format(actual);
+			String fecha_limite=fecha_realizacion; 
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+			Calendar c=Calendar.getInstance(); 
+			c.setTime(sdf.parse(fecha_limite));
+			c.add(Calendar.DATE,3);
+			fecha_limite=sdf.format(c.getTime());
+			String tipostr=JOptionPane.showInputDialog(this,"Tipo de oferta", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
+			String tipo=null;
+			if(tipostr.equalsIgnoreCase("hotel")) {
+				tipo="HOTEL"; 
+			}
+			else if (tipostr.equalsIgnoreCase("hostal")) {
+				tipo="HOSTAL";
+			}
+			else if (tipostr.equalsIgnoreCase("vivienda_universitaria")) {
+				tipo="VIVIENDA_UNIVERSITARIA";
+			}
+			else if (tipostr.equalsIgnoreCase("vivienda_familiar")) {
+				tipo="VIVIENDA_FAMILIAR";
+			}
+			else if (tipostr.equalsIgnoreCase("apartamento")) {
+				tipo="APARTAMENTO";
+			}
+			else if (tipostr.equalsIgnoreCase("cliente_esporádico")) {
+				tipo="CLIENTE_ESPORADICO";
+			}
+			String cliente=JOptionPane.showInputDialog(this,"ID cliente", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
+			if(contrato!=null && fecha_inicio!=null&&fecha_fin!=null&&persona!=null&&tipo!=null && cliente!=null) {
+				VOReserva tb = parranderos.adicionarReserva(Integer.parseInt(contrato), Integer.parseInt(persona),fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, Integer.parseInt(cliente));
+				if (tb == null)
+				{
+					throw new Exception ("No se pudo crear la Reserva: ");
+				}
+				String resultado = "En adicionarReserva\n\n";
+				resultado += "Reserva adicionada exitosamente: " + tb;
+				resultado += "\n Operación terminada";
+				panelDatos.actualizarInterfaz(resultado);
 			}
 			else
 			{
@@ -990,54 +1062,82 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		return resp;
 	}
 
-//    public void mostrarUsoUsuario() {
-//    	try 
-//    	{
-//    		String id_cliente = JOptionPane.showInputDialog (this, "Id del cliente", "Mostrar Uso de Alohandes", JOptionPane.QUESTION_MESSAGE);
-//    		if (id_cliente!=null){
-//    			List <VOIndice> lista = parranderos.mostrarUsoUsuario();
-//
-//    			String resultado = "Mostrar Uso del Operador";
-//    			resultado +=  "\n" + listarIndices(lista);
-//    			panelDatos.actualizarInterfaz(resultado);
-//    			resultado += "\n Operación terminada";	
-//    		}
-//    		else
-//    		{
-//    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
-//    		}
-//		} 
-//    	catch (Exception e) 
-//    	{
-////			e.printStackTrace();
-//			String resultado = generarMensajeError(e);
-//			panelDatos.actualizarInterfaz(resultado);
-//		}
-//    }
+	public void eliminarReservaColectivaPorId( )
+	{
+		try 
+		{
+			String id = JOptionPane.showInputDialog (this, "Id de la reserva colectiva", "Borrar reserva colectiva por Id", JOptionPane.QUESTION_MESSAGE);
+			if (id != null)
+			{
+				long idRes = Long.valueOf (id);
+				long tbEliminados = parranderos.eliminarReservaColectivaPorId(idRes);
+
+				String resultado = "En eliminar Reserva por ID\n\n";
+				resultado += tbEliminados + " Reserva colectiva eliminada \n";
+				resultado += "\n Operación terminada";
+				panelDatos.actualizarInterfaz(resultado);
+			}
+			else
+			{
+				panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+			}
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	}
+
+	//    public void mostrarUsoUsuario() {
+	//    	try 
+	//    	{
+	//    		String id_cliente = JOptionPane.showInputDialog (this, "Id del cliente", "Mostrar Uso de Alohandes", JOptionPane.QUESTION_MESSAGE);
+	//    		if (id_cliente!=null){
+	//    			List <VOIndice> lista = parranderos.mostrarUsoUsuario();
+	//
+	//    			String resultado = "Mostrar Uso del Operador";
+	//    			resultado +=  "\n" + listarIndices(lista);
+	//    			panelDatos.actualizarInterfaz(resultado);
+	//    			resultado += "\n Operación terminada";	
+	//    		}
+	//    		else
+	//    		{
+	//    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+	//    		}
+	//		} 
+	//    	catch (Exception e) 
+	//    	{
+	////			e.printStackTrace();
+	//			String resultado = generarMensajeError(e);
+	//			panelDatos.actualizarInterfaz(resultado);
+	//		}
+	//    }
 
 
-/* ****************************************************************
- * 			Programa principal
- *****************************************************************/
-/**
- * Este método ejecuta la aplicación, creando una nueva interfaz
- * @param args Arreglo de argumentos que se recibe por línea de comandos
- */
-public static void main( String[] args )
-{
-	try
+	/* ****************************************************************
+	 * 			Programa principal
+	 *****************************************************************/
+	/**
+	 * Este método ejecuta la aplicación, creando una nueva interfaz
+	 * @param args Arreglo de argumentos que se recibe por línea de comandos
+	 */
+	public static void main( String[] args )
 	{
-		// Unifica la interfaz para Mac y para Windows.
-		UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName( ) );
-		InterfazParranderosApp interfaz = new InterfazParranderosApp( );
-		interfaz.setVisible( true );
+		try
+		{
+			// Unifica la interfaz para Mac y para Windows.
+			UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName( ) );
+			InterfazParranderosApp interfaz = new InterfazParranderosApp( );
+			interfaz.setVisible( true );
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace( );
+		}
 	}
-	catch( Exception e )
-	{
-		e.printStackTrace( );
+	public void setCaracteristicas(ArrayList<String> car) {
+		caracteristicas=(List<String>)car;
 	}
-}
-public void setCaracteristicas(ArrayList<String> car) {
-	caracteristicas=(List<String>)car;
-}
 }
