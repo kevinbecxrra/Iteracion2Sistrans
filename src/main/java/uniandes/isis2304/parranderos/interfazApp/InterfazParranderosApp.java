@@ -938,7 +938,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			{
 				long idCont = Long.valueOf (id);
 				long tbHabilitada = parranderos.habilitarOferta(idCont);
-				String resultado = "Habilitando Oferta por Id\n\n";
+				String resultado = "Hhabilitando Oferta por Id\n\n";
 				if (tbHabilitada!=0) {
 					resultado += tbHabilitada + " Oferta Habilitada\n";
 					resultado += "\n Operación terminada";

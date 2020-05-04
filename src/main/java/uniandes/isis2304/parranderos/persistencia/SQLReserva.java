@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 
 import jdk.internal.org.jline.utils.Log;
 import sun.util.logging.resources.logging;
+import uniandes.isis2304.parranderos.negocio.Contrato;
 import uniandes.isis2304.parranderos.negocio.Parranderos;
 import uniandes.isis2304.parranderos.negocio.Reserva;
 import uniandes.isis2304.parranderos.negocio.UsosVinculo;
@@ -43,7 +44,7 @@ public class SQLReserva {
 	 * El manejador de persistencia general de la aplicación
 	 */
 	private PersistenciaParranderos pp;
-
+	
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
@@ -72,6 +73,11 @@ public class SQLReserva {
 	public long adicionarReserva (PersistenceManager pm, long id, long id_contrato, int personas, String fecha_inicio, String fecha_fin, String fecha_limite, String fecha_realizacion, String tipo, long id_cliente) 
 	{
 		//Ontener reservas del contrato
+		Query q3 = pm.newQuery(SQL, "SELECT * FROM CONTRATO WHERE id = ?");
+		q3.setResultClass(Contrato.class);
+		q3.setParameters(id_contrato);
+		Contrato ct= (Contrato) q3.executeUnique();
+		if (ct.getHabilitada().equals("YES")){
 		Query q1=pm.newQuery(SQL, "SELECT * FROM RESERVA WHERE ID_CONTRATO=?");
 		q1.setResultClass(Reserva.class);
 		q1.setParameters(id_contrato); 
@@ -99,6 +105,9 @@ public class SQLReserva {
 				e.printStackTrace();
 			}
 		return rta;
+		}else {
+			return (long)0;
+		}
 	}
 
 
