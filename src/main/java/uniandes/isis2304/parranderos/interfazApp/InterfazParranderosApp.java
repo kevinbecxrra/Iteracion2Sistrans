@@ -77,94 +77,94 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	 * Logger para escribir la traza de la ejecución
 	 */
 	private static Logger log = Logger.getLogger(InterfazParranderosApp.class.getName());
-	
+
 	/**
 	 * Ruta al archivo de configuración de la interfaz
 	 */
 	private static final String CONFIG_INTERFAZ = "./src/main/resources/config/interfaceConfigApp.json"; 
-	
+
 	/**
 	 * Ruta al archivo de configuración de los nombres de tablas de la base de datos
 	 */
 	private static final String CONFIG_TABLAS = "./src/main/resources/config/TablasBD_A.json"; 
-	
+
 	/* ****************************************************************
 	 * 			Atributos
 	 *****************************************************************/
-    /**
-     * Objeto JSON con los nombres de las tablas de la base de datos que se quieren utilizar
-     */
-    private JsonObject tableConfig;
-    
-    /**
-     * Asociación a la clase principal del negocio.
-     */
-    private Parranderos parranderos;
-    
+	/**
+	 * Objeto JSON con los nombres de las tablas de la base de datos que se quieren utilizar
+	 */
+	private JsonObject tableConfig;
+
+	/**
+	 * Asociación a la clase principal del negocio.
+	 */
+	private Parranderos parranderos;
+
 	/* ****************************************************************
 	 * 			Atributos de interfaz
 	 *****************************************************************/
-    /**
-     * Objeto JSON con la configuración de interfaz de la app.
-     */
-    private JsonObject guiConfig;
-    
-    /**
-     * Panel de despliegue de interacción para los requerimientos
-     */
-    private PanelDatos panelDatos;
-    
-    /**
-     * Menú de la aplicación
-     */
-    private JMenuBar menuBar;
-    
-    private List<String> caracteristicas;
+	/**
+	 * Objeto JSON con la configuración de interfaz de la app.
+	 */
+	private JsonObject guiConfig;
+
+	/**
+	 * Panel de despliegue de interacción para los requerimientos
+	 */
+	private PanelDatos panelDatos;
+
+	/**
+	 * Menú de la aplicación
+	 */
+	private JMenuBar menuBar;
+
+	private List<String> caracteristicas;
 
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
-    /**
-     * Construye la ventana principal de la aplicación. <br>
-     * <b>post:</b> Todos los componentes de la interfaz fueron inicializados.
-     */
-    public InterfazParranderosApp( )
-    {
-        // Carga la configuración de la interfaz desde un archivo JSON
-        guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ);
-        
-        // Configura la apariencia del frame que contiene la interfaz gráfica
-        configurarFrame ( );
-        if (guiConfig != null) 	   
-        {
-     	   crearMenu( guiConfig.getAsJsonArray("menuBar") );
-        }
-        
-        tableConfig = openConfig ("Tablas BD", CONFIG_TABLAS);
-        System.out.println(tableConfig);
-        parranderos = new Parranderos (tableConfig);
-        
-    	String path = guiConfig.get("bannerPath").getAsString();
-        panelDatos = new PanelDatos ( );
+	/**
+	 * Construye la ventana principal de la aplicación. <br>
+	 * <b>post:</b> Todos los componentes de la interfaz fueron inicializados.
+	 */
+	public InterfazParranderosApp( )
+	{
+		// Carga la configuración de la interfaz desde un archivo JSON
+		guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ);
 
-        setLayout (new BorderLayout());
-        add (new JLabel (new ImageIcon (path)), BorderLayout.NORTH );          
-        add( panelDatos, BorderLayout.CENTER );        
-    }
-    
+		// Configura la apariencia del frame que contiene la interfaz gráfica
+		configurarFrame ( );
+		if (guiConfig != null) 	   
+		{
+			crearMenu( guiConfig.getAsJsonArray("menuBar") );
+		}
+
+		tableConfig = openConfig ("Tablas BD", CONFIG_TABLAS);
+		System.out.println(tableConfig);
+		parranderos = new Parranderos (tableConfig);
+
+		String path = guiConfig.get("bannerPath").getAsString();
+		panelDatos = new PanelDatos ( );
+
+		setLayout (new BorderLayout());
+		add (new JLabel (new ImageIcon (path)), BorderLayout.NORTH );          
+		add( panelDatos, BorderLayout.CENTER );        
+	}
+
 	/* ****************************************************************
 	 * 			Métodos de configuración de la interfaz
 	 *****************************************************************/
-    /**
-     * Lee datos de configuración para la aplicació, a partir de un archivo JSON o con valores por defecto si hay errores.
-     * @param tipo - El tipo de configuración deseada
-     * @param archConfig - Archivo Json que contiene la configuración
-     * @return Un objeto JSON con la configuración del tipo especificado
-     * 			NULL si hay un error en el archivo.
-     */
-    private JsonObject openConfig (String tipo, String archConfig)
-    {
-    	JsonObject config = null;
+	/**
+	 * Lee datos de configuración para la aplicació, a partir de un archivo JSON o con valores por defecto si hay errores.
+	 * @param tipo - El tipo de configuración deseada
+	 * @param archConfig - Archivo Json que contiene la configuración
+	 * @return Un objeto JSON con la configuración del tipo especificado
+	 * 			NULL si hay un error en el archivo.
+	 */
+	private JsonObject openConfig (String tipo, String archConfig)
+	{
+		JsonObject config = null;
 		try 
 		{
 			Gson gson = new Gson( );
@@ -175,209 +175,209 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		} 
 		catch (Exception e)
 		{
-//			e.printStackTrace ();
+			//			e.printStackTrace ();
 			log.info ("NO se encontró un archivo de configuración válido");			
 			JOptionPane.showMessageDialog(null, "No se encontró un archivo de configuración de interfaz válido: " + tipo, "Parranderos App", JOptionPane.ERROR_MESSAGE);
 		}	
-        return config;
-    }
-    
-    /**
-     * Método para configurar el frame principal de la aplicación
-     */
-    private void configurarFrame(  )
-    {
-    	int alto = 0;
-    	int ancho = 0;
-    	String titulo = "";	
-    	
-    	if ( guiConfig == null )
-    	{
-    		log.info ( "Se aplica configuración por defecto" );			
+		return config;
+	}
+
+	/**
+	 * Método para configurar el frame principal de la aplicación
+	 */
+	private void configurarFrame(  )
+	{
+		int alto = 0;
+		int ancho = 0;
+		String titulo = "";	
+
+		if ( guiConfig == null )
+		{
+			log.info ( "Se aplica configuración por defecto" );			
 			titulo = "Parranderos APP Default";
 			alto = 300;
 			ancho = 500;
-    	}
-    	else
-    	{
+		}
+		else
+		{
 			log.info ( "Se aplica configuración indicada en el archivo de configuración" );
-    		titulo = guiConfig.get("title").getAsString();
+			titulo = guiConfig.get("title").getAsString();
 			alto= guiConfig.get("frameH").getAsInt();
 			ancho = guiConfig.get("frameW").getAsInt();
-    	}
-    	
-        setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        setLocation (50,50);
-        setResizable( true );
-        setBackground( Color.WHITE );
+		}
 
-        setTitle( titulo );
+		setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+		setLocation (50,50);
+		setResizable( true );
+		setBackground( Color.WHITE );
+
+		setTitle( titulo );
 		setSize ( ancho, alto);        
-    }
+	}
 
-    /**
-     * Método para crear el menú de la aplicación con base em el objeto JSON leído
-     * Genera una barra de menú y los menús con sus respectivas opciones
-     * @param jsonMenu - Arreglo Json con los menùs deseados
-     */
-    private void crearMenu(  JsonArray jsonMenu )
-    {    	
-    	// Creación de la barra de menús
-        menuBar = new JMenuBar();       
-        for (JsonElement men : jsonMenu)
-        {
-        	// Creación de cada uno de los menús
-        	JsonObject jom = men.getAsJsonObject(); 
+	/**
+	 * Método para crear el menú de la aplicación con base em el objeto JSON leído
+	 * Genera una barra de menú y los menús con sus respectivas opciones
+	 * @param jsonMenu - Arreglo Json con los menùs deseados
+	 */
+	private void crearMenu(  JsonArray jsonMenu )
+	{    	
+		// Creación de la barra de menús
+		menuBar = new JMenuBar();       
+		for (JsonElement men : jsonMenu)
+		{
+			// Creación de cada uno de los menús
+			JsonObject jom = men.getAsJsonObject(); 
 
-        	String menuTitle = jom.get("menuTitle").getAsString();        	
-        	JsonArray opciones = jom.getAsJsonArray("options");
-        	
-        	JMenu menu = new JMenu( menuTitle);
-        	
-        	for (JsonElement op : opciones)
-        	{       	
-        		// Creación de cada una de las opciones del menú
-        		JsonObject jo = op.getAsJsonObject(); 
-        		String lb =   jo.get("label").getAsString();
-        		String event = jo.get("event").getAsString();
-        		
-        		JMenuItem mItem = new JMenuItem( lb );
-        		mItem.addActionListener( this );
-        		mItem.setActionCommand(event);
-        		
-        		menu.add(mItem);
-        	}       
-        	menuBar.add( menu );
-        }        
-        setJMenuBar ( menuBar );	
-    }
-    
+			String menuTitle = jom.get("menuTitle").getAsString();        	
+			JsonArray opciones = jom.getAsJsonArray("options");
+
+			JMenu menu = new JMenu( menuTitle);
+
+			for (JsonElement op : opciones)
+			{       	
+				// Creación de cada una de las opciones del menú
+				JsonObject jo = op.getAsJsonObject(); 
+				String lb =   jo.get("label").getAsString();
+				String event = jo.get("event").getAsString();
+
+				JMenuItem mItem = new JMenuItem( lb );
+				mItem.addActionListener( this );
+				mItem.setActionCommand(event);
+
+				menu.add(mItem);
+			}       
+			menuBar.add( menu );
+		}        
+		setJMenuBar ( menuBar );	
+	}
+
 	/* ****************************************************************
 	 * 			CRUD de TipoBebida
 	 *****************************************************************/
-    /**
-     * Adiciona un tipo de bebida con la información dada por el usuario
-     * Se crea una nueva tupla de tipoBebida en la base de datos, si un tipo de bebida con ese nombre no existía
-     */
-//    public void adicionarTipoBebida( )
-//    {
-//    	try 
-//    	{
-//    		String nombreTipo = JOptionPane.showInputDialog (this, "Nombre del tipo de bedida?", "Adicionar tipo de bebida", JOptionPane.QUESTION_MESSAGE);
-//    		if (nombreTipo != null)
-//    		{
-//        		VOTipoBebida tb = parranderos.adicionarTipoBebida (nombreTipo);
-//        		if (tb == null)
-//        		{
-//        			throw new Exception ("No se pudo crear un tipo de bebida con nombre: " + nombreTipo);
-//        		}
-//        		String resultado = "En adicionarTipoBebida\n\n";
-//        		resultado += "Tipo de bebida adicionado exitosamente: " + tb;
-//    			resultado += "\n Operación terminada";
-//    			panelDatos.actualizarInterfaz(resultado);
-//    		}
-//    		else
-//    		{
-//    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
-//    		}
-//		} 
-//    	catch (Exception e) 
-//    	{
-//			e.printStackTrace();
-//			String resultado = generarMensajeError(e);
-//			panelDatos.actualizarInterfaz(resultado);
-//		}
-//    }
+	/**
+	 * Adiciona un tipo de bebida con la información dada por el usuario
+	 * Se crea una nueva tupla de tipoBebida en la base de datos, si un tipo de bebida con ese nombre no existía
+	 */
+	//    public void adicionarTipoBebida( )
+	//    {
+	//    	try 
+	//    	{
+	//    		String nombreTipo = JOptionPane.showInputDialog (this, "Nombre del tipo de bedida?", "Adicionar tipo de bebida", JOptionPane.QUESTION_MESSAGE);
+	//    		if (nombreTipo != null)
+	//    		{
+	//        		VOTipoBebida tb = parranderos.adicionarTipoBebida (nombreTipo);
+	//        		if (tb == null)
+	//        		{
+	//        			throw new Exception ("No se pudo crear un tipo de bebida con nombre: " + nombreTipo);
+	//        		}
+	//        		String resultado = "En adicionarTipoBebida\n\n";
+	//        		resultado += "Tipo de bebida adicionado exitosamente: " + tb;
+	//    			resultado += "\n Operación terminada";
+	//    			panelDatos.actualizarInterfaz(resultado);
+	//    		}
+	//    		else
+	//    		{
+	//    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+	//    		}
+	//		} 
+	//    	catch (Exception e) 
+	//    	{
+	//			e.printStackTrace();
+	//			String resultado = generarMensajeError(e);
+	//			panelDatos.actualizarInterfaz(resultado);
+	//		}
+	//    }
 
-    /**
-     * Consulta en la base de datos los tipos de bebida existentes y los muestra en el panel de datos de la aplicación
-     */
-//    public void listarTipoBebida( )
-//    {
-//    	try 
-//    	{
-//			List <VOTipoBebida> lista = parranderos.darVOTiposBebida();
-//
-//			String resultado = "En listarTipoBebida";
-//			resultado +=  "\n" + listarTiposBebida (lista);
-//			panelDatos.actualizarInterfaz(resultado);
-//			resultado += "\n Operación terminada";
-//		} 
-//    	catch (Exception e) 
-//    	{
-//			e.printStackTrace();
-//			String resultado = generarMensajeError(e);
-//			panelDatos.actualizarInterfaz(resultado);
-//		}
-//    }
+	/**
+	 * Consulta en la base de datos los tipos de bebida existentes y los muestra en el panel de datos de la aplicación
+	 */
+	//    public void listarTipoBebida( )
+	//    {
+	//    	try 
+	//    	{
+	//			List <VOTipoBebida> lista = parranderos.darVOTiposBebida();
+	//
+	//			String resultado = "En listarTipoBebida";
+	//			resultado +=  "\n" + listarTiposBebida (lista);
+	//			panelDatos.actualizarInterfaz(resultado);
+	//			resultado += "\n Operación terminada";
+	//		} 
+	//    	catch (Exception e) 
+	//    	{
+	//			e.printStackTrace();
+	//			String resultado = generarMensajeError(e);
+	//			panelDatos.actualizarInterfaz(resultado);
+	//		}
+	//    }
 
-//    /**
-//     * Borra de la base de datos el tipo de bebida con el identificador dado po el usuario
-//     * Cuando dicho tipo de bebida no existe, se indica que se borraron 0 registros de la base de datos
-//     */
-//    public void eliminarTipoBebidaPorId( )
-//    {
-//    	try 
-//    	{
-//    		String idTipoStr = JOptionPane.showInputDialog (this, "Id del tipo de bedida?", "Borrar tipo de bebida por Id", JOptionPane.QUESTION_MESSAGE);
-//    		if (idTipoStr != null)
-//    		{
-//    			long idTipo = Long.valueOf (idTipoStr);
-//    			long tbEliminados = parranderos.eliminarTipoBebidaPorId (idTipo);
-//
-//    			String resultado = "En eliminar TipoBebida\n\n";
-//    			resultado += tbEliminados + " Tipos de bebida eliminados\n";
-//    			resultado += "\n Operación terminada";
-//    			panelDatos.actualizarInterfaz(resultado);
-//    		}
-//    		else
-//    		{
-//    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
-//    		}
-//		} 
-//    	catch (Exception e) 
-//    	{
-////			e.printStackTrace();
-//			String resultado = generarMensajeError(e);
-//			panelDatos.actualizarInterfaz(resultado);
-//		}
-//    }
-//
-//    /**
-//     * Busca el tipo de bebida con el nombre indicado por el usuario y lo muestra en el panel de datos
-//     */
-//    public void buscarTipoBebidaPorNombre( )
-//    {
-//    	try 
-//    	{
-//    		String nombreTb = JOptionPane.showInputDialog (this, "Nombre del tipo de bedida?", "Buscar tipo de bebida por nombre", JOptionPane.QUESTION_MESSAGE);
-//    		if (nombreTb != null)
-//    		{
-//    			VOTipoBebida tipoBebida = parranderos.darTipoBebidaPorNombre (nombreTb);
-//    			String resultado = "En buscar Tipo Bebida por nombre\n\n";
-//    			if (tipoBebida != null)
-//    			{
-//        			resultado += "El tipo de bebida es: " + tipoBebida;
-//    			}
-//    			else
-//    			{
-//        			resultado += "Un tipo de bebida con nombre: " + nombreTb + " NO EXISTE\n";    				
-//    			}
-//    			resultado += "\n Operación terminada";
-//    			panelDatos.actualizarInterfaz(resultado);
-//    		}
-//    		else
-//    		{
-//    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
-//    		}
-//		} 
-//    	catch (Exception e) 
-//    	{
-//			e.printStackTrace();
-//			String resultado = generarMensajeError(e);
-//			panelDatos.actualizarInterfaz(resultado);
-//		}
-//    }
+	//    /**
+	//     * Borra de la base de datos el tipo de bebida con el identificador dado po el usuario
+	//     * Cuando dicho tipo de bebida no existe, se indica que se borraron 0 registros de la base de datos
+	//     */
+	//    public void eliminarTipoBebidaPorId( )
+	//    {
+	//    	try 
+	//    	{
+	//    		String idTipoStr = JOptionPane.showInputDialog (this, "Id del tipo de bedida?", "Borrar tipo de bebida por Id", JOptionPane.QUESTION_MESSAGE);
+	//    		if (idTipoStr != null)
+	//    		{
+	//    			long idTipo = Long.valueOf (idTipoStr);
+	//    			long tbEliminados = parranderos.eliminarTipoBebidaPorId (idTipo);
+	//
+	//    			String resultado = "En eliminar TipoBebida\n\n";
+	//    			resultado += tbEliminados + " Tipos de bebida eliminados\n";
+	//    			resultado += "\n Operación terminada";
+	//    			panelDatos.actualizarInterfaz(resultado);
+	//    		}
+	//    		else
+	//    		{
+	//    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+	//    		}
+	//		} 
+	//    	catch (Exception e) 
+	//    	{
+	////			e.printStackTrace();
+	//			String resultado = generarMensajeError(e);
+	//			panelDatos.actualizarInterfaz(resultado);
+	//		}
+	//    }
+	//
+	//    /**
+	//     * Busca el tipo de bebida con el nombre indicado por el usuario y lo muestra en el panel de datos
+	//     */
+	//    public void buscarTipoBebidaPorNombre( )
+	//    {
+	//    	try 
+	//    	{
+	//    		String nombreTb = JOptionPane.showInputDialog (this, "Nombre del tipo de bedida?", "Buscar tipo de bebida por nombre", JOptionPane.QUESTION_MESSAGE);
+	//    		if (nombreTb != null)
+	//    		{
+	//    			VOTipoBebida tipoBebida = parranderos.darTipoBebidaPorNombre (nombreTb);
+	//    			String resultado = "En buscar Tipo Bebida por nombre\n\n";
+	//    			if (tipoBebida != null)
+	//    			{
+	//        			resultado += "El tipo de bebida es: " + tipoBebida;
+	//    			}
+	//    			else
+	//    			{
+	//        			resultado += "Un tipo de bebida con nombre: " + nombreTb + " NO EXISTE\n";    				
+	//    			}
+	//    			resultado += "\n Operación terminada";
+	//    			panelDatos.actualizarInterfaz(resultado);
+	//    		}
+	//    		else
+	//    		{
+	//    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+	//    		}
+	//		} 
+	//    	catch (Exception e) 
+	//    	{
+	//			e.printStackTrace();
+	//			String resultado = generarMensajeError(e);
+	//			panelDatos.actualizarInterfaz(resultado);
+	//		}
+	//    }
 
 
 	/* ****************************************************************
@@ -390,7 +390,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	{
 		mostrarArchivo ("parranderos.log");
 	}
-	
+
 	/**
 	 * Muestra el log de datanucleus
 	 */
@@ -398,7 +398,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	{
 		mostrarArchivo ("datanucleus.log");
 	}
-	
+
 	/**
 	 * Limpia el contenido del log de parranderos
 	 * Muestra en el panel de datos la traza de la ejecución
@@ -415,7 +415,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 
 		panelDatos.actualizarInterfaz(resultado);
 	}
-	
+
 	/**
 	 * Limpia el contenido del log de datanucleus
 	 * Muestra en el panel de datos la traza de la ejecución
@@ -432,39 +432,39 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 
 		panelDatos.actualizarInterfaz(resultado);
 	}
-	
+
 	/**
 	 * Limpia todas las tuplas de todas las tablas de la base de datos de parranderos
 	 * Muestra en el panel de datos el número de tuplas eliminadas de cada tabla
 	 */
 	public void limpiarBD ()
 	{
-//		try 
-//		{
-//    		// Ejecución de la demo y recolección de los resultados
-//			long eliminados [] = parranderos.limpiarParranderos();
-//			
-//			// Generación de la cadena de caracteres con la traza de la ejecución de la demo
-//			String resultado = "\n\n************ Limpiando la base de datos ************ \n";
-//			resultado += eliminados [0] + " Gustan eliminados\n";
-//			resultado += eliminados [1] + " Sirven eliminados\n";
-//			resultado += eliminados [2] + " Visitan eliminados\n";
-//			resultado += eliminados [3] + " Bebidas eliminadas\n";
-//			resultado += eliminados [4] + " Tipos de bebida eliminados\n";
-//			resultado += eliminados [5] + " Bebedores eliminados\n";
-//			resultado += eliminados [6] + " Bares eliminados\n";
-//			resultado += "\nLimpieza terminada";
-//   
-//			panelDatos.actualizarInterfaz(resultado);
-//		} 
-//		catch (Exception e) 
-//		{
-////			e.printStackTrace();
-//			String resultado = generarMensajeError(e);
-//			panelDatos.actualizarInterfaz(resultado);
-//		}
+		//		try 
+		//		{
+		//    		// Ejecución de la demo y recolección de los resultados
+		//			long eliminados [] = parranderos.limpiarParranderos();
+		//			
+		//			// Generación de la cadena de caracteres con la traza de la ejecución de la demo
+		//			String resultado = "\n\n************ Limpiando la base de datos ************ \n";
+		//			resultado += eliminados [0] + " Gustan eliminados\n";
+		//			resultado += eliminados [1] + " Sirven eliminados\n";
+		//			resultado += eliminados [2] + " Visitan eliminados\n";
+		//			resultado += eliminados [3] + " Bebidas eliminadas\n";
+		//			resultado += eliminados [4] + " Tipos de bebida eliminados\n";
+		//			resultado += eliminados [5] + " Bebedores eliminados\n";
+		//			resultado += eliminados [6] + " Bares eliminados\n";
+		//			resultado += "\nLimpieza terminada";
+		//   
+		//			panelDatos.actualizarInterfaz(resultado);
+		//		} 
+		//		catch (Exception e) 
+		//		{
+		////			e.printStackTrace();
+		//			String resultado = generarMensajeError(e);
+		//			panelDatos.actualizarInterfaz(resultado);
+		//		}
 	}
-	
+
 	/**
 	 * Muestra la presentación general del proyecto
 	 */
@@ -472,7 +472,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	{
 		mostrarArchivo ("data/00-ST-ParranderosJDO.pdf");
 	}
-	
+
 	/**
 	 * Muestra el modelo conceptual de Parranderos
 	 */
@@ -480,7 +480,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	{
 		mostrarArchivo ("data/Modelo Conceptual Parranderos.pdf");
 	}
-	
+
 	/**
 	 * Muestra el esquema de la base de datos de Parranderos
 	 */
@@ -488,7 +488,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	{
 		mostrarArchivo ("data/Esquema BD Parranderos.pdf");
 	}
-	
+
 	/**
 	 * Muestra el script de creación de la base de datos
 	 */
@@ -496,7 +496,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	{
 		mostrarArchivo ("data/EsquemaParranderos.sql");
 	}
-	
+
 	/**
 	 * Muestra la arquitectura de referencia para Parranderos
 	 */
@@ -504,7 +504,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	{
 		mostrarArchivo ("data/ArquitecturaReferencia.pdf");
 	}
-	
+
 	/**
 	 * Muestra la documentación Javadoc del proyectp
 	 */
@@ -512,12 +512,12 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	{
 		mostrarArchivo ("doc/index.html");
 	}
-	
+
 	/**
-     * Muestra la información acerca del desarrollo de esta apicación
-     */
-    public void acercaDe ()
-    {
+	 * Muestra la información acerca del desarrollo de esta apicación
+	 */
+	public void acercaDe ()
+	{
 		String resultado = "\n\n ************************************\n\n";
 		resultado += " * Universidad	de	los	Andes	(Bogotá	- Colombia)\n";
 		resultado += " * Departamento	de	Ingeniería	de	Sistemas	y	Computación\n";
@@ -533,33 +533,33 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		resultado += "\n ************************************\n\n";
 
 		panelDatos.actualizarInterfaz(resultado);		
-    }
-    
+	}
+
 
 	/* ****************************************************************
 	 * 			Métodos privados para la presentación de resultados y otras operaciones
 	 *****************************************************************/
-    /**
-     * Genera una cadena de caracteres con la lista de los tipos de bebida recibida: una línea por cada tipo de bebida
-     * @param lista - La lista con los tipos de bebida
-     * @return La cadena con una líea para cada tipo de bebida recibido
-     */
-//    private String listarTiposBebida(List<VOTipoBebida> lista) 
-//    {
-//    	String resp = "Los tipos de bebida existentes son:\n";
-//    	int i = 1;
-//        for (VOTipoBebida tb : lista)
-//        {
-//        	resp += i++ + ". " + tb.toString() + "\n";
-//        }
-//        return resp;
-//	}
+	/**
+	 * Genera una cadena de caracteres con la lista de los tipos de bebida recibida: una línea por cada tipo de bebida
+	 * @param lista - La lista con los tipos de bebida
+	 * @return La cadena con una líea para cada tipo de bebida recibido
+	 */
+	//    private String listarTiposBebida(List<VOTipoBebida> lista) 
+	//    {
+	//    	String resp = "Los tipos de bebida existentes son:\n";
+	//    	int i = 1;
+	//        for (VOTipoBebida tb : lista)
+	//        {
+	//        	resp += i++ + ". " + tb.toString() + "\n";
+	//        }
+	//        return resp;
+	//	}
 
-    /**
-     * Genera una cadena de caracteres con la descripción de la excepcion e, haciendo énfasis en las excepcionsde JDO
-     * @param e - La excepción recibida
-     * @return La descripción de la excepción, cuando es javax.jdo.JDODataStoreException, "" de lo contrario
-     */
+	/**
+	 * Genera una cadena de caracteres con la descripción de la excepcion e, haciendo énfasis en las excepcionsde JDO
+	 * @param e - La excepción recibida
+	 * @return La descripción de la excepción, cuando es javax.jdo.JDODataStoreException, "" de lo contrario
+	 */
 	private String darDetalleException(Exception e) 
 	{
 		String resp = "";
@@ -601,7 +601,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		} 
 		catch (IOException e) 
 		{
-//			e.printStackTrace();
+			//			e.printStackTrace();
 			return false;
 		}
 	}
@@ -626,168 +626,168 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	/* ****************************************************************
 	 * 			Métodos de la Interacción
 	 *****************************************************************/
-    /**
-     * Método para la ejecución de los eventos que enlazan el menú con los métodos de negocio
-     * Invoca al método correspondiente según el evento recibido
-     * @param pEvento - El evento del usuario
-     */
-    @Override
+	/**
+	 * Método para la ejecución de los eventos que enlazan el menú con los métodos de negocio
+	 * Invoca al método correspondiente según el evento recibido
+	 * @param pEvento - El evento del usuario
+	 */
+	@Override
 	public void actionPerformed(ActionEvent pEvento)
 	{
 		String evento = pEvento.getActionCommand( );	
 		System.out.println(pEvento);
-        try 
-        {
+		try 
+		{
 			Method req = InterfazParranderosApp.class.getMethod ( evento );			
 			req.invoke ( this );
 		} 
-        catch (Exception e) 
-        {
+		catch (Exception e) 
+		{
 			e.printStackTrace();
 		} 
 	}
-    
-    
+
+
 	/* ****************************************************************
 	 * 			CRUD de RESERVA
 	 *****************************************************************/
-    /**
-     * Adiciona un tipo de bebida con la información dada por el usuario
-     * Se crea una nueva tupla de tipoBebida en la base de datos, si un tipo de bebida con ese nombre no existía
-     */
-    public void adicionarReserva( )
-    {
-    	try 
-    	{	
-    		VentanaChecks check=new VentanaChecks(this);
-    		List<VOContrato> contratos=parranderos.mostrarOfertasConCaracteristicas(caracteristicas);
+	/**
+	 * Adiciona un tipo de bebida con la información dada por el usuario
+	 * Se crea una nueva tupla de tipoBebida en la base de datos, si un tipo de bebida con ese nombre no existía
+	 */
+	public void adicionarReserva( )
+	{
+		try 
+		{	
+			VentanaChecks check=new VentanaChecks(this);
+			List<VOContrato> contratos=parranderos.mostrarOfertasConCaracteristicas(caracteristicas);
 			String resultado1 = "Mostrar Contratos que cumplen con las características";
 			resultado1 +=  "\n" + listarContratos(contratos);
 			panelDatos.actualizarInterfaz(resultado1);
 			resultado1 += "\n Operación terminada";
-    		listarContratos(contratos);
-    		String persona=JOptionPane.showInputDialog(this, "Número de personas", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
-    		String fecha_inicio= JOptionPane.showInputDialog(this, "Fecha de Inicio(dd/MM/YYYY hh:mm:ss PM/AM)", "Adicionar Reserva" ,JOptionPane.QUESTION_MESSAGE);
-    		String fecha_fin=JOptionPane.showInputDialog(this, "Fecha de Finalización(dd/MM/YYYY hh:mm:ss PM/AM)", "Adicionar Reserva" ,JOptionPane.QUESTION_MESSAGE);
-    		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss");  
-    		LocalDateTime actual = LocalDateTime.now();
-    		String fecha_realizacion=dtf.format(actual);
-    		String fecha_limite=fecha_realizacion; 
-    		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-    		Calendar c=Calendar.getInstance(); 
-    		c.setTime(sdf.parse(fecha_limite));
-    		c.add(Calendar.DATE,3);
-    		fecha_limite=sdf.format(c.getTime());
-    		String tipostr=JOptionPane.showInputDialog(this,"Tipo de oferta", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
-    		String tipo=null;
-    		if(tipostr.equalsIgnoreCase("hotel")) {
-    			tipo="HOTEL"; 
-    		}
-    		else if (tipostr.equalsIgnoreCase("hostal")) {
-    			tipo="HOSTAL";
-    		}
-    		else if (tipostr.equalsIgnoreCase("vivienda_universitaria")) {
-    			tipo="VIVIENDA_UNIVERSITARIA";
-    		}
-    		else if (tipostr.equalsIgnoreCase("vivienda_familiar")) {
-    			tipo="VIVIENDA_FAMILIAR";
-    		}
-    		else if (tipostr.equalsIgnoreCase("apartamento")) {
-    			tipo="APARTAMENTO";
-    		}
-    		else if (tipostr.equalsIgnoreCase("cliente_esporádico")) {
-    			tipo="CLIENTE_ESPORADICO";
-    		}
-    		String cliente=JOptionPane.showInputDialog(this,"ID cliente", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
-    		String contrato = JOptionPane.showInputDialog (this, "Identificador del contrato?", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
-    		if(contrato!=null && fecha_inicio!=null&&fecha_fin!=null&&persona!=null&&tipo!=null && cliente!=null) {
-        		VOReserva tb = parranderos.adicionarReserva(Integer.parseInt(contrato), Integer.parseInt(persona),fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, Integer.parseInt(cliente));
-        		if (tb == null)
-        		{
-        			panelDatos.actualizarInterfaz("No se pudo crear la reserva");
-        		}
-        		else {
-        		String resultado = "En adicionarReserva\n\n";
-        		resultado += "Reserva adicionada exitosamente: " + tb;
-    			resultado += "\n Operación terminada";
-    			panelDatos.actualizarInterfaz(resultado);
-        		}
-    		}
-    		else
-    		{
-    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
-    		}
+			listarContratos(contratos);
+			String persona=JOptionPane.showInputDialog(this, "Número de personas", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
+			String fecha_inicio= JOptionPane.showInputDialog(this, "Fecha de Inicio(dd/MM/YYYY hh:mm:ss PM/AM)", "Adicionar Reserva" ,JOptionPane.QUESTION_MESSAGE);
+			String fecha_fin=JOptionPane.showInputDialog(this, "Fecha de Finalización(dd/MM/YYYY hh:mm:ss PM/AM)", "Adicionar Reserva" ,JOptionPane.QUESTION_MESSAGE);
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm:ss");  
+			LocalDateTime actual = LocalDateTime.now();
+			String fecha_realizacion=dtf.format(actual);
+			String fecha_limite=fecha_realizacion; 
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+			Calendar c=Calendar.getInstance(); 
+			c.setTime(sdf.parse(fecha_limite));
+			c.add(Calendar.DATE,3);
+			fecha_limite=sdf.format(c.getTime());
+			String tipostr=JOptionPane.showInputDialog(this,"Tipo de oferta", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
+			String tipo=null;
+			if(tipostr.equalsIgnoreCase("hotel")) {
+				tipo="HOTEL"; 
+			}
+			else if (tipostr.equalsIgnoreCase("hostal")) {
+				tipo="HOSTAL";
+			}
+			else if (tipostr.equalsIgnoreCase("vivienda_universitaria")) {
+				tipo="VIVIENDA_UNIVERSITARIA";
+			}
+			else if (tipostr.equalsIgnoreCase("vivienda_familiar")) {
+				tipo="VIVIENDA_FAMILIAR";
+			}
+			else if (tipostr.equalsIgnoreCase("apartamento")) {
+				tipo="APARTAMENTO";
+			}
+			else if (tipostr.equalsIgnoreCase("cliente_esporádico")) {
+				tipo="CLIENTE_ESPORADICO";
+			}
+			String cliente=JOptionPane.showInputDialog(this,"ID cliente", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
+			String contrato = JOptionPane.showInputDialog (this, "Identificador del contrato?", "Adicionar Reserva", JOptionPane.QUESTION_MESSAGE);
+			if(contrato!=null && fecha_inicio!=null&&fecha_fin!=null&&persona!=null&&tipo!=null && cliente!=null) {
+				VOReserva tb = parranderos.adicionarReserva(Integer.parseInt(contrato), Integer.parseInt(persona),fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, Integer.parseInt(cliente));
+				if (tb == null)
+				{
+					panelDatos.actualizarInterfaz("No se pudo crear la reserva");
+				}
+				else {
+					String resultado = "En adicionarReserva\n\n";
+					resultado += "Reserva adicionada exitosamente: " + tb;
+					resultado += "\n Operación terminada";
+					panelDatos.actualizarInterfaz(resultado);
+				}
+			}
+			else
+			{
+				panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+			}
 		} 
-    	catch (Exception e) 
-    	{
-    		e.printStackTrace();
+		catch (Exception e) 
+		{
+			e.printStackTrace();
 			String resultado = generarMensajeError(e);
 			panelDatos.actualizarInterfaz(resultado);
 		}
-    }
+	}
 
-    
-    public void eliminarReservaPorId( )
-    {
-    	try 
-    	{
-    		String id = JOptionPane.showInputDialog (this, "Id de la reserva", "Borrar reserva por Id", JOptionPane.QUESTION_MESSAGE);
-    		if (id != null)
-    		{
-    			long idRes = Long.valueOf (id);
-    			long tbEliminados = parranderos.eliminarReservaPorId(idRes);
 
-    			String resultado = "En eliminar Reserva por ID\n\n";
-    			resultado += tbEliminados + " Reserva Eliminada \n";
-    			resultado += "\n Operación terminada";
-    			panelDatos.actualizarInterfaz(resultado);
-    		}
-    		else
-    		{
-    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
-    		}
+	public void eliminarReservaPorId( )
+	{
+		try 
+		{
+			String id = JOptionPane.showInputDialog (this, "Id de la reserva", "Borrar reserva por Id", JOptionPane.QUESTION_MESSAGE);
+			if (id != null)
+			{
+				long idRes = Long.valueOf (id);
+				long tbEliminados = parranderos.eliminarReservaPorId(idRes);
+
+				String resultado = "En eliminar Reserva por ID\n\n";
+				resultado += tbEliminados + " Reserva Eliminada \n";
+				resultado += "\n Operación terminada";
+				panelDatos.actualizarInterfaz(resultado);
+			}
+			else
+			{
+				panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+			}
 		} 
-    	catch (Exception e) 
-    	{
-    		e.printStackTrace();
+		catch (Exception e) 
+		{
+			e.printStackTrace();
 			String resultado = generarMensajeError(e);
 			panelDatos.actualizarInterfaz(resultado);
 		}
-    }
-    
+	}
+
 	/* ****************************************************************
 	 * 			CRUD de OFERTA
 	 *****************************************************************/
-    public void eliminarOfertaPorId( )
-    {
-    	try 
-    	{
-    		String id = JOptionPane.showInputDialog (this, "Id de la Oferta", "Borrar reserva por Id", JOptionPane.QUESTION_MESSAGE);
-    		if (id != null)
-    		{
-    			long idCont = Long.valueOf (id);
-    			long tbEliminados = parranderos.eliminarContratoPorId(idCont);
-    			String resultado = "En eliminar Oferta por Id\n\n";
-    			resultado += tbEliminados + " Oferta eliminada\n";
-    			resultado += "\n Operación terminada";
-    			panelDatos.actualizarInterfaz(resultado);
-    		}
-    		else
-    		{
-    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
-    		}
+	public void eliminarOfertaPorId( )
+	{
+		try 
+		{
+			String id = JOptionPane.showInputDialog (this, "Id de la Oferta", "Borrar reserva por Id", JOptionPane.QUESTION_MESSAGE);
+			if (id != null)
+			{
+				long idCont = Long.valueOf (id);
+				long tbEliminados = parranderos.eliminarContratoPorId(idCont);
+				String resultado = "En eliminar Oferta por Id\n\n";
+				resultado += tbEliminados + " Oferta eliminada\n";
+				resultado += "\n Operación terminada";
+				panelDatos.actualizarInterfaz(resultado);
+			}
+			else
+			{
+				panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+			}
 		} 
-    	catch (Exception e) 
-    	{
-    		e.printStackTrace();
+		catch (Exception e) 
+		{
+			e.printStackTrace();
 			String resultado = generarMensajeError(e);
 			panelDatos.actualizarInterfaz(resultado);
 		}
-    }
-    
-    public void mostrarGanancias() {
-    	try 
-    	{
+	}
+
+	public void mostrarGanancias() {
+		try 
+		{
 			List <VOGanancia> lista = parranderos.mostrarGanancias();
 
 			String resultado = "Mostrar Ganancias Operadores";
@@ -795,28 +795,28 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 			resultado += "\n Operación terminada";
 		} 
-    	catch (Exception e) 
-    	{
-//			e.printStackTrace();
+		catch (Exception e) 
+		{
+			//			e.printStackTrace();
 			String resultado = generarMensajeError(e);
 			panelDatos.actualizarInterfaz(resultado);
 		}
-    }
-    
-    private String listarGanancias(List<VOGanancia> lista) 
-    {
-    	String resp = "Los tipos de bebida existentes son:\n";
-    	int i = 1;
-        for (VOGanancia tb : lista)
-        {
-        	resp += i++ + ". " + tb.toString() + "\n";
-        }
-        return resp;
 	}
-    
-    public void mostrarPopulares() {
-    	try 
-    	{
+
+	private String listarGanancias(List<VOGanancia> lista) 
+	{
+		String resp = "Los tipos de bebida existentes son:\n";
+		int i = 1;
+		for (VOGanancia tb : lista)
+		{
+			resp += i++ + ". " + tb.toString() + "\n";
+		}
+		return resp;
+	}
+
+	public void mostrarPopulares() {
+		try 
+		{
 			List <VOContrato> lista = parranderos.mostrarPopulares();
 
 			String resultado = "Mostrar Ofertas más populares";
@@ -824,32 +824,32 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 			resultado += "\n Operación terminada";
 		} 
-    	catch (Exception e) 
-    	{
-//			e.printStackTrace();
+		catch (Exception e) 
+		{
+			//			e.printStackTrace();
 			String resultado = generarMensajeError(e);
 			panelDatos.actualizarInterfaz(resultado);
 		}
-    }
-    private String listarContratos(List<VOContrato> lista) 
-    {
-    	String resp = "Los Contratos con las características son:\n";
-    	int i = 1;
-        for (VOContrato tb : lista)
-        {
-        	resp += i++ + ". " + tb.toString() + "\n";
-        }
-        return resp;
 	}
-    
-    
-    
-    
-    
-    public void mostrarPorVinculo() {
-    	try 
-    	{
-    		
+	private String listarContratos(List<VOContrato> lista) 
+	{
+		String resp = "Los Contratos con las características son:\n";
+		int i = 1;
+		for (VOContrato tb : lista)
+		{
+			resp += i++ + ". " + tb.toString() + "\n";
+		}
+		return resp;
+	}
+
+
+
+
+
+	public void mostrarPorVinculo() {
+		try 
+		{
+
 			List <VOUsosVinculo> lista = parranderos.mostrarUsosVinculos();
 
 			String resultado = "Mostrar Ganancias Operadores";
@@ -857,28 +857,28 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 			resultado += "\n Operación terminada";
 		} 
-    	catch (Exception e) 
-    	{
-//			e.printStackTrace();
+		catch (Exception e) 
+		{
+			//			e.printStackTrace();
 			String resultado = generarMensajeError(e);
 			panelDatos.actualizarInterfaz(resultado);
 		}
-    }
-    
-    private String listarVinculos(List<VOUsosVinculo> lista) 
-    {
-    	String resp = "Los usos por tipos de usuario son:\n";
-    	int i = 1;
-        for (VOUsosVinculo tb : lista)
-        {
-        	resp += i++ + ". " + tb.toString() + "\n";
-        }
-        return resp;
 	}
-    
-    public void mostrarIndices() {
-    	try 
-    	{
+
+	private String listarVinculos(List<VOUsosVinculo> lista) 
+	{
+		String resp = "Los usos por tipos de usuario son:\n";
+		int i = 1;
+		for (VOUsosVinculo tb : lista)
+		{
+			resp += i++ + ". " + tb.toString() + "\n";
+		}
+		return resp;
+	}
+
+	public void mostrarIndices() {
+		try 
+		{
 			List <VOIndice> lista = parranderos.mostrarIndices();
 
 			String resultado = "Mostrar Ganancias Operadores";
@@ -886,52 +886,83 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 			resultado += "\n Operación terminada";
 		} 
-    	catch (Exception e) 
-    	{
-//			e.printStackTrace();
+		catch (Exception e) 
+		{
+			//			e.printStackTrace();
 			String resultado = generarMensajeError(e);
 			panelDatos.actualizarInterfaz(resultado);
 		}
-    }
-    private String listarIndices(List<VOIndice> lista) 
-    {
-    	String resp = "Los usos por tipos de usuario son:\n";
-    	int i = 1;
-        for (VOIndice tb : lista)
-        {
-        	resp += i++ + ". " + tb.toString() + "\n";
-        }
-        return resp;
-    }
-    
-    public void deshabilitarOferta() {
-    	try 
-    	{
-    		String id = JOptionPane.showInputDialog (this, "Id de la Oferta a deshabilitar", "Deshabilitar Oferta", JOptionPane.QUESTION_MESSAGE);
-    		if (id != null)
-    		{
-    			long idCont = Long.valueOf (id);
-    			long tbDeshabilitada = parranderos.deshabilitarOferta(idCont);
-    			String resultado = "Deshabilitando Oferta por Id\n\n";
-    			resultado += tbDeshabilitada + " Oferta Deshabilitada\n";
-    			resultado += "\n Operación terminada";
-    			panelDatos.actualizarInterfaz(resultado);
-    		}
-    		else
-    		{
-    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
-    		}
+	}
+	private String listarIndices(List<VOIndice> lista) 
+	{
+		String resp = "Los usos por tipos de usuario son:\n";
+		int i = 1;
+		for (VOIndice tb : lista)
+		{
+			resp += i++ + ". " + tb.toString() + "\n";
+		}
+		return resp;
+	}
+
+	public void deshabilitarOferta() {
+		try 
+		{
+			String id = JOptionPane.showInputDialog (this, "Id de la Oferta a deshabilitar", "Deshabilitar Oferta", JOptionPane.QUESTION_MESSAGE);
+			if (id != null)
+			{
+				long idCont = Long.valueOf (id);
+				long tbDeshabilitada = parranderos.deshabilitarOferta(idCont);
+				String resultado = "Deshabilitando Oferta por Id\n\n";
+				resultado += tbDeshabilitada + " Oferta Deshabilitada\n";
+				resultado += "\n Operación terminada";
+				panelDatos.actualizarInterfaz(resultado);
+			}
+			else
+			{
+				panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+			}
 		} 
-    	catch (Exception e) 
-    	{
-    		e.printStackTrace();
+		catch (Exception e) 
+		{
+			e.printStackTrace();
 			String resultado = generarMensajeError(e);
 			panelDatos.actualizarInterfaz(resultado);
 		}
-    }
-    
-    
-    
+	}
+
+	public void habilitarOferta() {
+		try 
+		{
+			String id = JOptionPane.showInputDialog (this, "Id de la Oferta a Habilitar", "Habilitar Oferta", JOptionPane.QUESTION_MESSAGE);
+			if (id != null)
+			{
+				long idCont = Long.valueOf (id);
+				long tbHabilitada = parranderos.habilitarOferta(idCont);
+				String resultado = "Habilitando Oferta por Id\n\n";
+				if (tbHabilitada!=0) {
+					resultado += tbHabilitada + " Oferta Habilitada\n";
+					resultado += "\n Operación terminada";
+					panelDatos.actualizarInterfaz(resultado);
+				}else {
+					resultado+=" La Oferta no se pudo habilitar";
+					resultado+=" La Oferta ya estaba habilitada";
+					panelDatos.actualizarInterfaz(resultado);
+				}
+			}
+			else
+			{
+				panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+			}
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	}
+
+
 //    public void mostrarUsoUsuario() {
 //    	try 
 //    	{
@@ -956,30 +987,30 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 //			panelDatos.actualizarInterfaz(resultado);
 //		}
 //    }
-    
-    
-	/* ****************************************************************
-	 * 			Programa principal
-	 *****************************************************************/
-    /**
-     * Este método ejecuta la aplicación, creando una nueva interfaz
-     * @param args Arreglo de argumentos que se recibe por línea de comandos
-     */
-    public static void main( String[] args )
-    {
-        try
-        {
-            // Unifica la interfaz para Mac y para Windows.
-            UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName( ) );
-            InterfazParranderosApp interfaz = new InterfazParranderosApp( );
-            interfaz.setVisible( true );
-        }
-        catch( Exception e )
-        {
-            e.printStackTrace( );
-        }
-    }
-    public void setCaracteristicas(ArrayList<String> car) {
-    	caracteristicas=(List<String>)car;
-    }
+
+
+/* ****************************************************************
+ * 			Programa principal
+ *****************************************************************/
+/**
+ * Este método ejecuta la aplicación, creando una nueva interfaz
+ * @param args Arreglo de argumentos que se recibe por línea de comandos
+ */
+public static void main( String[] args )
+{
+	try
+	{
+		// Unifica la interfaz para Mac y para Windows.
+		UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName( ) );
+		InterfazParranderosApp interfaz = new InterfazParranderosApp( );
+		interfaz.setVisible( true );
+	}
+	catch( Exception e )
+	{
+		e.printStackTrace( );
+	}
+}
+public void setCaracteristicas(ArrayList<String> car) {
+	caracteristicas=(List<String>)car;
+}
 }

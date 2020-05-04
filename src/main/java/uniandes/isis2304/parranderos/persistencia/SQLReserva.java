@@ -94,13 +94,13 @@ public class SQLReserva {
 				Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReserva() + "(ID,ID_CONTRATO,PERSONAS,FECHA_INICIO,FECHA_FIN,FECHA_LIMITE,FECHA_REALIZACIOM,TIPO,ID_CLIENTE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 				q.setParameters(id, id_contrato, personas, fecha_inicio, fecha_fin, fecha_limite, fecha_realizacion, tipo, id_cliente);
 				rta= (long) q.executeUnique();  
-		}} catch (ParseException e) {
-			System.out.println("Error al convertir las fechas");
-			e.printStackTrace();
-		}
+			}} catch (ParseException e) {
+				System.out.println("Error al convertir las fechas");
+				e.printStackTrace();
+			}
 		return rta;
 	}
-		
+
 
 	/**
 	 * Crea y ejecuta la sentencia SQL para eliminar RESERVAS de la base de datos de Parranderos, por su identificador
@@ -109,11 +109,12 @@ public class SQLReserva {
 	 * @return EL número de tuplas eliminadas
 	 */
 	public long eliminarReservaPorId (PersistenceManager pm, long idReserva)
-	{	Reserva eliminada=darReservaPorId(pm, idReserva);
-	log.info ("Eliminando Reserva: " + eliminada.toString());
-	Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaReserva () + " WHERE id = ?");
-	q.setParameters(idReserva);
-	return (long) q.executeUnique();            
+	{	
+		Reserva eliminada=darReservaPorId(pm, idReserva);
+		log.info ("Eliminando Reserva: " + eliminada.toString());
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaReserva () + " WHERE id = ?");
+		q.setParameters(idReserva);
+		return (long) q.executeUnique();            
 	}
 
 	/**

@@ -1263,3 +1263,59 @@ ORA-02291: restricción de integridad (ISIS2304C032010.FK_CONTRATORESERVA) viola
 16:07:03,819 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
 16:07:03,820 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
 16:07:03,835 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+17:26:10,055 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+17:26:10,056 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+17:26:10,073 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+17:27:29,193 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Habilitando Reserva por id:110
+17:27:30,907 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - la oferta 110 fue habilitada
+17:30:41,358 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+17:30:41,359 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+17:30:41,377 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+17:30:57,008 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Habilitando Reserva por id:110
+17:30:57,582 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - la oferta 110 fue habilitada
+17:32:02,789 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+17:32:02,789 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+17:32:02,805 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+17:32:13,017 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Habilitando Reserva por id:110
+17:32:13,727 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - La oferta ya se encontraba habilitada
+18:52:37,251 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+18:52:37,252 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+18:52:37,269 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+18:53:00,029 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Deshabilitando Reserva por id: 3
+18:53:01,598 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : null
+
+18:53:01,678 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Deshabilitando Reserva por id: -1 Oferta Deshabilitada
+19:00:02,553 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+19:00:02,553 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+19:00:02,568 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+19:00:32,922 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Deshabilitando Reserva por id: 3
+19:00:33,831 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : null
+
+19:00:34,000 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Deshabilitando Reserva por id: -1 Oferta Deshabilitada
+19:03:08,905 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+19:03:08,905 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+19:03:08,921 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+19:03:17,670 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Deshabilitando Reserva por id: 3
+19:03:18,321 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : null
+
+19:03:18,454 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Deshabilitando Reserva por id: -1 Oferta Deshabilitada
+19:04:22,304 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+19:04:22,305 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+19:04:22,321 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+19:04:30,928 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Deshabilitando Reserva por id: 3
+19:04:31,473 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : null
+
+19:04:31,568 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Deshabilitando Reserva por id: -1 Oferta Deshabilitada
+19:05:27,524 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+19:05:27,525 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+19:05:27,543 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+19:05:34,414 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Deshabilitando Reserva por id: 3
+19:05:34,995 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando Reserva: Reserva [id=8, id_contrato=3, personas=2, fecha_inicio=15/04/2020 1:29:09, fecha_fin=29/04/2020 3:05:09, fecha_limite=22/04/2020 3:05:09, fecha_realizacion=9/01/2020 11:40:12, tipo=HOTEL, id_cliente=10]
+19:05:35,113 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando Reserva: Reserva [id=65, id_contrato=3, personas=3, fecha_inicio=4/11/2020 6:35:12, fecha_fin=15/11/2020 1:47:12, fecha_limite=8/11/2020 1:47:12, fecha_realizacion=15/02/2020 10:29:34, tipo=HOTEL, id_cliente=17]
+19:05:35,190 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando Reserva: Reserva [id=229, id_contrato=3, personas=2, fecha_inicio=15/05/2020 1:29:09 PM , fecha_fin=20/05/2020 1:29:09 PM , fecha_limite=06/05/2020 04:01:28, fecha_realizacion=03/05/2020 04:01:28, tipo=HOTEL, id_cliente=2]
+19:05:36,578 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - No se pudieron reagendar las reservas:
+19:05:36,578 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Reserva [id=8, id_contrato=3, personas=2, fecha_inicio=15/04/2020 1:29:09, fecha_fin=29/04/2020 3:05:09, fecha_limite=22/04/2020 3:05:09, fecha_realizacion=9/01/2020 11:40:12, tipo=HOTEL, id_cliente=10]
+19:05:36,578 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Reserva [id=65, id_contrato=3, personas=3, fecha_inicio=4/11/2020 6:35:12, fecha_fin=15/11/2020 1:47:12, fecha_limite=8/11/2020 1:47:12, fecha_realizacion=15/02/2020 10:29:34, tipo=HOTEL, id_cliente=17]
+19:05:36,578 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Reserva [id=229, id_contrato=3, personas=2, fecha_inicio=15/05/2020 1:29:09 PM , fecha_fin=20/05/2020 1:29:09 PM , fecha_limite=06/05/2020 04:01:28, fecha_realizacion=03/05/2020 04:01:28, tipo=HOTEL, id_cliente=2]
+19:05:36,578 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Se deshabilitó la oferta:3
+19:05:36,665 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Deshabilitando Reserva por id: 1 Oferta Deshabilitada

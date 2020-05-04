@@ -1224,6 +1224,35 @@ public class PersistenciaParranderos
 			pm.close();
 		}
 	}
+	
+	public long habilitarOferta(long idCont){
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try {
+			tx.begin();
+			long resp = sqlContrato.habilitarContrato(pm, idCont);
+			if (resp==0) {
+				log.info("La oferta ya se encontraba habilitada");
+			}else {
+				log.info("la oferta "+ idCont+" fue habilitada");
+			}
+			tx.commit();
+			return resp;
+		}catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
 	public List<Indice>darIndices() {
 		return sqlContrato.darIndices(pmf.getPersistenceManager());
 	}

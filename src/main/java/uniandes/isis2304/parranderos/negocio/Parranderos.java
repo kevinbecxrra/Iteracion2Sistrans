@@ -613,6 +613,13 @@ public class Parranderos
 		log.info ("Deshabilitando Reserva por id: " + resp + " Oferta Deshabilitada");
 		return resp;
 	}
+	
+	public long habilitarOferta(long idCont) {
+		log.info("Habilitando Reserva por id:"+ idCont);
+		long resp=pp.habilitarOferta(idCont);
+		return resp;
+		
+	}
 	/* ****************************************************************
 	 * 			Métodos para administración
 	 *****************************************************************/

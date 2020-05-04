@@ -39,7 +39,7 @@
 				},
 				{
 					"label": "Habilitar oferta",
-					"event": "mostrarIndices"
+					"event": "habilitarOferta"
 				}
 			]
 		},
