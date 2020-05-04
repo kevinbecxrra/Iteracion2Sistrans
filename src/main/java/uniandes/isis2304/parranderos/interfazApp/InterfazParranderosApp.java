@@ -962,6 +962,33 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		}
 	}
 
+	public void mostrarOperacion(){
+		try 
+		{
+			List <String> lista = parranderos.mostrarUso();
+			String resultado = "Mostrar Uso de AlohAndes";
+			resultado +=  "\n" + listar (lista);
+			panelDatos.actualizarInterfaz(resultado);
+			resultado += "\n Operación terminada";
+		} 
+		catch (Exception e) 
+		{
+			//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			e.printStackTrace();
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	}
+	private String listar(List<String> lista) 
+	{
+		String resp = "Los usos de AlohAndes son:\n";
+		int i = 1;
+		for (String tb : lista)
+		{
+			resp += i++ + ". " + tb + "\n";
+		}
+		return resp;
+	}
 
 //    public void mostrarUsoUsuario() {
 //    	try 

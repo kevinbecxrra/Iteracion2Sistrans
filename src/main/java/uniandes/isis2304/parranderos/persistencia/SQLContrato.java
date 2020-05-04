@@ -106,6 +106,9 @@ public class SQLContrato{
 
 		}
 		else {
+			Query q3=pm.newQuery(SQL,"DELETE FROM SERVICIO WHERE ID=?");
+			q3.setParameters(idContrato);
+			q3.executeUnique();
 			List<String> tablas=new ArrayList<>();
 			tablas.add(pp.darTablaContrato_Apartamento());
 			tablas.add(pp.darTablaContrato_Cliente_Esporadico());

@@ -3,7 +3,10 @@ package uniandes.isis2304.parranderos.persistencia;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -150,7 +153,7 @@ public class SQLReserva {
 	 */
 	public List<Reserva> darReservas (PersistenceManager pm)
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaReserva ());
+		Query q = pm.newQuery(SQL, "SELECT * FROM RESERVA");
 		q.setResultClass(Reserva.class);
 		return (List<Reserva>) q.executeList();
 	}
@@ -159,6 +162,96 @@ public class SQLReserva {
 		Query q =pm.newQuery(SQL,"SELECT C.VINCULO AS VINCULO,COUNT(C.VINCULO) AS VECES FROM RESERVA R JOIN (SELECT * FROM CLIENTE) C ON R.ID_CLIENTE=C.ID GROUP BY C.VINCULO");
 		q.setResultClass(UsosVinculo.class);
 		return (List<UsosVinculo>) q.executeList(); 
+	}
+	
+	public List<String> darUso(PersistenceManager pm){
+		Integer[] ganancia=new Integer[12];
+		Integer[] ocupacion= new Integer[12];
+		ganancia[0]=0;
+		ganancia[1]=0;
+		ganancia[2]=0;
+		ganancia[3]=0;
+		ganancia[4]=0;
+		ganancia[5]=0;
+		ganancia[6]=0;
+		ganancia[7]=0;
+		ganancia[8]=0;
+		ganancia[9]=0;
+		ganancia[10]=0;
+		ganancia[11]=0;
+		ocupacion[0]=0;
+		ocupacion[1]=0;
+		ocupacion[2]=0;
+		ocupacion[3]=0;
+		ocupacion[4]=0;
+		ocupacion[5]=0;
+		ocupacion[6]=0;
+		ocupacion[7]=0;
+		ocupacion[8]=0;
+		ocupacion[9]=0;
+		ocupacion[10]=0;
+		ocupacion[11]=0;
+		List<Reserva> reservas= darReservas(pm);
+		for (int i=0; i<reservas.size();i++) {
+			Query q = pm.newQuery(SQL, "SELECT * FROM CONTRATO WHERE id = ?");
+			q.setResultClass(Contrato.class);
+			q.setParameters(reservas.get(i).getId_contrato());
+			Contrato ct= (Contrato) q.executeUnique();
+			String mes =reservas.get(i).getFecha_inicio().split("/")[1];
+			if (mes.startsWith("0")) {
+				mes=mes.substring(1);
+			}
+			int mesnum=Integer.parseInt(mes);
+			mesnum--;
+			ganancia[mesnum]=ganancia[mesnum]+ct.getCosto(); 
+			ocupacion[mesnum]=ocupacion[mesnum]+reservas.get(i).getPersonas();
+		}
+		List<Integer> lista_ganancias= new ArrayList<>(ganancia.length);
+		for (int i:ganancia) {
+			lista_ganancias.add(Integer.valueOf(i));
+		}
+		List<Integer> lista_ocupacion= new ArrayList<>(ocupacion.length);
+		for (int i:ocupacion) {
+			lista_ocupacion.add(Integer.valueOf(i));
+		}
+		int max_ganancia=Collections.max(lista_ganancias); 
+		int max_ocup=Collections.max(lista_ocupacion);
+		int min_ocup=Collections.min(lista_ocupacion); 
+		List<String> retornar = new LinkedList<>();
+		retornar.add("El Mes de mayor ganancia ha sido "+ darMes(lista_ganancias.indexOf(max_ganancia)));
+		retornar.add("El Mes de mayor ocupación ha sido" + darMes(lista_ocupacion.indexOf(max_ocup)));
+		retornar.add("El Mes de menor ocupación ha sido" + darMes(lista_ocupacion.indexOf(min_ocup)));
+		return retornar;
+	}
+	public String darMes(int a) {
+		String res="";
+		switch(a) {
+		case 0:
+			res= "Enero";
+		case 1:
+			res= "Febrero"; 
+		case 2:
+			res= "Marzo"; 
+		case 3:
+			res= "Abril"; 
+		case 4:
+			res= "Mayo"; 
+		case 5:
+			res= "Junio"; 
+		case 6:
+			res= "Julio"; 
+		case 7:
+			res= "Agosto"; 
+		case 8:
+			res= "Septiembre"; 
+		case 9:
+			res= "Octubre"; 
+		case 10:
+			res= "Noviembre"; 
+		case 11:
+			res= "Diciembre"; 
+		}
+		return res; 
 	}
 
 }

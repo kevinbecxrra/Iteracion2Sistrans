@@ -1253,6 +1253,9 @@ public class PersistenciaParranderos
 			pm.close();
 		}
 	}
+	public List<String> darUso(){
+		return sqlReserva.darUso(pmf.getPersistenceManager());
+	}
 	public List<Indice>darIndices() {
 		return sqlContrato.darIndices(pmf.getPersistenceManager());
 	}

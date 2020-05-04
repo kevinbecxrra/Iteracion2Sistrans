@@ -620,6 +620,17 @@ public class Parranderos
 		return resp;
 		
 	}
+	
+	public List<String>mostrarUso(){
+		log.info ("Generando el Uso de AlohAndes");        
+        List<String> voUso = new LinkedList<String> ();
+        for (String tb : pp.darUso())
+        {
+        	voUso.add(tb);
+        }
+        log.info ("Generando Uso de AlohAndes:" + voUso.size());
+        return voUso;
+	}
 	/* ****************************************************************
 	 * 			Métodos para administración
 	 *****************************************************************/
