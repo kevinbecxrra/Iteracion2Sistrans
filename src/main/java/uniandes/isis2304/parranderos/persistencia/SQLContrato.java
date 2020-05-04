@@ -344,7 +344,6 @@ public class SQLContrato{
 		List<Contrato> retornar = new LinkedList<>();
 		List<Integer> todos= new LinkedList<>();
 		for (int i=0; i<car.size();i++) {
-
 			Query q=pm.newQuery(SQL, "SELECT ID FROM SERVICIO WHERE NOMBRE_SERVICIO = ?");
 			q.setResultClass(Integer.class);
 			q.setParameters(car.get(i));
@@ -353,6 +352,7 @@ public class SQLContrato{
 				todos.add(actual.get(j));
 			}
 		}
+		System.out.println(todos);
 		ArrayList<Integer> revisados= new ArrayList<>(); 
 		for (int i=0; i<todos.size(); i++) {
 			if (!revisados.contains(todos.get(i))){
@@ -364,6 +364,7 @@ public class SQLContrato{
 				}
 			}
 		}
+		System.out.println(retornar);
 		return retornar;
 	}	
 }
